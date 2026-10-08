@@ -26,6 +26,15 @@ if (!customElements.get('dt-gallery-nav')) {
       this.prevBtn.addEventListener('click', () => this.go(-1));
       this.nextBtn.addEventListener('click', () => this.go(1));
 
+      var self = this;
+      this.gallery.setActiveMedia = function(mediaId) {
+        var target = self.gallery.querySelector('[data-media-id="' + mediaId + '"]');
+        if (!target) return;
+        var idx = Array.from(self.items).indexOf(target);
+        if (idx === -1 || idx + 1 === self.current) return;
+        self._switchTo(idx + 1, idx + 1 > self.current ? 1 : -1);
+      };
+
       this.set(1);
     }
 
@@ -33,8 +42,7 @@ if (!customElements.get('dt-gallery-nav')) {
       if (n === this.current) return;
       this.current = n;
       this.currentEl.textContent = n;
-      var pct = this.total > 1 ? ((n - 1) / (this.total - 1)) * 100 : 0;
-      this.fill.style.width = pct + '%';
+      this.fill.style.width = ((n / this.total) * 100) + '%';
     }
 
     go(dir) {
@@ -42,7 +50,11 @@ if (!customElements.get('dt-gallery-nav')) {
       var next = this.current + dir;
       if (next > this.total) next = 1;
       if (next < 1) next = this.total;
+      this._switchTo(next, dir);
+    }
 
+    _switchTo(next, dir) {
+      if (this.animating) return;
       var oldItem = this.items[this.current - 1];
       var newItem = this.items[next - 1];
       var slideClass = dir > 0 ? 'dt-slide-from-right' : 'dt-slide-from-left';

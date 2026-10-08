@@ -806,6 +806,9 @@
   width: 20%;
   background: var(--dt-color-forest);
   transition: width 300ms ease;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
 }
 
 .dt-gallery-nav__arrows {
