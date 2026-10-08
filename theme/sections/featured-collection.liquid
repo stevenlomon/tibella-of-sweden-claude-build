@@ -220,10 +220,15 @@
         if (!grid || !controls) return;
         var items = Array.from(grid.children);
         var count = items.length;
-        if (count < 1) return;
+        if (count < 3) return;
 
-        // Remove Dawn's scroll-trigger classes so its IntersectionObserver never
-        // applies inline opacity/transform, which would fight our CSS animations.
+        var slider = grid.closest('slider-component');
+        if (slider) {
+          slider.classList.remove('scroll-trigger', 'animate--slide-in', 'scroll-trigger--loaded');
+          slider.style.removeProperty('opacity');
+          slider.style.removeProperty('transform');
+        }
+
         items.forEach(function (item) {
           item.classList.remove('scroll-trigger', 'animate--slide-in', 'scroll-trigger--loaded');
           item.style.removeProperty('opacity');
@@ -231,53 +236,94 @@
         });
 
         var centerIdx = Math.floor(count / 2);
-        var prevVisible = new Set();
+        var animating = false;
 
-        function update(enterClass) {
-          var prev = (centerIdx - 1 + count) % count;
-          var next = (centerIdx + 1) % count;
-          var newVisible = count > 1
-            ? new Set([prev, centerIdx, next])
-            : new Set([centerIdx]);
+        function tri(c) {
+          return {
+            prev: (c - 1 + count) % count,
+            center: c,
+            next: (c + 1) % count
+          };
+        }
 
+        function setState(t, instant) {
+          if (instant) grid.classList.add('dt-carousel--no-transition');
           items.forEach(function (item) {
             item.classList.remove(
-              'dt-carousel--visible', 'dt-carousel--center',
-              'dt-carousel--enter-right', 'dt-carousel--enter-left'
+              'dt-carousel--left', 'dt-carousel--center', 'dt-carousel--right',
+              'dt-carousel--exit-left', 'dt-carousel--exit-right'
             );
           });
-
-          if (count > 1) items[prev].classList.add('dt-carousel--visible');
-          items[centerIdx].classList.add('dt-carousel--visible', 'dt-carousel--center');
-          if (count > 1) items[next].classList.add('dt-carousel--visible');
-
-          if (enterClass) {
-            newVisible.forEach(function (idx) {
-              if (!prevVisible.has(idx)) {
-                var item = items[idx];
-                item.classList.add(enterClass);
-                item.addEventListener('animationend', function () {
-                  item.classList.remove(enterClass);
-                }, { once: true });
-              }
-            });
+          items[t.prev].classList.add('dt-carousel--left');
+          items[t.center].classList.add('dt-carousel--center');
+          items[t.next].classList.add('dt-carousel--right');
+          grid.setAttribute('data-dt-center', t.center);
+          if (instant) {
+            void grid.offsetHeight;
+            grid.classList.remove('dt-carousel--no-transition');
           }
+        }
 
-          prevVisible = newVisible;
+        function navigate(dir) {
+          if (animating) return;
+          animating = true;
+
+          var isNext = dir === 'next';
+          var old = tri(centerIdx);
+
+          centerIdx = isNext
+            ? (centerIdx + 1) % count
+            : (centerIdx - 1 + count) % count;
+          var cur = tri(centerIdx);
+
+          var entering = isNext ? cur.next : cur.prev;
+          var leaving  = isNext ? old.prev : old.next;
+          var enterItem = items[entering];
+
+          enterItem.style.transition = 'none';
+          enterItem.style.opacity = '0';
+          enterItem.style.transform = isNext
+            ? 'translateX(150%) rotateY(-6deg) scale(0.88)'
+            : 'translateX(-250%) rotateY(6deg) scale(0.88)';
+          void enterItem.offsetHeight;
+
+          enterItem.style.transition = '';
+          enterItem.style.opacity = '';
+          enterItem.style.transform = '';
+
+          items[leaving].classList.remove('dt-carousel--left', 'dt-carousel--right');
+          items[leaving].classList.add(isNext ? 'dt-carousel--exit-left' : 'dt-carousel--exit-right');
+
+          items[old.center].classList.remove('dt-carousel--center');
+          items[old.center].classList.add(isNext ? 'dt-carousel--left' : 'dt-carousel--right');
+
+          var promoted = items[cur.center];
+          promoted.classList.remove('dt-carousel--left', 'dt-carousel--right');
+          promoted.classList.add('dt-carousel--center');
+
+          enterItem.classList.add(isNext ? 'dt-carousel--right' : 'dt-carousel--left');
+
           grid.setAttribute('data-dt-center', centerIdx);
+
+          function done() {
+            items[leaving].classList.remove('dt-carousel--exit-left', 'dt-carousel--exit-right');
+            animating = false;
+          }
+          promoted.addEventListener('transitionend', function h(e) {
+            if (e.propertyName !== 'transform') return;
+            promoted.removeEventListener('transitionend', h);
+            done();
+          });
+          setTimeout(done, 700);
         }
 
         controls.addEventListener('click', function (e) {
           var btn = e.target.closest('[data-dir]');
           if (!btn) return;
-          var dir = btn.getAttribute('data-dir');
-          centerIdx = dir === 'prev'
-            ? (centerIdx - 1 + count) % count
-            : (centerIdx + 1) % count;
-          update(dir === 'prev' ? 'dt-carousel--enter-left' : 'dt-carousel--enter-right');
+          navigate(btn.getAttribute('data-dir'));
         });
 
-        update(null);
+        setState(tri(centerIdx), true);
       })();
     </script>
 
