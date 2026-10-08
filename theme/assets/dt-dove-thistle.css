@@ -2926,6 +2926,44 @@ body .mobile-facets__footer .button--primary:hover {
     font-size: 12px;
   }
 
+  body .facets-container.facets-container-drawer {
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  body .facets-container.facets-container-drawer .mobile-facets__open,
+  body .facets-container.facets-container-drawer .mobile-facets__open-label {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  body .facets-container.facets-container-drawer .product-count,
+  body .facets-container.facets-container-drawer .product-count__text {
+    white-space: nowrap;
+  }
+
+  .dt-collection-subcollections {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dt-collection-subcollections::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dt-collection-subcollections .dt-collection-banner__pills {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-right: 24px;
+  }
+
+  .dt-collection-subcollections .dt-pill {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
   .dt-collection-product-grid .active-facets-mobile {
     margin: 0 0 20px;
   }
