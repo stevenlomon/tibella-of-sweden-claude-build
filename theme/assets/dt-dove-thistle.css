@@ -1183,8 +1183,8 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
   }
 
   .dt-product-story__media {
-    min-height: 440px;
-    height: 100%;
+    min-height: 380px;
+    max-height: 480px;
   }
 }
 
@@ -2933,7 +2933,7 @@ body .mobile-facets__footer .button--primary:hover {
   body .facets-container.facets-container-drawer {
     flex-wrap: nowrap;
     gap: 12px;
-    padding: 14px 0;
+    padding: 14px 24px;
   }
 
   body .facets-container.facets-container-drawer .mobile-facets__open,
@@ -2960,6 +2960,7 @@ body .mobile-facets__footer .button--primary:hover {
   .dt-collection-subcollections .dt-collection-banner__pills {
     flex-wrap: nowrap;
     justify-content: flex-start;
+    padding-left: 24px;
     padding-right: 24px;
   }
 
@@ -3066,7 +3067,7 @@ body .mobile-facets__footer .button--primary:hover {
   .dt-trust__list {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 0;
-    border: 1px solid var(--dt-color-grey);
+    padding: 0 24px;
   }
 
   .dt-trust__item {

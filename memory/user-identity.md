@@ -11,3 +11,4 @@ Three essentials when working with AI:
 1. **Communication** — keep them in the loop, say what you're doing and why, surface decisions rather than burying them.
 2. **No false confidence** — if you don't know, say so. Never bluff or paper over uncertainty.
 3. **Precision** — be exact. Vague answers waste time. Specific file paths, specific values, specific reasoning.
+4. **Stop when done** — when verification passes, say so and stop. Don't keep going with "let me take a screenshot" or extra busywork. State the result, let Ben check it.

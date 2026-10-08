@@ -218,3 +218,59 @@ A `dt-slide-out` class that temporarily shows the old item during crossfade must
 ### 7. `div:empty` hides elements with no content
 
 Dawn's `base.css` has `div:empty { display: none }`. Any purely visual div (progress bar fill, decorative elements) with no text content gets hidden. Add `&nbsp;` with `font-size: 0; overflow: hidden` to defeat it without affecting layout.
+
+## Mobile carousel: scroll-snap + JS button navigation
+
+Dawn's `slider-component` and `scroll-trigger` classes break custom mobile carousels the same way they break desktop. For a mobile horizontal carousel, bypass Dawn entirely with CSS scroll-snap:
+
+```css
+.your-section .product-grid {
+  display: flex !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 16px;
+  padding: 0 24px;
+}
+.your-section .product-grid > li {
+  position: static !important;
+  opacity: 1 !important;
+  transform: none !important;
+  width: calc(100vw - 80px) !important;
+  min-width: calc(100vw - 80px);
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  transition: none !important;
+}
+```
+
+For prev/next buttons, use `scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })` — it works with scroll-snap and doesn't fight Dawn's slider JS.
+
+## Dead CSS from non-scoped mobile/desktop blocks
+
+When writing mobile-first and desktop-specific rules, **never** put both outside media queries. The later block silently wins. Structure as:
+
+1. Base rules (mobile) — no media query
+2. Desktop overrides — wrapped in `@media (min-width: 750px)`
+
+Similarly, when adding rules in a `@media (max-width: 749px)` block, check the entire file for later blocks with the same breakpoint. Dawn's CSS + custom additions can have multiple `@media (max-width: 749px)` blocks — the last one's rules win when selectors are equal.
+
+## Trust badges: mobile 2x2 grid with dividers
+
+The grid approach using `border` on the container + `border-right` on odd items + `border-bottom` on items creates cell dividers. Key detail: the outer border (`border: 1px solid`) adds a top/bottom line that may not be desired. Remove it and use internal borders only:
+
+```css
+.dt-trust__list {
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0;
+  /* No border on the container — just internal dividers */
+}
+.dt-trust__item { border-bottom: 1px solid var(--dt-color-grey); }
+.dt-trust__item:nth-child(odd) { border-right: 1px solid var(--dt-color-grey); }
+.dt-trust__item:nth-last-child(-n+2) { border-bottom: 0; }
+```
+
+## Collection filter pills: horizontal scroll on mobile
+
+The subcollection pills container needs `overflow-x: auto` + `scrollbar-width: none`. Key: add `padding-left` to the pills flex container so the first pill has spacing, and `padding-right` so the last pill has room when scrolled fully right. Without these, the pills touch the edge of the screen.

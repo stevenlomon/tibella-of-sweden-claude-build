@@ -5,3 +5,4 @@
 - [Dawn facets toolbar](dawn-facets-toolbar.md) — the always-rendered empty pills form + `flex-wrap: wrap` inflate the drawer toolbar height; `flex-wrap: nowrap` + hide the pills form. Also: `.mobile-facets__open-label` has its own `font:` that beats the parent's.
 - [Dawn multirow diagonal touch](dawn-multirow-diagonal-touch.md) — zero `row-gap: 36px` on `.multirow__inner` AND the invisible 1px `.media` border to make two editorial images meet at a corner pixel.
 - [Dawn .dt-section h3 specificity](dawn-section-h3-specificity.md) — `.dt-section h3` beats single-class heading overrides inside `.dt-section`s; chain two classes or `body`-prefix. Also: Manrope only loaded at 400–700.
+- [Product story height](feedback_product_story_height.md) — Cap desktop image height on full-bleed sections; unconstrained images balloon the section
