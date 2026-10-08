@@ -1203,3 +1203,17 @@ body .facets-container.facets-container-drawer .facet-filters__label {
   letter-spacing: var(--dt-tracking-label);
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 749px) {
+  body .facets-container.facets-container-drawer {
+    padding: 14px 24px;
+  }
+
+  body .facets-container.facets-container-drawer menu-drawer {
+    margin-bottom: 0;
+  }
+
+  body .facets-container.facets-container-drawer .active-facets-mobile {
+    margin: 0;
+  }
+}
