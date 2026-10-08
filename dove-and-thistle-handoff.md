@@ -1,6 +1,6 @@
 # Dove & Thistle — Technical Handoff
 
-*Last updated: 2026-10-07*
+*Last updated: 2026-10-08*
 
 ## What this is
 
@@ -12,17 +12,23 @@ A Shopify Dawn 16.0.0 theme customization for Dove & Thistle, a women's clothing
 
 ## How to push / dev
 
-**Critical:** Always `cd theme/` before running Shopify CLI commands. Running from the project root treats root as the theme directory and nukes the draft.
+**Critical: always `cd theme/` before running Shopify CLI commands.** Running from the project root treats root as the theme directory and nukes the draft.
+
+**Critical: always use a full push. Never use `--only`.** The `--only` flag's cleaning step strips ALL remote files not in the explicit list — not just same-type files. Pushing `--only sections/x.liquid --only templates/y.json` will silently remove every other custom file (`dt-dove-thistle.css`, all other sections, snippets, etc.) from the remote theme. This happened twice in session 2026-10-08 and caused the entire homepage to lose its CSS. Full push is the safe default.
 
 ```bash
 export PATH="/home/stevenlomon/.nvm/versions/node/v24.14.0/bin:$PATH"
 cd /home/stevenlomon/Documents/shopify-workspace/shopify/dove-and-thistle-claude-build/theme
 
-# Push to draft
+# Push to draft — always full push, no --only
 shopify theme push --store kei3va-ym.myshopify.com --theme 159361106142
 
+# Commit to git after a working milestone (run from project root)
+cd /home/stevenlomon/Documents/shopify-workspace/shopify/dove-and-thistle-claude-build
+git add theme/ && git commit -m "your message"
+
 # Dev server (hot-reloads to a separate Development theme, not the draft)
-shopify theme dev --store kei3va-ym.myshopify.com
+cd theme && shopify theme dev --store kei3va-ym.myshopify.com
 ```
 
 A `.claude/launch.json` exists for the dev server via the Browser pane (`shopify-dev` configuration on port 9292).
@@ -114,6 +120,7 @@ Dawn's component CSS files (e.g. `component-facets.css`) load at indices 16–44
 ### Homepage (`index.json`)
 Section order: dt_hero → dt_collections → dt_feature → featured_collection → dt_editorial (multirow) → dt_trust → dt_faq.
 - Collection cards (`dt-collection-card.liquid`) no longer render the `↗` arrow — the paragraph now fills the row.
+- **Collection tile copy (2026-10-08):** Clothes / Bags & Shoes / Home & Living / Gifts / Christmas Shop. Descriptions: "Knitwear, dresses, layers, shapewear and comfortable everyday styles." / "Handbags, boots, and everyday shoes chosen for style and support." / "Warm accents, useful pieces and everyday comforts for every room." / "Thoughtful gifts, cozy comforts and useful finds for every occasion." / "Festive décor, meaningful gifts and craft kits for a warm Christmas."
 - Four eyebrows cleared via `index.json`: `dt_hero.eyebrow` ("Thoughtfully chosen", cleared 2026-10-07), `dt_feature.eyebrow` ("A considered edit"), `dt_editorial.gifting.caption` ("Thoughtful gifting"), `dt_editorial.philosophy.caption` ("Our point of view"). The Liquid still gates on `!= blank`, so the eyebrows just don't render.
 - **Editorial multirow diagonal touch (2026-10-07):** gifting image's bottom-right corner touches philosophy image's top-left corner at a single pixel. Fixed by `row-gap: 0` on `.dt-multirow .multirow__inner` (Dawn ships it at 36px) and zeroing the 1px `.media` border on `.dt-multirow .image-with-text__media`. See [[dawn-multirow-diagonal-touch]].
 
@@ -139,9 +146,13 @@ Section order: dt_hero → dt_collections → dt_feature → featured_collection
 3. **Sort in drawer** — Removed `medium-hide large-up-hide` class from the sort section inside the drawer so it's visible on all breakpoints
 
 ### `sections/featured-collection.liquid`
-1. **Carousel controls** — Added `data-dt-center="1"` attribute to the product grid `<ul>` for staircase layout
-2. **Functional prev/next buttons** — Replaced Dawn's static slider buttons with JS-driven carousel that rotates `data-dt-center` attribute (center card at full opacity + 16px translateY, side cards at 0.7 opacity)
-3. **Script** — Inline JS handles click events to cycle the center index
+1. **Carousel controls** — Added `data-dt-center="1"` attribute to the product grid `<ul>` to disable Dawn's slider. Custom prev/next buttons with Figma thick filled chevron SVGs (viewBox `0 0 15.273 30.545`, fill `currentColor`).
+2. **JS carousel (inline script)** — On init, removes Dawn's `scroll-trigger animate--slide-in` classes from all `<li>` items. Sets center to `Math.floor(count/2)`. Prev/next clicks cycle `centerIdx`, show center + immediate neighbours (center at full opacity + `translateY(16px)`, side cards at `0.5` opacity), and add enter-from-left/right animation classes to newly-visible items. `animationend` listener removes the animation class so transitions take over.
+3. **Animation classes (in `dt-dove-thistle.css`):**
+   - `dt-carousel--visible` — shown side card (opacity 0.5, no translateY)
+   - `dt-carousel--center` — active center card (opacity 1, translateY 16px)
+   - `dt-carousel--enter-right` / `dt-carousel--enter-left` — keyframe animations: `translateX(±72px) scale(0.88)` → `0`, 360ms, `cubic-bezier(0.22, 1, 0.36, 1)` (natural decelerate / "rounded screen swipe")
+4. **Grid height locked** — `.dt-featured-collection .product-grid` has `height: 580px` so prev/next buttons below never jump when cards of different heights swap in.
 
 ### `layout/theme.liquid`
 - Loads `dt-dove-thistle.css` and self-hosted font files
@@ -156,8 +167,11 @@ Section order: dt_hero → dt_collections → dt_feature → featured_collection
 
 ### Featured collection carousel
 - Uses CSS Grid (not Dawn's slider component) because Dawn's `.slider__slide` sets `max-width: calc(33.33% - 13.33px)` which resolves against grid track width, shrinking cards to ~82px. Override: `max-width: none !important; width: 100% !important; flex: none !important;`
-- Dawn's `scroll-trigger animate--slide-in` animation must be disabled (`animation: none`) to allow custom transforms
-- Staircase effect via `data-dt-center` attribute: CSS rules match `[data-dt-center="0"] > :nth-child(1)` etc.
+- Dawn's `scroll-trigger animate--slide-in` animation must be disabled — JS removes those classes on init before the first render, so Dawn's IntersectionObserver never interferes
+- Staircase layout: 3 cards visible at once. Center card: full opacity + `translateY(16px)`. Side cards: `opacity: 0.5`. All others: `display: none`. Layout driven by JS-managed CSS classes (`dt-carousel--visible`, `dt-carousel--center`), not `data-dt-center` attribute matching.
+- Enter animations: `translateX(±72px) scale(0.88)` → final position, 360ms, `cubic-bezier(0.22, 1, 0.36, 1)`. Classes `dt-carousel--enter-right` / `dt-carousel--enter-left` applied per-item, removed on `animationend`.
+- Grid height locked at `580px` (desktop) / `auto` (mobile) so buttons below never jump on card-height changes
+- Card heading clamped to 2 lines (`-webkit-line-clamp: 2`) and `min-height: 39px` so grid rows stay consistent
 - 4px card overlap via `width: calc(100% + 4px); margin-left: -2px`
 - 14px left padding on `.card__content` for text indent from image edge
 - 133% portrait ratio (3:4) via `--ratio-percent` override on `.card` and `.card__inner.ratio`
@@ -227,8 +241,9 @@ Section order: dt_hero → dt_collections → dt_feature → featured_collection
 5. **Dawn's color-scheme heading rule** — `body .color-scheme-1 :is(h1, h2, ...)` in `dt-global.css` sets headings to forest green. To override for a specific element, you need higher specificity (e.g. `body .mobile-facets__inner .mobile-facets__heading`).
 6. **Dawn's scroll-trigger animations** — Any section using custom transforms must disable `animation: none` on `.scroll-trigger.animate--slide-in` elements, or Dawn's IntersectionObserver will fight your transforms.
 7. **Shopify CDN caching** — After pushing, the version parameter on CSS files changes. Force-refreshing the browser may be needed to see changes immediately.
-8. **Not a git repo** — This project directory is not under version control. The draft theme on Shopify is the only checkpoint mechanism.
-9. **`.dt-section h3` catches every heading inside a `.dt-section`.** `dt-dove-thistle.css` has a `.dt-section h1, …, .dt-section h3, …` rule setting `font-family: var(--dt-font-display)` with specificity (0,0,1,1). Any single-class override like `.dt-trust__title` (0,0,1,0) loses — the heading renders in Cormorant. Use a two-class descendant chain (`.dt-trust .dt-trust__title`) or move the override to `dt-global.css` with `body` prefix. See `DAWN-THEME.md`.
-10. **Manrope is only loaded at 400/500/600/700.** `font-weight: 800` triggers synthetic bold or a fallback — often reads as a serif on the page. Keep body-text weights at ≤700 unless you load an 800 face.
-11. **Dawn's `.media` has an invisible 1px border** (`rgba(41,38,36,0.05)`) that insets images by 1px. Doesn't matter until you want two images to touch at a corner — then zero it on the specific wrapper.
-12. **Dawn's `.multirow__inner` has `row-gap: 36px`.** Section padding of 0 is not enough to make rows butt against each other. Override `row-gap: 0` on `.dt-multirow .multirow__inner`.
+8. **Git repo** — Initialized at `dove-and-thistle-claude-build/` on 2026-10-08. `dawn-reference/` is gitignored (read-only Dawn copy). Commit after working milestones: `git add theme/ && git commit -m "..."` from the project root. The repo is local-only (no remote yet).
+9. **`--only` on push strips ALL custom files.** See the push instructions above. The cleaning step is not scoped to the file type you specify. When in doubt: full push, no `--only`.
+10. **`.dt-section h3` catches every heading inside a `.dt-section`.** `dt-dove-thistle.css` has a `.dt-section h1, …, .dt-section h3, …` rule setting `font-family: var(--dt-font-display)` with specificity (0,0,1,1). Any single-class override like `.dt-trust__title` (0,0,1,0) loses — the heading renders in Cormorant. Use a two-class descendant chain (`.dt-trust .dt-trust__title`) or move the override to `dt-global.css` with `body` prefix. See `DAWN-THEME.md`.
+11. **Manrope is only loaded at 400/500/600/700.** `font-weight: 800` triggers synthetic bold or a fallback — often reads as a serif on the page. Keep body-text weights at ≤700 unless you load an 800 face.
+12. **Dawn's `.media` has an invisible 1px border** (`rgba(41,38,36,0.05)`) that insets images by 1px. Doesn't matter until you want two images to touch at a corner — then zero it on the specific wrapper.
+13. **Dawn's `.multirow__inner` has `row-gap: 36px`.** Section padding of 0 is not enough to make rows butt against each other. Override `row-gap: 0` on `.dt-multirow .multirow__inner`.
