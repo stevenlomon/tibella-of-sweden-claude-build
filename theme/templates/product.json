@@ -45,9 +45,9 @@
     "story": {
       "type": "dt-product-story",
       "settings": {
-        "eyebrow": "The story behind the piece",
-        "heading": "Made for the way you live",
-        "body": "<p>Thoughtful details and considered materials make this an easy favorite for everyday life.</p>"
+        "eyebrow": "Why you'll love it",
+        "heading": "The layer that does not feel like an afterthought.",
+        "body": "<p>Warm enough to earn its place by the door, distinctive enough to finish the whole outfit. The relaxed shape works over knits without losing its line.</p>"
       }
     },
     "related-products": {
@@ -59,7 +59,7 @@
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
-        "image_ratio": "square",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,

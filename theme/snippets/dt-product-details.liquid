@@ -2,8 +2,9 @@
 {%- assign specifications = product.metafields.custom.specifications -%}
 {%- assign fit_sizing = product.metafields.custom.fit_sizing -%}
 {%- assign materials = product.metafields.custom.materials_care -%}
+{%- assign shipping_returns = product.metafields.custom.shipping_returns -%}
 
-{%- if key_features != blank or specifications != blank or fit_sizing != blank or materials != blank -%}
+{%- if key_features != blank or specifications != blank or fit_sizing != blank or materials != blank or shipping_returns != blank or shop.shipping_policy.body != blank -%}
   <div class="dt-product-details">
     {%- if key_features != blank -%}
       <section class="dt-product-detail-featured">
@@ -39,6 +40,22 @@
           <span class="dt-product-detail-row__icon" aria-hidden="true"></span>
         </summary>
         <div class="dt-product-detail-row__content rte">{{ materials | metafield_tag }}</div>
+      </details>
+    {%- endif -%}
+
+    {%- if shipping_returns != blank or shop.shipping_policy.body != blank -%}
+      <details class="dt-product-detail-row">
+        <summary>
+          <span>{{ 'products.product.dt_details_shipping_returns' | t }}</span>
+          <span class="dt-product-detail-row__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="dt-product-detail-row__content rte">
+          {%- if shipping_returns != blank -%}
+            {{ shipping_returns | metafield_tag }}
+          {%- else -%}
+            <p>Free standard shipping on all US orders. Delivery estimates are shown at checkout. We accept returns within 30 days of delivery.</p>
+          {%- endif -%}
+        </div>
       </details>
     {%- endif -%}
 

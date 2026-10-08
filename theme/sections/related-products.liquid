@@ -27,31 +27,88 @@
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
-    {% if recommendations.performed and recommendations.products_count > 0 %}
-      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
-        {{ section.settings.heading }}
-      </h2>
+    {%- assign has_recommendations = false -%}
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      {%- assign has_recommendations = true -%}
+    {%- endif -%}
+
+    {%- assign fallback_collection = nil -%}
+    {%- assign fallback_count = 0 -%}
+    {%- unless has_recommendations -%}
+      {%- assign fallback_collection = product.collections.first -%}
+      {%- if fallback_collection -%}
+        {%- assign fallback_limit = section.settings.products_to_show | plus: 1 -%}
+        {%- for p in fallback_collection.products limit: fallback_limit -%}
+          {%- unless p.id == product.id -%}
+            {%- assign fallback_count = fallback_count | plus: 1 -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endunless -%}
+
+    {%- assign show_products = has_recommendations -%}
+    {%- if fallback_count > 0 -%}
+      {%- assign show_products = true -%}
+    {%- endif -%}
+
+    {% if show_products %}
+      {%- assign reco_category = product.type -%}
+      {%- if reco_category == blank and product.collections.first != blank -%}
+        {%- assign reco_category = product.collections.first.title -%}
+      {%- endif -%}
+      <div class="dt-reco-header">
+        <div class="dt-reco-header__text">
+          {%- if reco_category != blank -%}
+            <p class="dt-reco-eyebrow">{{ reco_category | upcase }}</p>
+          {%- endif -%}
+          <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        </div>
+      </div>
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
         {% assign skip_card_product_styles = false %}
-        {% for recommendation in recommendations.products %}
-          <li class="grid__item">
-            {% render 'card-product',
-              card_product: recommendation,
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: section.settings.image_shape,
-              show_secondary_image: section.settings.show_secondary_image,
-              show_vendor: section.settings.show_vendor,
-              show_rating: section.settings.show_rating,
-              show_color_swatches: true,
-              skip_styles: skip_card_product_styles,
-              product_view_context: 'recommendation'
-            %}
-          </li>
-          {%- assign skip_card_product_styles = true -%}
-        {% endfor %}
+        {%- if has_recommendations -%}
+          {% for recommendation in recommendations.products %}
+            <li class="grid__item">
+              {% render 'card-product',
+                card_product: recommendation,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: section.settings.image_shape,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                show_color_swatches: true,
+                skip_styles: skip_card_product_styles,
+                product_view_context: 'recommendation'
+              %}
+            </li>
+            {%- assign skip_card_product_styles = true -%}
+          {% endfor %}
+        {%- else -%}
+          {%- assign render_limit = section.settings.products_to_show | plus: 1 -%}
+          {% for fallback_product in fallback_collection.products limit: render_limit %}
+            {%- unless fallback_product.id == product.id -%}
+            <li class="grid__item">
+              {% render 'card-product',
+                card_product: fallback_product,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: section.settings.image_shape,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                show_color_swatches: true,
+                skip_styles: skip_card_product_styles,
+                product_view_context: 'recommendation'
+              %}
+            </li>
+            {%- assign skip_card_product_styles = true -%}
+            {%- endunless -%}
+          {% endfor %}
+        {%- endif -%}
       </ul>
     {% endif %}
   </product-recommendations>
