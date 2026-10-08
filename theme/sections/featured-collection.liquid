@@ -317,13 +317,31 @@
           setTimeout(done, 700);
         }
 
+        var mobileIdx = 0;
+        function isMobile() { return window.innerWidth < 750; }
+
+        function mobileNavigate(dir) {
+          if (dir === 'next') {
+            mobileIdx = Math.min(mobileIdx + 1, count - 1);
+          } else {
+            mobileIdx = Math.max(mobileIdx - 1, 0);
+          }
+          items[mobileIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
         controls.addEventListener('click', function (e) {
           var btn = e.target.closest('[data-dir]');
           if (!btn) return;
-          navigate(btn.getAttribute('data-dir'));
+          if (isMobile()) {
+            mobileNavigate(btn.getAttribute('data-dir'));
+          } else {
+            navigate(btn.getAttribute('data-dir'));
+          }
         });
 
-        setState(tri(centerIdx), true);
+        if (!isMobile()) {
+          setState(tri(centerIdx), true);
+        }
       })();
     </script>
 
