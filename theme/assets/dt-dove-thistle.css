@@ -3022,12 +3022,23 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-trust__list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0;
+    border: 1px solid var(--dt-color-grey);
   }
 
   .dt-trust__item {
     min-height: 0;
-    padding: 20px 16px;
+    padding: 24px 16px;
+    border-bottom: 1px solid var(--dt-color-grey);
+  }
+
+  .dt-trust__item:nth-child(odd) {
+    border-right: 1px solid var(--dt-color-grey);
+  }
+
+  .dt-trust__item:nth-last-child(-n+2) {
+    border-bottom: 0;
   }
 
   .dt-trust__item:not(:last-child)::after {
