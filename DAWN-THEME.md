@@ -143,3 +143,72 @@ Dawn renders the tax/duties disclaimer in `main-product.liquid` whenever `cart.t
 ```
 
 The `shipping_note` block is user-added content; same approach works for it.
+
+## Single-focus gallery: neutralizing Dawn's slider-component
+
+When replacing Dawn's stacked/slider gallery with a single-focus image (show one, hide rest via `display: none` / `is-active` toggle), three separate Dawn JS mechanisms fight you:
+
+### 1. `media-gallery.setActiveMedia()` strips all `is-active` classes
+
+Dawn's `media-gallery.js` `setActiveMedia()` runs `querySelectorAll("[data-media-id]").forEach(el => el.classList.remove("is-active"))` then adds it to its target. Fires on variant change. Override the method on the instance to route through your own nav logic.
+
+### 2. `slider-component` ResizeObserver loop
+
+The `slider-component` wrapping the media list has a `ResizeObserver` on the slider element. Every `display` toggle resizes the container → fires `initPages()` → `update()` → dispatches `slideChanged` → triggers `onSlideChanged` on media-gallery. This creates a feedback loop that flashes images. Neutralize by overriding `update`, `initPages`, and `onButtonClick` to no-ops after your custom element connects.
+
+### 3. `scroll-trigger animate--fade-in` replay
+
+Dawn items carry `scroll-trigger animate--fade-in` classes. Each time an item's `display` changes from `none` to visible, IntersectionObserver re-fires and replays the fade-in animation. Strip both classes from all gallery items on init.
+
+```javascript
+// In your custom element's connectedCallback:
+this.items.forEach(item => item.classList.remove('scroll-trigger', 'animate--fade-in'));
+
+var slider = this.gallery.querySelector('slider-component');
+if (slider) {
+  slider.update = function() {};
+  slider.initPages = function() {};
+  slider.onButtonClick = function() {};
+}
+
+this.gallery.setActiveMedia = function(mediaId) {
+  // route through your own nav logic
+};
+```
+
+### 5. `animationend` events may not fire in Dawn's context
+
+When using CSS animations on gallery items, `animationend` events can silently fail to fire — even though the animation visually runs and `getComputedStyle` shows the correct animation property. This may be caused by Dawn's other JS intercepting or canceling the animation lifecycle, or by the element's display/position changing mid-animation.
+
+**Never gate navigation on `animationend`.** Use `setTimeout` matching the known animation duration (plus a small buffer) instead:
+
+```javascript
+setTimeout(function() {
+  oldItem.classList.remove('dt-slide-out');
+  newItem.classList.remove(inClass);
+  self.animating = false;
+}, 420); // 400ms animation + 20ms buffer
+```
+
+### 6. Crossfade `dt-slide-out` specificity must match the hide rule
+
+When showing one image at a time via `.is-active`, the hide rule uses the full ancestor chain:
+
+```css
+.dt-product-page .product--stacked .product__media-list .product__media-item { display: none; }
+/* specificity: (0,4,0) */
+```
+
+A `dt-slide-out` class that temporarily shows the old item during crossfade must match or exceed that specificity:
+
+```css
+/* WRONG — (0,3,0), loses to hide rule, item stays display:none, animation never plays */
+.dt-product-page .product__media-item.dt-slide-out { display: list-item; }
+
+/* RIGHT — (0,5,0), wins */
+.dt-product-page .product--stacked .product__media-list .product__media-item.dt-slide-out { display: list-item; }
+```
+
+### 7. `div:empty` hides elements with no content
+
+Dawn's `base.css` has `div:empty { display: none }`. Any purely visual div (progress bar fill, decorative elements) with no text content gets hidden. Add `&nbsp;` with `font-size: 0; overflow: hidden` to defeat it without affecting layout.
