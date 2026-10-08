@@ -773,6 +773,62 @@
   display: none;
 }
 
+.dt-gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  margin-top: 12px;
+}
+
+.dt-gallery-nav__counter {
+  flex: 0 0 auto;
+  color: var(--dt-color-charcoal);
+  font-family: var(--dt-font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.dt-gallery-nav__track {
+  flex: 1 1 auto;
+  height: 2px;
+  margin: 0 20px;
+  background: var(--dt-color-grey);
+  position: relative;
+}
+
+.dt-gallery-nav__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 20%;
+  background: var(--dt-color-forest);
+  transition: width 300ms ease;
+}
+
+.dt-gallery-nav__arrows {
+  display: flex;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.dt-gallery-nav__arrow {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dt-color-forest);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dt-gallery-nav__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
 .dt-product-page variant-selects {
   display: block;
   margin-top: 4px;

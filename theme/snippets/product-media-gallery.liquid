@@ -154,6 +154,20 @@
       </button>
     </div>
   </slider-component>
+  {%- if media_count > 1 -%}
+    <dt-gallery-nav class="dt-gallery-nav" data-media-count="{{ media_count }}">
+      <span class="dt-gallery-nav__counter">
+        <span class="dt-gallery-nav__current">1</span> / <span class="dt-gallery-nav__total">{{ media_count }}</span>
+      </span>
+      <div class="dt-gallery-nav__track">
+        <div class="dt-gallery-nav__fill"></div>
+      </div>
+      <div class="dt-gallery-nav__arrows">
+        <button type="button" class="dt-gallery-nav__arrow" data-dir="prev" aria-label="Previous image">&larr;</button>
+        <button type="button" class="dt-gallery-nav__arrow" data-dir="next" aria-label="Next image">&rarr;</button>
+      </div>
+    </dt-gallery-nav>
+  {%- endif -%}
   {%- if first_3d_model -%}
     <button
       class="button button--full-width product__xr-button"
