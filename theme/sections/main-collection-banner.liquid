@@ -1,0 +1,63 @@
+{% comment %}
+  Dove & Thistle — Collection banner.
+  Centered serif title + description + 1px rule + subcategory pills.
+  Figma: Collection Page frame 324:3976.
+{% endcomment %}
+
+<div class="dt-collection-banner color-{{ section.settings.color_scheme }}">
+  <div class="dt-collection-banner__inner page-width">
+    <div class="dt-collection-banner__header">
+      <h1 class="dt-collection-banner__title">
+        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+        {{- collection.title | escape -}}
+      </h1>
+      {%- if section.settings.show_collection_description and collection.description != blank -%}
+        <div class="dt-collection-banner__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+    },
+    {
+      "type": "collection",
+      "id": "parent_collection",
+      "label": "t:sections.main-collection-banner.settings.parent_collection.label",
+      "info": "t:sections.main-collection-banner.settings.parent_collection.info"
+    },
+    {
+      "type": "link_list",
+      "id": "subcollection_menu",
+      "label": "t:sections.main-collection-banner.settings.subcollection_menu.label",
+      "info": "t:sections.main-collection-banner.settings.subcollection_menu.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

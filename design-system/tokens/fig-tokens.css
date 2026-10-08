@@ -1,0 +1,42 @@
+/* Generated from Figma Variables. First mode = :root default.
+   FLOAT tokens are unitless — multiply by 1px in calc() where a length is needed. */
+
+:root {
+  --color-accent-gold: rgb(173,137,84); /* @kind color */
+  --color-action-primary-hover: rgb(84,39,56); /* @kind color */
+  --color-action-primary: rgb(106,52,70); /* @kind color */
+  --color-bg-parchment: rgb(247,242,233); /* @kind color */
+  --color-bg-surface: rgb(255,255,255); /* @kind color */
+  --color-border-subtle: rgb(201,195,188); /* @kind color */
+  --color-footer-accent: rgb(173,137,84); /* @kind color */
+  --color-footer-background: rgb(35,66,56); /* @kind color */
+  --color-footer-divider: rgb(247,242,233); /* @kind color */
+  --color-footer-text-muted: rgb(201,195,188); /* @kind color */
+  --color-footer-text: rgb(247,242,233); /* @kind color */
+  --color-icon-trust: rgb(106,52,70); /* @kind color */
+  --color-text-brand: rgb(35,66,56); /* @kind color */
+  --color-text-muted: rgb(112,106,101); /* @kind color */
+  --color-text-primary: rgb(41,38,36); /* @kind color */
+  --layout-canvas-desktop: 1440; /* @kind other */
+  --layout-canvas-mobile: 390; /* @kind other */
+  --layout-container-desktop: 1024; /* @kind other */
+  --layout-container-mobile: 342; /* @kind other */
+  --layout-grid-desktop-columns: 4; /* @kind other */
+  --layout-grid-mobile-columns: 2; /* @kind other */
+  --layout-gutter-desktop: 208; /* @kind other */
+  --layout-gutter-mobile: 24; /* @kind other */
+  --spacing-120: 120; /* @kind spacing */
+  --spacing-12: 12; /* @kind spacing */
+  --spacing-16: 16; /* @kind spacing */
+  --spacing-20: 20; /* @kind spacing */
+  --spacing-24: 24; /* @kind spacing */
+  --spacing-32: 32; /* @kind spacing */
+  --spacing-40: 40; /* @kind spacing */
+  --spacing-48: 48; /* @kind spacing */
+  --spacing-4: 4; /* @kind spacing */
+  --spacing-56: 56; /* @kind spacing */
+  --spacing-64: 64; /* @kind spacing */
+  --spacing-80: 80; /* @kind spacing */
+  --spacing-8: 8; /* @kind spacing */
+  --spacing-96: 96; /* @kind spacing */
+}

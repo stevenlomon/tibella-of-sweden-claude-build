@@ -1,0 +1,1205 @@
+/* ============================================================
+   Dove & Thistle — global design layer over Dawn components
+   Loaded after base.css and dt-dove-thistle.css.
+   Tokens come from dt-dove-thistle.css :root (--dt-*).
+   Selectors are body-prefixed: Dawn loads per-section
+   component-*.css files in the body, after this file, so the
+   extra specificity keeps the brand layer in charge.
+   ============================================================ */
+
+/* ---------- 1. Base type ---------- */
+
+body {
+  letter-spacing: normal;
+  color: rgb(var(--color-foreground));
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6,
+body .h0, body .h1, body .h2, body .h3, body .h4, body .h5 {
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+/* Editorial heading colour: forest on light grounds, parchment on dark */
+body .color-scheme-1 :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5),
+body .color-scheme-3 :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5) {
+  color: var(--dt-color-forest);
+}
+
+body .color-scheme-2 :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5),
+body .color-scheme-5 :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5) {
+  color: var(--dt-color-parchment);
+}
+
+body .h0 { font: var(--dt-type-display-xl); }
+body h1, body .h1 { font: var(--dt-type-heading-xl); }
+body h2, body .h2 { font: var(--dt-type-heading-l); }
+body h3, body .h3 { font: var(--dt-type-heading-m); }
+body h4, body .h4 { font: var(--dt-type-heading-s); }
+body h5, body .h5 { font: var(--dt-type-heading-xs); }
+
+body .caption,
+body .caption-with-letter-spacing {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+}
+
+body .rte {
+  color: rgb(var(--color-foreground));
+}
+
+body .rte a,
+body .inline-richtext a {
+  color: var(--dt-color-burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body .rte a:hover,
+body .inline-richtext a:hover {
+  color: var(--dt-color-burgundy-deep);
+}
+
+/* ---------- 2. Buttons ---------- */
+
+body .button,
+body .shopify-challenge__button,
+body .customer button,
+body button.shopify-payment-button__button--unbranded {
+  border-radius: 0;
+  font: var(--dt-type-ui-m);
+  letter-spacing: var(--dt-tracking-button);
+  min-height: 4.8rem;
+  transition: background-color var(--dt-duration-fast) var(--dt-ease-standard),
+    box-shadow var(--dt-duration-fast) var(--dt-ease-standard),
+    transform var(--dt-duration-fast) var(--dt-ease-standard);
+}
+
+body .button:active,
+body .shopify-challenge__button:active {
+  transform: translateY(1px);
+}
+
+/* Primary hover: burgundy darkens (light schemes only — scheme-2/5 use gold/parchment buttons) */
+body .color-scheme-1 .button--primary:hover,
+body .color-scheme-1 .button:not(.button--secondary):not(.button--tertiary):hover,
+body .color-scheme-3 .button--primary:hover,
+body .color-scheme-3 .button:not(.button--secondary):not(.button--tertiary):hover,
+body .shopify-challenge__button:hover,
+body button.shopify-payment-button__button--unbranded:hover {
+  --color-button: 84, 39, 56;
+}
+
+/* Secondary: white ground, 1px dove-grey inset, charcoal label */
+body .button--secondary {
+  --alpha-button-background: 1;
+  --color-button: 255, 255, 255;
+  --color-button-text: 41, 38, 36;
+  box-shadow: inset 0 0 0 1px var(--dt-color-grey);
+}
+
+body .button--secondary:hover {
+  box-shadow: inset 0 0 0 1px var(--dt-color-charcoal);
+}
+
+body .color-scheme-2 .button--secondary,
+body .color-scheme-5 .button--secondary {
+  --color-button: 35, 66, 56;
+  --color-button-text: 247, 242, 233;
+  box-shadow: inset 0 0 0 1px rgba(247, 242, 233, 0.55);
+}
+
+body .button--tertiary {
+  border-radius: 0;
+  font: var(--dt-type-ui-s);
+  letter-spacing: var(--dt-tracking-button);
+}
+
+/* Disabled = 45% opacity, per brand book */
+body .button:disabled,
+body .button[aria-disabled='true'],
+body .button.disabled {
+  opacity: 0.45;
+}
+
+/* ---------- 3. Announcement bar ---------- */
+
+body .utility-bar {
+  border-bottom: 0;
+}
+
+body .announcement-bar__message,
+body .announcement-bar__message.h5 {
+  font: var(--dt-type-announcement);
+  font-family: var(--dt-font-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dt-color-parchment);
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+body .announcement-bar__link {
+  text-decoration: none;
+}
+
+body .announcement-bar__link:hover .announcement-bar__message {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 4. Header & navigation ---------- */
+
+body .header-wrapper {
+  background: var(--dt-color-white);
+}
+
+body .header-wrapper--border-bottom {
+  border-bottom: 1px solid var(--dt-color-grey);
+}
+
+body .header__menu-item,
+body .header__menu-item span {
+  font: var(--dt-type-nav);
+  letter-spacing: normal;
+  color: var(--dt-color-charcoal);
+}
+
+body .header__menu-item:hover span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--dt-color-charcoal);
+}
+
+body .header__active-menu-item {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body .header__icon {
+  color: var(--dt-color-forest);
+}
+
+body .header__icon:hover .icon {
+  transform: none;
+}
+
+body .header__heading-link .h2 {
+  font-family: var(--dt-font-display);
+  font-weight: 400;
+  color: var(--dt-color-forest);
+}
+
+/* Dropdown mega menu / submenu panels */
+body .header__submenu {
+  background: var(--dt-color-white);
+  border: 1px solid var(--dt-color-grey);
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgba(41, 38, 36, 0.08);
+}
+
+body .header__submenu .header__menu-item {
+  font: var(--dt-type-nav);
+}
+
+body .header__submenu .header__menu-item:hover {
+  color: var(--dt-color-burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Mobile menu drawer */
+body .menu-drawer {
+  border-right: 1px solid var(--dt-color-grey);
+}
+
+body .menu-drawer__menu-item {
+  font: var(--dt-type-body-m);
+  color: var(--dt-color-charcoal);
+}
+
+body .menu-drawer__menu-item--active,
+body .menu-drawer__menu-item:focus,
+body .menu-drawer__close-button,
+body .menu-drawer__menu-item:hover {
+  color: var(--dt-color-burgundy);
+}
+
+/* ---------- 5. Price ---------- */
+
+body .price {
+  font: var(--dt-type-card-price);
+  letter-spacing: var(--dt-tracking-button);
+  color: var(--dt-color-forest);
+}
+
+body .price--large {
+  font: var(--dt-type-price-product);
+  letter-spacing: normal;
+  color: var(--dt-color-charcoal);
+}
+
+body .price--on-sale .price-item--regular {
+  color: var(--dt-color-stone);
+  text-decoration: line-through;
+}
+
+body .price--on-sale .price-item--sale,
+body .price__sale .price-item--sale {
+  color: var(--dt-color-burgundy);
+}
+
+body .unit-price {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+/* ---------- 6. Product cards ---------- */
+
+body .card--standard > .card__content {
+  padding: 0;
+}
+
+body .card .card__inner .card__media,
+body .card__inner {
+  border-radius: 0;
+}
+
+body .card__content {
+  padding: 8px 0;
+}
+
+body .card__information {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+body .dt-card-category {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+  color: var(--dt-color-gold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body .card__heading {
+  margin: 0;
+}
+
+body .card__heading,
+body .card__heading.h5 {
+  font: var(--dt-type-card-title);
+  font-family: var(--dt-font-body);
+  color: var(--dt-color-charcoal);
+}
+
+body .card__heading a {
+  color: inherit;
+}
+
+body .card__heading .full-unstyled-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body .card-information {
+  padding: 0;
+}
+
+body .card-information .price {
+  color: var(--dt-color-forest);
+}
+
+body .card-information > * + * {
+  margin-top: 4px;
+}
+
+/* Card swatches (dt snippet) */
+body .dt-product-swatches {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding-top: 4px;
+}
+
+body .dt-product-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: var(--dt-swatch-color, var(--dt-color-grey));
+  box-shadow: inset 0 0 0 1px rgba(41, 38, 36, 0.15);
+}
+
+body .dt-product-swatch-count {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+/* Badges: square, tracked uppercase */
+body .badge {
+  border-radius: 0;
+  border: 0;
+  font: var(--dt-type-label-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+}
+
+/* Quick add */
+body .quick-add__submit {
+  text-transform: uppercase;
+}
+
+/* ---------- 7. Collection toolbar: facets & sorting ---------- */
+
+body .facets__wrapper,
+body .facets-container {
+  font-family: var(--dt-font-body);
+}
+
+body .facets__summary,
+body .facet-filters__label,
+body .facets__disclosure .facets__summary span {
+  font: var(--dt-type-ui-m);
+  letter-spacing: var(--dt-tracking-button);
+  color: var(--dt-color-charcoal);
+}
+
+body .facets__disclosure,
+body .facets__disclosure-vertical {
+  border-color: var(--dt-color-grey);
+}
+
+body .facet-checkbox {
+  font: var(--dt-type-body-s);
+}
+
+body .facet-checkbox > svg {
+  background-color: transparent;
+  border: 1px solid var(--dt-color-grey);
+  border-radius: 0;
+}
+
+body .facet-checkbox--selected > svg {
+  background-color: var(--dt-color-burgundy);
+  border-color: var(--dt-color-burgundy);
+}
+
+body .facets__price .field {
+  border-radius: 0;
+}
+
+body .active-facets__button,
+body .active-facets__button-remove {
+  border-radius: 0;
+}
+
+body .active-facets__button {
+  background: var(--dt-color-burgundy);
+  color: var(--dt-color-white);
+  box-shadow: none;
+  font: var(--dt-type-ui-s);
+  letter-spacing: var(--dt-tracking-button);
+}
+
+body .active-facets__button:hover {
+  background: var(--dt-color-burgundy-deep);
+  box-shadow: none;
+}
+
+body .active-facets__button-inner {
+  color: inherit;
+  box-shadow: none;
+  background: transparent;
+}
+
+body .active-facets__button-inner:hover {
+  box-shadow: none;
+}
+
+body .facets__sort select,
+body .facet-filters__sort {
+  border-radius: 0;
+  font: var(--dt-type-ui-m);
+}
+
+body .mobile-facets__inner {
+  background: var(--dt-color-white);
+  border-left: 0;
+  box-shadow: var(--dt-shadow-drawer);
+}
+
+body .mobile-facets__header,
+body .mobile-facets__footer {
+  border-color: var(--dt-color-grey);
+}
+
+body .mobile-facets__open,
+body .mobile-facets__open-label {
+  font: var(--dt-type-ui-m);
+  letter-spacing: var(--dt-tracking-button);
+}
+
+body .mobile-facets__summary,
+body .mobile-facets__label {
+  font: var(--dt-type-body-s);
+}
+
+body .product-count__text {
+  font: var(--dt-type-body-s);
+  color: var(--dt-color-stone);
+}
+
+/* ---------- 8. Pagination ---------- */
+
+body .pagination__item {
+  font: var(--dt-type-ui-m);
+  letter-spacing: var(--dt-tracking-button);
+  color: var(--dt-color-forest);
+}
+
+body .pagination__item--current::after,
+body .pagination__item:hover::after {
+  height: 0.1rem;
+  background: currentColor;
+}
+
+/* ---------- 9. Accordions (PDP details + FAQ / collapsible content) ---------- */
+
+body .accordion {
+  border-top: 1px solid var(--dt-color-grey);
+  border-bottom: 0;
+}
+
+body .accordion + .accordion {
+  border-top: 1px solid var(--dt-color-grey);
+}
+
+body .accordion:last-of-type {
+  border-bottom: 1px solid var(--dt-color-grey);
+}
+
+body .accordion .summary__title {
+  font: 600 16px/24px var(--dt-font-body);
+}
+
+body .accordion .summary__title .accordion__title {
+  font: inherit;
+  font-family: var(--dt-font-body);
+  color: var(--dt-color-charcoal);
+}
+
+/* PDP detail rows: tracked uppercase labels */
+body .product__accordion .summary__title .accordion__title {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+}
+
+body .accordion__content {
+  font: var(--dt-type-body-s);
+  color: var(--dt-color-charcoal);
+}
+
+/* ---------- 10. Forms & inputs ---------- */
+
+body .field__input,
+body .select__select,
+body .customer .field input,
+body .customer select,
+body .text-area,
+body .quantity {
+  border-radius: 0;
+}
+
+body .field__input,
+body .select__select,
+body .customer .field input,
+body .customer select,
+body .text-area {
+  box-shadow: 0 0 0 1px var(--dt-color-grey);
+}
+
+body .field__input:focus,
+body .select__select:focus,
+body .customer .field input:focus,
+body .customer select:focus,
+body .text-area:focus,
+body .field__input:focus-visible,
+body .select__select:focus-visible {
+  box-shadow: 0 0 0 2px var(--dt-color-burgundy);
+  outline: 0;
+}
+
+body .field__label,
+body .customer .field label {
+  font: var(--dt-type-body-s);
+  color: var(--dt-color-stone);
+}
+
+body .form__message {
+  font: var(--dt-type-body-s);
+}
+
+/* Newsletter */
+body .newsletter-form__field-wrapper .field__input {
+  background: var(--dt-color-white);
+}
+
+body .newsletter-form__button {
+  color: var(--dt-color-burgundy);
+}
+
+/* ---------- 11. Quantity selector ---------- */
+
+body .quantity {
+  border: 1px solid var(--dt-color-grey);
+  box-shadow: none;
+  min-height: 4.4rem;
+}
+
+body .quantity:after,
+body .quantity:before {
+  box-shadow: none;
+  background: transparent;
+}
+
+body .quantity__input {
+  font: var(--dt-type-ui-m);
+  color: var(--dt-color-charcoal);
+}
+
+body .quantity__button {
+  color: var(--dt-color-charcoal);
+}
+
+/* ---------- 12. PDP ---------- */
+
+body .product__title > h1,
+body .product__title > .h1 {
+  font: var(--dt-type-heading-m);
+  color: var(--dt-color-forest);
+}
+
+body .product__text.caption-with-letter-spacing {
+  color: var(--dt-color-gold);
+}
+
+body .product__description {
+  font: var(--dt-type-body-s);
+}
+
+body .product-form__input .form__label {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+  color: var(--dt-color-charcoal);
+}
+
+/* Variant pills → square boxes; selected = forest */
+body .product-form__input input[type='radio'] + label {
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--dt-color-grey);
+  border-radius: 0;
+  background: var(--dt-color-white);
+  color: var(--dt-color-charcoal);
+  font: var(--dt-type-label-xs);
+  padding: 1.2rem 2rem;
+  margin: 0.4rem 0.8rem 0.2rem 0;
+}
+
+body .product-form__input input[type='radio'] + label:hover {
+  box-shadow: inset 0 0 0 1px var(--dt-color-charcoal);
+}
+
+body .product-form__input input[type='radio']:checked + label {
+  background: var(--dt-color-forest);
+  color: var(--dt-color-white);
+  box-shadow: inset 0 0 0 1px var(--dt-color-forest);
+}
+
+body .product-form__input input[type='radio']:disabled + label,
+body .product-form__input input[type='radio'].disabled + label {
+  color: var(--dt-color-stone);
+  text-decoration: line-through;
+}
+
+/* Color swatch inputs stay square */
+body .swatch,
+body .swatch-input__input + .swatch-input__label {
+  border-radius: 0;
+}
+
+body .product-form__submit {
+  text-transform: uppercase;
+  min-height: 5.2rem;
+}
+
+body .shopify-payment-button__button {
+  border-radius: 0;
+}
+
+/* Media gallery: square, thin rules */
+body .product__media,
+body .product__media-item,
+body .product-media-container {
+  border-radius: 0;
+}
+
+body .thumbnail {
+  border-radius: 0;
+  border-color: var(--dt-color-grey);
+}
+
+body .thumbnail[aria-current='true'] {
+  border-color: var(--dt-color-forest);
+  border-width: 1px;
+}
+
+body .product__info-container .product-form__buttons {
+  max-width: 44rem;
+}
+
+/* Pickup availability, SKU, tax notes */
+body .product__sku,
+body .product__tax {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+/* ---------- 13. Cart page & totals ---------- */
+
+body .cart__items,
+body .cart-items td,
+body .cart-items th {
+  border-color: var(--dt-color-grey);
+}
+
+body .cart-items th {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+  color: var(--dt-color-stone);
+}
+
+body .cart-item__name {
+  font: var(--dt-type-body-s);
+  color: var(--dt-color-charcoal);
+}
+
+body .cart-item__name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body .cart-item .product-option {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+body .cart-item cart-remove-button .button {
+  min-height: auto;
+}
+
+body .totals__total {
+  font: var(--dt-type-ui-m);
+}
+
+body .totals__total-value {
+  font: var(--dt-type-price-product);
+  color: var(--dt-color-charcoal);
+}
+
+body .cart__ctas .button {
+  text-transform: uppercase;
+  min-height: 5.2rem;
+}
+
+body .cart__footer .cart__note {
+  border-radius: 0;
+}
+
+body .tax-note {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+/* ---------- 14. Blog & article ---------- */
+
+body .article-card .card__heading,
+body .article-card .card__heading.h2 {
+  font: var(--dt-type-heading-xs);
+  font-family: var(--dt-font-display);
+  color: var(--dt-color-forest);
+}
+
+body .article-card__info,
+body .article-card__footer {
+  font: var(--dt-type-meta-xs);
+  color: var(--dt-color-stone);
+}
+
+body .article-card__excerpt {
+  font: var(--dt-type-body-s);
+  color: var(--dt-color-charcoal);
+}
+
+body .article-template__hero-container {
+  max-width: 100%;
+}
+
+body .article-template header h1 {
+  color: var(--dt-color-forest);
+}
+
+body .article-template__content {
+  font: var(--dt-type-body-l);
+  color: var(--dt-color-charcoal);
+}
+
+body .article-template__back .link,
+body .article-template__comment-wrapper .link {
+  color: var(--dt-color-burgundy);
+}
+
+/* ---------- 15. Search & predictive search ---------- */
+
+body .search__input.field__input {
+  border-radius: 0;
+}
+
+body .search__button,
+body .reset__button {
+  color: var(--dt-color-forest);
+}
+
+body .predictive-search {
+  border: 1px solid var(--dt-color-grey);
+  border-radius: 0;
+  box-shadow: 0 8px 24px rgba(41, 38, 36, 0.08);
+}
+
+body .predictive-search__heading {
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+  color: var(--dt-color-gold);
+  border-color: var(--dt-color-grey);
+}
+
+body .predictive-search__item-heading {
+  font: var(--dt-type-card-title);
+}
+
+body .template-search__header {
+  color: var(--dt-color-forest);
+}
+
+/* ---------- 16. 404 ---------- */
+
+body .template-404 h1 {
+  color: var(--dt-color-forest);
+}
+
+/* ---------- 17. Drawers (cart drawer shadow, menu) ---------- */
+
+body .drawer__inner,
+body .cart-drawer__inner {
+  border: 0;
+  box-shadow: var(--dt-shadow-drawer);
+}
+
+body .cart-drawer__overlay,
+body .menu-drawer-container .menu-drawer__overlay {
+  background: rgba(41, 38, 36, 0.32);
+}
+
+/* ---------- 18. Collection list & banners ---------- */
+
+body .collection-list .card__heading,
+body .collection-list .card__heading.h5 {
+  font: var(--dt-type-heading-xs);
+  font-family: var(--dt-font-display);
+  color: var(--dt-color-forest);
+}
+
+body .collection-hero__title {
+  color: var(--dt-color-forest);
+}
+
+body .collection-hero__description {
+  font: var(--dt-type-body-m);
+  color: var(--dt-color-stone);
+}
+
+/* ---------- 19. Misc sections (slideshow, multicolumn, collage, video) ---------- */
+
+body .slideshow__controls {
+  border: 0;
+}
+
+body .slider-counter__link--dots .dot,
+body .slideshow__control-wrapper .dot {
+  border-radius: 0;
+  width: 16px;
+  height: 2px;
+  background: var(--dt-color-grey);
+  border: 0;
+}
+
+body .slider-counter__link--active.slider-counter__link--dots .dot {
+  background: var(--dt-color-burgundy);
+}
+
+body .slider-button {
+  color: var(--dt-color-charcoal);
+}
+
+body .slider-button:hover {
+  color: var(--dt-color-burgundy);
+}
+
+body .multicolumn-card,
+body .collage-card,
+body .video-section__media,
+body .deferred-media {
+  border-radius: 0;
+}
+
+body .multicolumn-card__info h3 {
+  font: var(--dt-type-heading-xs);
+}
+
+/* ---------- 20. Localization & disclosure selects ---------- */
+
+body .localization-form__select,
+body .disclosure__button {
+  border-radius: 0;
+  font: var(--dt-type-ui-s);
+}
+
+body .disclosure__list-wrapper {
+  border: 1px solid var(--dt-color-grey);
+  border-radius: 0;
+}
+
+/* ---------- 21. Loading / focus ---------- */
+
+body .loading__spinner .spinner .path {
+  stroke: var(--dt-color-burgundy);
+}
+
+body :focus-visible {
+  outline: 2px solid var(--dt-color-burgundy);
+  outline-offset: 2px;
+}
+
+body .focused,
+body .focus-inset:focus-visible {
+  outline: 2px solid var(--dt-color-burgundy);
+  box-shadow: none;
+}
+
+/* ---------- 22. Scope-escapes: keep dt sections immune to the global h2/.rte reset ----------
+   The body h2/.rte rules above cover stock Dawn surfaces. The dt-* sections have their own
+   typography in dt-dove-thistle.css, so we revert the generic reset here. Scheme-1 is the
+   page ground (white) but dt-footer paints forest internally — the global forest-h2 rule
+   would make its gold eyebrows invisible against that forest.
+*/
+
+body .dt-footer .footer-block__heading,
+body .dt-footer .footer-block__brand-info .footer-block__heading {
+  font: inherit;
+  font-family: var(--dt-font-body);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--dt-color-gold);
+  margin: 0 0 22px;
+}
+
+body .dt-footer .footer-block__brand-info .footer-block__heading,
+body .dt-footer .footer-block__brand-info h2 {
+  font: inherit;
+  font-family: var(--dt-font-display);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: none;
+  color: var(--dt-color-parchment);
+  margin-bottom: 20px;
+}
+
+body .dt-footer__subfooter .footer-block__heading {
+  margin-bottom: 16px;
+}
+
+/* Business column: parchment-tinted body text on forest */
+body .dt-footer .dt-footer__business,
+body .dt-footer .dt-footer__business p,
+body .dt-footer .footer-block__details-content.rte,
+body .dt-footer .footer-block__details-content.rte p,
+body .dt-footer .footer-block__brand-info .rte,
+body .dt-footer .footer-block__brand-info .rte p {
+  color: rgba(247, 242, 233, 0.78);
+}
+
+/* Payment / secure checkout lines */
+body .dt-footer__payment-methods,
+body .dt-footer__security p {
+  color: rgba(247, 242, 233, 0.78);
+}
+
+/* Footer links stay parchment */
+body .dt-footer a {
+  color: rgba(247, 242, 233, 0.78);
+}
+
+body .dt-footer a:hover {
+  color: var(--dt-color-parchment);
+}
+
+/* Instagram icon wrapper — higher specificity than the generic .dt-footer a parchment rule */
+body .dt-footer a.dt-footer__instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  color: var(--dt-color-gold);
+  text-decoration: none;
+  font: var(--dt-type-label-xs);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+}
+
+body .dt-footer a.dt-footer__instagram svg {
+  width: 20px;
+  height: 20px;
+  color: var(--dt-color-gold);
+  fill: currentColor;
+}
+
+body .dt-footer a.dt-footer__instagram:hover,
+body .dt-footer a.dt-footer__instagram:hover svg {
+  color: var(--dt-color-parchment);
+}
+
+/* dt sections generally: block generic h-reset forest colour from hitting internal headings */
+body .dt-footer :is(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+/* ---------- 23. Collection page banner (Figma 324:3976) ----------
+   Replaces the forest-overlay hero: centered serif title + description on white,
+   1px dove-grey hairline, then centered burgundy/white pills for subcollections. */
+
+body .dt-collection-banner {
+  background: var(--dt-color-white);
+  padding: 56px 0 0;
+}
+
+body .dt-collection-banner__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+body .dt-collection-banner__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding-bottom: 32px;
+}
+
+body :is(.color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4, .color-scheme-5) .dt-collection-banner__title {
+  margin: 0;
+  color: var(--dt-color-forest);
+  font-family: var(--dt-font-display);
+  font-weight: 600;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.1;
+}
+
+body .dt-collection-banner__description,
+body .dt-collection-banner__description.rte,
+body .dt-collection-banner__description.rte p {
+  max-width: 640px;
+  margin: 0;
+  color: var(--dt-color-stone);
+  font-family: var(--dt-font-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+body .dt-collection-banner__pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+body .dt-collection-subcollections {
+  padding: 4px 0 8px;
+}
+
+/* Pills (CollectionScreen.jsx reference) — square, inset grey border, white→burgundy active */
+body .dt-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 8px 24px;
+  border: 0;
+  border-radius: 0;
+  background: var(--dt-color-white);
+  color: var(--dt-color-charcoal);
+  box-shadow: inset 0 0 0 1px var(--dt-color-grey);
+  font-family: var(--dt-font-body);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: var(--dt-tracking-button);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dt-duration-fast) var(--dt-ease-standard),
+    color var(--dt-duration-fast) var(--dt-ease-standard);
+}
+
+body .dt-pill:hover {
+  box-shadow: inset 0 0 0 1px var(--dt-color-charcoal);
+  color: var(--dt-color-charcoal);
+}
+
+body .dt-pill--active,
+body .dt-pill[aria-current='page'] {
+  background: var(--dt-color-burgundy);
+  color: var(--dt-color-parchment);
+  box-shadow: inset 0 0 0 1px var(--dt-color-burgundy);
+}
+
+body .dt-pill--active:hover,
+body .dt-pill[aria-current='page']:hover {
+  background: var(--dt-color-burgundy-deep);
+  color: var(--dt-color-parchment);
+  box-shadow: inset 0 0 0 1px var(--dt-color-burgundy-deep);
+}
+
+/* ---------- 24. Horizontal/drawer facets toolbar (collection grid) ----------
+   Dawn renders a "Filter & Sort" button + product count + sort dropdown inline
+   above the grid when filter_type is 'drawer'. Style it as a horizontal toolbar
+   bounded by hairlines. */
+
+body .facets-container.facets-container-drawer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  margin-bottom: 4px;
+  border-top: 1px solid var(--dt-color-grey);
+  border-bottom: 1px solid var(--dt-color-grey);
+}
+
+/* Hide Dawn's inline active-filter pills from the toolbar row — Figma doesn't show them,
+   and when the form was width:100% + flex-wrap:wrap it reserved ~24px of empty vertical
+   space that pushed the row to 64px tall. Removing filters still works via the drawer's
+   "Clear all" button. */
+body .facets-container.facets-container-drawer facet-filters-form.facets-pill {
+  display: none;
+}
+
+body .facets-container.facets-container-drawer menu-drawer,
+body .facets-container.facets-container-drawer .mobile-facets__wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+body .facets-container.facets-container-drawer .mobile-facets__disclosure {
+  display: inline-flex;
+  align-items: center;
+}
+
+body .facets-container.facets-container-drawer .mobile-facets__open-wrapper {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+body .facets-container.facets-container-drawer .mobile-facets__open,
+body .facets-container.facets-container-drawer .mobile-facets__open-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dt-color-charcoal);
+  font: 500 15px/1.3 var(--dt-font-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body .facets-container.facets-container-drawer .mobile-facets__open .svg-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+body .facets-container.facets-container-drawer .mobile-facets__open .icon,
+body .facets-container.facets-container-drawer .mobile-facets__open svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+body .facets-container.facets-container-drawer .product-count {
+  color: var(--dt-color-stone);
+  font: var(--dt-type-body-s);
+  margin: 0;
+}
+
+body .facets-container.facets-container-drawer .product-count__text {
+  color: inherit;
+  font: inherit;
+}
+
+body .facets-container.facets-container-drawer .facet-filters__sort {
+  padding: 8px 36px 8px 12px;
+  border: 1px solid var(--dt-color-grey);
+  border-radius: 0;
+  background-color: var(--dt-color-white);
+  color: var(--dt-color-charcoal);
+  font-family: var(--dt-font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: var(--dt-tracking-button);
+}
+
+body .facets-container.facets-container-drawer .facet-filters__field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+body .facets-container.facets-container-drawer .facet-filters__label {
+  margin: 0;
+  color: var(--dt-color-stone);
+  font: var(--dt-type-body-s);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+}

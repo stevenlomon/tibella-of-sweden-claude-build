@@ -1,0 +1,46 @@
+{%- assign key_features = product.metafields.custom.key_features -%}
+{%- assign specifications = product.metafields.custom.specifications -%}
+{%- assign fit_sizing = product.metafields.custom.fit_sizing -%}
+{%- assign materials = product.metafields.custom.materials_care -%}
+
+{%- if key_features != blank or specifications != blank or fit_sizing != blank or materials != blank -%}
+  <div class="dt-product-details">
+    {%- if key_features != blank -%}
+      <section class="dt-product-detail-featured">
+        <h2>{{ 'products.product.dt_details_key_features' | t }}</h2>
+        <div class="dt-product-detail-row__content rte">{{ key_features | metafield_tag }}</div>
+      </section>
+    {%- endif -%}
+
+    {%- if specifications != blank -%}
+      <details class="dt-product-detail-row">
+        <summary>
+          <span>{{ 'products.product.dt_details_specifications' | t }}</span>
+          <span class="dt-product-detail-row__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="dt-product-detail-row__content rte">{{ specifications | metafield_tag }}</div>
+      </details>
+    {%- endif -%}
+
+    {%- if fit_sizing != blank -%}
+      <details class="dt-product-detail-row">
+        <summary>
+          <span>{{ 'products.product.dt_details_fit_sizing' | t }}</span>
+          <span class="dt-product-detail-row__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="dt-product-detail-row__content rte">{{ fit_sizing | metafield_tag }}</div>
+      </details>
+    {%- endif -%}
+
+    {%- if materials != blank -%}
+      <details class="dt-product-detail-row">
+        <summary>
+          <span>{{ 'products.product.dt_details_materials' | t }}</span>
+          <span class="dt-product-detail-row__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="dt-product-detail-row__content rte">{{ materials | metafield_tag }}</div>
+      </details>
+    {%- endif -%}
+
+  </div>
+{%- endif -%}

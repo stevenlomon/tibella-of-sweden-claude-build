@@ -1,0 +1,33 @@
+/* Dove & Thistle — brand palette (from the .fig "UI Design System" sheet + logo sheet).
+   Deep Forest #234238 is the logo green and the single source of truth for "the green". */
+:root{
+--dt-deep-forest:#234238;
+--dt-warm-parchment:#F7F2E9;
+--dt-warm-charcoal:#292624;
+--dt-muted-burgundy:#6A3446;
+--dt-burgundy-deep:#542738;
+--dt-antique-gold:#AD8954;
+--dt-dove-grey:#C9C3BC;
+--dt-stone:#706A65;
+--dt-ink:#181515;
+--dt-white:#FFFFFF;
+--dt-wine-black:#160209;
+
+/* semantic aliases */
+--text-brand:var(--color-text-brand);
+--text-body:var(--color-text-primary);
+--text-muted:var(--color-text-muted);
+--text-inverse:var(--dt-warm-parchment);
+--text-eyebrow:var(--dt-antique-gold);
+--text-link:var(--dt-muted-burgundy);
+--surface-page:var(--color-bg-surface);
+--surface-warm:var(--color-bg-parchment);
+--surface-card:var(--color-bg-surface);
+--surface-inverse:var(--dt-deep-forest);
+--action-primary:var(--color-action-primary);
+--action-primary-hover:var(--color-action-primary-hover);
+--action-on-primary:var(--dt-white);
+--border-subtle:var(--color-border-subtle);
+--image-scrim-bottom:linear-gradient(180deg, rgba(0,0,0,0.05) 50%, rgb(22,2,9) 100%); /* @kind other */
+--image-scrim-left:linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(102,102,102,0) 100%); /* @kind other */
+}

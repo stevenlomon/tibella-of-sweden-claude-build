@@ -1,0 +1,16 @@
+# Shopify CLI
+.shopify/
+node_modules/
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dawn reference — read-only copy of the base theme, not edited
+dawn-reference/
+
+# Environment / secrets
+.env
+.env.local

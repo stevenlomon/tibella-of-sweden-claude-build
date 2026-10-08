@@ -1,0 +1,75 @@
+{%- assign story_eyebrow = product.metafields.custom.story_eyebrow.value | default: section.settings.eyebrow -%}
+{%- assign story_heading = product.metafields.custom.story_heading.value | default: section.settings.heading -%}
+{%- assign story_image = product.metafields.custom.story_image.value | default: section.settings.image -%}
+{%- assign story_body_metafield = product.metafields.custom.story_body.value -%}
+
+{%- if story_heading != blank or story_body_metafield != blank or section.settings.body != blank -%}
+  <section class="dt-section dt-product-story" id="{{ section.id }}">
+    <div class="page-width dt-product-story__layout">
+      <div class="dt-product-story__content">
+        {%- if story_eyebrow != blank -%}
+          <p class="dt-eyebrow">{{ story_eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if story_heading != blank -%}
+          <h2>{{ story_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if story_body_metafield != blank -%}
+          <div class="dt-product-story__body rte">{{ story_body_metafield | metafield_tag }}</div>
+        {%- elsif section.settings.body != blank -%}
+          <div class="dt-product-story__body rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+      </div>
+      {%- if story_image != blank -%}
+        <div class="dt-product-story__media">
+          {{
+            story_image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '480, 720, 960, 1200',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: story_image.alt | escape
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product story",
+  "tag": "section",
+  "class": "shopify-section--dt-product-story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The story behind the piece"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made for the way you live"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Thoughtful details and considered materials make this an easy favorite for everyday life.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product story"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+{% doc %}
+  Renders a Dove & Thistle collection card.
+
+  @param {collection} collection - The selected collection
+  @param {image} image - Optional image override
+  @param {string} title - Optional card title override
+  @param {string} description - Optional card description override
+  @param {string} fallback_asset - Theme asset used when no collection image exists
+  @param {string} shopify_attributes - Theme editor block attributes
+{% enddoc %}
+
+{%- liquid
+  assign card_title = title | default: collection.title | default: 'Collection'
+  assign card_description = description | default: collection.description | strip_html | truncate: 120
+  assign card_url = collection.url | default: routes.all_products_collection_url
+  assign card_image = image | default: collection.featured_image
+-%}
+
+<li class="dt-collection-card" {{ shopify_attributes }}>
+  <a class="dt-collection-card__link" href="{{ card_url }}">
+    <div class="dt-collection-card__media">
+      {%- if card_image != blank -%}
+        {{
+          card_image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'dt-collection-card__image',
+            widths: '480, 720, 960, 1200',
+            sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+            loading: 'lazy',
+            alt: card_image.alt | default: card_title
+        }}
+      {%- elsif fallback_asset != blank -%}
+        <img
+          class="dt-collection-card__image"
+          src="{{ fallback_asset | asset_url }}"
+          alt="{{ card_title | escape }}"
+          width="1200"
+          height="1200"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'collection-1' | placeholder_svg_tag: 'dt-collection-card__image' }}
+      {%- endif -%}
+      <span class="dt-collection-card__wash" aria-hidden="true"></span>
+      <span class="dt-collection-card__content">
+        <span class="dt-collection-card__copy">
+          <h3>{{ card_title | escape }}</h3>
+          {%- if card_description != blank -%}
+            <p>{{ card_description | escape }}</p>
+          {%- endif -%}
+        </span>
+      </span>
+    </div>
+  </a>
+</li>

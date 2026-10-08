@@ -1,0 +1,119 @@
+<section
+  class="dt-section dt-trust"
+  id="{{ section.id }}"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <ul class="page-width dt-trust__list" role="list">
+    {%- for block in section.blocks -%}
+      <li class="dt-trust__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != blank -%}
+          {{
+            block.settings.icon
+            | image_url: width: 64
+            | image_tag:
+              class: 'dt-trust__icon',
+              widths: '32, 64',
+              sizes: '32px',
+              loading: 'lazy',
+              alt: ''
+          }}
+        {%- else -%}
+          <img
+            class="dt-trust__icon"
+            src="{{ block.settings.icon_asset | asset_url }}"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <h3 class="dt-trust__title">{{ block.settings.title | escape }}</h3>
+        <p class="dt-trust__text">{{ block.settings.text | escape }}</p>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.dt_trust_bar.name",
+  "tag": "section",
+  "class": "shopify-section--dt-trust-bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "t:sections.dt_trust_bar.settings.accessibility_label.label",
+      "default": "Shopping with confidence"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "t:sections.dt_trust_bar.blocks.benefit.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "t:sections.dt_trust_bar.blocks.benefit.settings.icon.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_asset",
+          "label": "t:sections.dt_trust_bar.blocks.benefit.settings.icon_asset.label",
+          "options": [
+            {
+              "value": "dt-trust-shipping.svg",
+              "label": "Free shipping"
+            },
+            {
+              "value": "dt-trust-returns.svg",
+              "label": "Returns"
+            },
+            {
+              "value": "dt-trust-secure.svg",
+              "label": "Secure checkout"
+            },
+            {
+              "value": "dt-trust-help.svg",
+              "label": "Helpful support"
+            }
+          ],
+          "default": "dt-trust-shipping.svg"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.dt_trust_bar.blocks.benefit.settings.title.label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.dt_trust_bar.blocks.benefit.settings.text.label",
+          "default": "On every US order"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.dt_trust_bar.presets.name",
+      "blocks": [
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

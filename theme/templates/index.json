@@ -1,0 +1,275 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "dt_hero": {
+      "type": "dt-hero",
+      "settings": {
+        "eyebrow": "",
+        "heading": "What you wear & how you live, weaved beautifully together",
+        "text": "A thoughtful edit of easy fashion, comfortable footwear, and beautiful things for home. Chosen for the woman you are now.",
+        "button_label": "Shop by collection",
+        "button_link": "shopify://collections/all",
+        "overlay_opacity": 80
+      }
+    },
+    "dt_collections": {
+      "type": "dt-collection-grid",
+      "blocks": {
+        "clothing_shoes": {
+          "type": "collection",
+          "settings": {
+            "title": "Clothes",
+            "description": "Knitwear, dresses, layers, shapewear and comfortable everyday styles.",
+            "fallback_asset": "dt-collection-clothing-shoes.png"
+          }
+        },
+        "bags_jewelry": {
+          "type": "collection",
+          "settings": {
+            "title": "Bags & Shoes",
+            "description": "Handbags, boots, and everyday shoes chosen for style and support.",
+            "fallback_asset": "dt-collection-bags-jewelry.png"
+          }
+        },
+        "home_living": {
+          "type": "collection",
+          "settings": {
+            "title": "Home & Living",
+            "description": "Warm accents, useful pieces and everyday comforts for every room.",
+            "fallback_asset": "dt-collection-home-living.png"
+          }
+        },
+        "gifts_hobbies": {
+          "type": "collection",
+          "settings": {
+            "title": "Gifts",
+            "description": "Thoughtful gifts, cozy comforts and useful finds for every occasion.",
+            "fallback_asset": "dt-collection-gifts-hobbies.png"
+          }
+        },
+        "christmas_shop": {
+          "type": "collection",
+          "settings": {
+            "title": "Christmas Shop",
+            "description": "Festive décor, meaningful gifts and craft kits for a warm Christmas.",
+            "fallback_asset": "dt-collection-christmas.png"
+          }
+        }
+      },
+      "block_order": [
+        "clothing_shoes",
+        "bags_jewelry",
+        "home_living",
+        "gifts_hobbies",
+        "christmas_shop"
+      ],
+      "settings": {
+        "eyebrow": "Shop by collection",
+        "heading": "What are you looking for today?"
+      }
+    },
+    "dt_feature": {
+      "type": "dt-image-feature",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Can't decide?",
+        "text": "Take a look through everything we've gathered, from easy everyday style to thoughtful gifts and beautiful things for home.",
+        "button_label": "Shop all",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Some of our fashion favourites",
+        "heading_size": "h2",
+        "description": "<p>You do not have to sort through everything. Here are a few easy-to-love pieces to help you begin.</p>",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 9,
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "dt_editorial": {
+      "type": "multirow",
+      "blocks": {
+        "gifting": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "Gifting season is here",
+            "text": "<p>For the woman who would rather enjoy December than rush through it. Start early with thoughtful gifts and festive finds for everyone you love.</p>",
+            "button_label": "Christmas shop",
+            "button_link": "shopify://collections/all",
+            "fallback_asset": "dt-editorial-gifting.png"
+          }
+        },
+        "philosophy": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "Chosen for the life you're living",
+            "text": "<p>Dove &amp; Thistle brings together easy clothing, comfortable footwear and thoughtful pieces for home and gifting. A considered collection for women who know what they like and believe the everyday can still feel a little special.</p>",
+            "button_label": "Our philosophy",
+            "button_link": "shopify://pages/about",
+            "fallback_asset": "dt-editorial-philosophy.png"
+          }
+        }
+      },
+      "block_order": [
+        "gifting",
+        "philosophy"
+      ],
+      "settings": {
+        "image_height": "medium",
+        "desktop_image_width": "medium",
+        "image_layout": "alternate-left",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "primary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "row_color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "dt_trust": {
+      "type": "dt-trust-bar",
+      "blocks": {
+        "shipping": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-shipping.svg",
+            "title": "Free shipping",
+            "text": "On every US order"
+          }
+        },
+        "returns": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-returns.svg",
+            "title": "30-day returns",
+            "text": "Shop with confidence"
+          }
+        },
+        "secure": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-secure.svg",
+            "title": "Secure checkout",
+            "text": "Your payment is protected"
+          }
+        },
+        "support": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-help.svg",
+            "title": "Helpful support",
+            "text": "Here when you need us"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "secure",
+        "support"
+      ],
+      "settings": {
+        "accessibility_label": "Shopping with confidence"
+      }
+    },
+    "dt_faq": {
+      "type": "dt-faq",
+      "blocks": {
+        "shipping": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Orders are processed within 1–2 business days. Delivery estimates are shown at checkout and included in your confirmation email. Once your order ships, we'll send a tracking link so you can follow it every step of the way.</p>",
+            "open_by_default": true
+          }
+        },
+        "free_shipping": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Free shipping is available on every US order.</p>"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>Eligible items can be returned within 30 days of delivery.</p>"
+          }
+        },
+        "tracking": {
+          "type": "question",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>We'll email your tracking link as soon as your order ships.</p>"
+          }
+        },
+        "size": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the right size?",
+            "answer": "<p>Use the size guide on each product page, or contact our support team for help.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "free_shipping",
+        "returns",
+        "tracking",
+        "size"
+      ],
+      "settings": {
+        "eyebrow": "Customer care",
+        "heading": "A few things you may be wondering",
+        "intro": "Everything you need to shop with confidence.",
+        "support_text": "Still have a question?",
+        "support_label": "Contact us",
+        "support_link": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "dt_hero",
+    "dt_collections",
+    "dt_feature",
+    "featured_collection",
+    "dt_editorial",
+    "dt_trust",
+    "dt_faq"
+  ]
+}

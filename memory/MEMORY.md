@@ -1,0 +1,7 @@
+- [User identity](user-identity.md) — Ben values communication, no false confidence, and precision
+- [Dawn drawer-close positioning](dawn-drawer-close-positioning.md) — `.mobile-facets__close` is inside the toolbar summary; use `position: fixed` to place it in the drawer
+- [Dawn CSS load order](dawn-css-load-order.md) — Dawn component CSS loads AFTER `dt-dove-thistle.css`; use `body`-prefixed rules in `dt-global.css` to win specificity
+- [Dawn mobile-facets nested details](dawn-mobile-facets-nested-details.md) — MenuDrawer intercepts every summary click + `.mobile-facets__submenu` slides off-screen; stop propagation + override position when building a custom nested section
+- [Dawn facets toolbar](dawn-facets-toolbar.md) — the always-rendered empty pills form + `flex-wrap: wrap` inflate the drawer toolbar height; `flex-wrap: nowrap` + hide the pills form. Also: `.mobile-facets__open-label` has its own `font:` that beats the parent's.
+- [Dawn multirow diagonal touch](dawn-multirow-diagonal-touch.md) — zero `row-gap: 36px` on `.multirow__inner` AND the invisible 1px `.media` border to make two editorial images meet at a corner pixel.
+- [Dawn .dt-section h3 specificity](dawn-section-h3-specificity.md) — `.dt-section h3` beats single-class heading overrides inside `.dt-section`s; chain two classes or `body`-prefix. Also: Manrope only loaded at 400–700.

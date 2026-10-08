@@ -1,0 +1,123 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "category": { "type": "product_category", "settings": {} },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": {} },
+        "shipping_note": { "type": "shipping_note", "settings": { "text": "Free US shipping · Delivery estimate at checkout" } },
+        "variant_picker": { "type": "variant_picker", "settings": { "picker_type": "button", "swatch_shape": "circle", "size_guide_page": "" } },
+        "quantity_selector": { "type": "quantity_selector", "settings": {} },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": false, "show_gift_card_recipient": true } },
+        "trust_badges": { "type": "trust_badges", "settings": {} },
+        "description": { "type": "description", "settings": {} },
+        "product_details": { "type": "product_details", "settings": {} },
+        "share": { "type": "share", "settings": { "share_label": "Share" } }
+      },
+      "block_order": ["category", "title", "price", "shipping_note", "variant_picker", "quantity_selector", "buy_buttons", "trust_badges", "description", "product_details", "share"],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "disclosures": { "type": "disclosures", "settings": { "padding_top": 36, "padding_bottom": 0 } },
+    "story": {
+      "type": "dt-product-story",
+      "settings": {
+        "eyebrow": "The story behind the piece",
+        "heading": "Made for the way you live",
+        "body": "<p>Thoughtful details and considered materials make this an easy favorite for everyday life.</p>"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "faq": {
+      "type": "dt-faq",
+      "settings": {
+        "eyebrow": "Customer care",
+        "heading": "A few things you may be wondering",
+        "intro": "Everything you need to choose with confidence.",
+        "support_text": "Still have a question?",
+        "support_label": "Contact us",
+        "support_link": "/pages/contact"
+      },
+      "blocks": {
+        "faq_shipping": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Orders are processed within 1–2 business days. Delivery estimates are shown at checkout and included in your confirmation email.</p>",
+            "open_by_default": true
+          }
+        },
+        "faq_returns": {
+          "type": "question",
+          "settings": {
+            "question": "What is your returns policy?",
+            "answer": "<p>We accept returns within 30 days. Please see our returns policy for the full details and exclusions.</p>"
+          }
+        },
+        "faq_sizing": {
+          "type": "question",
+          "settings": {
+            "question": "How should I choose my size?",
+            "answer": "<p>Use the size guide beside the options above. If you are between sizes, the product details include fit notes where available.</p>"
+          }
+        },
+        "faq_materials": {
+          "type": "question",
+          "settings": {
+            "question": "How do I care for this piece?",
+            "answer": "<p>Care instructions are listed in the Materials & care detail above whenever they are available for this product.</p>"
+          }
+        },
+        "faq_support": {
+          "type": "question",
+          "settings": {
+            "question": "Can I ask for help before ordering?",
+            "answer": "<p>Yes. Contact us and we will be happy to help with fit, materials, delivery, or anything else you are considering.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_shipping", "faq_returns", "faq_sizing", "faq_materials", "faq_support"]
+    }
+  },
+  "order": ["main", "disclosures", "story", "related-products", "faq"]
+}

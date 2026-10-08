@@ -1,0 +1,130 @@
+<section class="dt-section dt-faq" id="faq">
+  <div class="page-width dt-faq__layout">
+    <div class="dt-faq__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="dt-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p>{{ section.settings.intro | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="dt-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="dt-faq__item" {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>
+            <span>{{ block.settings.question | escape }}</span>
+            <span class="dt-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="dt-faq__answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.support_text != blank and section.settings.support_link != blank -%}
+      <p class="dt-faq__support">
+        {{ section.settings.support_text | escape }}
+        <a href="{{ section.settings.support_link }}">{{ section.settings.support_label | escape }}</a>
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.dt_faq.name",
+  "tag": "section",
+  "class": "shopify-section--dt-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.dt_faq.settings.eyebrow.label",
+      "default": "Customer care"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.dt_faq.settings.heading.label",
+      "default": "A few things you may be wondering"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "t:sections.dt_faq.settings.intro.label",
+      "default": "Everything you need to shop with confidence."
+    },
+    {
+      "type": "text",
+      "id": "support_text",
+      "label": "t:sections.dt_faq.settings.support_text.label",
+      "default": "Still have a question?"
+    },
+    {
+      "type": "text",
+      "id": "support_label",
+      "label": "t:sections.dt_faq.settings.support_label.label",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "support_link",
+      "label": "t:sections.dt_faq.settings.support_link.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "t:sections.dt_faq.blocks.question.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:sections.dt_faq.blocks.question.settings.question.label",
+          "default": "When will my order arrive?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "t:sections.dt_faq.blocks.question.settings.answer.label",
+          "default": "<p>Orders are processed within 1–2 business days. Delivery estimates are shown at checkout and included in your confirmation email.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "t:sections.dt_faq.blocks.question.settings.open_by_default.label",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.dt_faq.presets.name",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "open_by_default": true
+          }
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

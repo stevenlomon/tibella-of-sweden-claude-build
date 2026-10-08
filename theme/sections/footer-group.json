@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand": {
+          "type": "brand_information",
+          "settings": {
+            "brand_image": "",
+            "brand_heading": "Dove & Thistle",
+            "brand_description": "<p>Thoughtful style, useful comforts and meaningful gifts, chosen to make the everyday feel a little more considered.</p>",
+            "social_label": "Instagram",
+            "show_social": true,
+            "instagram_link": "https://instagram.com/doveandthistle"
+          }
+        },
+        "shop": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "care": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Care",
+            "menu": "footer"
+          }
+        },
+        "policies": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Policies",
+            "menu": "footer"
+          }
+        },
+        "business": {
+          "type": "text",
+          "settings": {
+            "heading": "Business information",
+            "subtext": "<p>Dove &amp; Thistle is operated by [LEGAL ENTITY NAME].<br>Registration no. [COMPANY NUMBER]<br>support@doveandthistle.com<br>[BUSINESS PHONE]<br>[PHYSICAL BUSINESS ADDRESS]<br>Customer care: [HOURS + TIME ZONE]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "shop",
+        "care",
+        "policies",
+        "business"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": false,
+        "newsletter_heading": "",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "payment_heading": "Accepted payment methods",
+        "payment_methods_text": "Visa · Mastercard · American Express · PayPal · Shop Pay · Apple Pay · Google Pay",
+        "secure_checkout_heading": "Secure checkout",
+        "secure_checkout_text": "Payments are encrypted and processed by trusted providers.",
+        "show_policy": false,
+        "copyright_text": "All rights reserved.",
+        "margin_top": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

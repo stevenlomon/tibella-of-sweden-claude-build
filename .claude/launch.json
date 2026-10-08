@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "shopify-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "export PATH=\"/home/stevenlomon/.nvm/versions/node/v24.14.0/bin:$PATH\" && cd theme && shopify theme dev --store kei3va-ym.myshopify.com"],
+      "port": 9292
+    }
+  ]
+}

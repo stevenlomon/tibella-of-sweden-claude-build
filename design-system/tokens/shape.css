@@ -1,0 +1,15 @@
+/* Shape, lines, motion. Source rule: "Square or lightly rounded · no pills" and
+   "1px Dove Grey rules · use structure, not shadows". */
+:root{
+--radius-none:0px;
+--radius-sm:2px;
+--border-hairline:1px solid var(--color-border-subtle); /* @kind other */
+--shadow-none:none;
+--shadow-drawer:-12px 0 32px rgba(41,38,36,0.12);
+--ease-standard:cubic-bezier(.2,.6,.2,1); /* @kind other */
+--duration-fast:150ms; /* @kind other */
+--duration-base:240ms; /* @kind other */
+--container-desktop:calc(var(--layout-container-desktop) * 1px); /* @kind other */
+--gutter-desktop:calc(var(--layout-gutter-desktop) * 1px); /* @kind other */
+--gutter-mobile:calc(var(--layout-gutter-mobile) * 1px); /* @kind other */
+}

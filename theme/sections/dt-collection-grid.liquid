@@ -1,0 +1,155 @@
+{%- assign heading_id = 'collections-heading-' | append: section.id -%}
+
+<section
+  class="dt-section dt-collections"
+  id="{{ section.id }}"
+  {%- if section.settings.heading != blank %} aria-labelledby="{{ heading_id }}"{%- endif -%}
+>
+  <div class="page-width dt-collections__container">
+    <div class="dt-collections__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="dt-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+
+    <ul class="dt-collection-grid" role="list">
+      {%- for block in section.blocks -%}
+        {% render 'dt-collection-card',
+          collection: block.settings.collection,
+          image: block.settings.image,
+          title: block.settings.title,
+          description: block.settings.description,
+          fallback_asset: block.settings.fallback_asset,
+          shopify_attributes: block.shopify_attributes
+        %}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.dt_collection_grid.name",
+  "tag": "section",
+  "class": "shopify-section--dt-collection-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.dt_collection_grid.settings.eyebrow.label",
+      "default": "Shop by collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.dt_collection_grid.settings.heading.label",
+      "default": "What are you looking for today?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "t:sections.dt_collection_grid.blocks.collection.name",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:sections.dt_collection_grid.blocks.collection.settings.collection.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.dt_collection_grid.blocks.collection.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.dt_collection_grid.blocks.collection.settings.title.label"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "t:sections.dt_collection_grid.blocks.collection.settings.description.label"
+        },
+        {
+          "type": "select",
+          "id": "fallback_asset",
+          "label": "t:sections.dt_collection_grid.blocks.collection.settings.fallback_asset.label",
+          "options": [
+            {
+              "value": "dt-collection-clothing-shoes.png",
+              "label": "Clothing & Shoes"
+            },
+            {
+              "value": "dt-collection-bags-jewelry.png",
+              "label": "Bags & Jewelry"
+            },
+            {
+              "value": "dt-collection-home-living.png",
+              "label": "Home & Living"
+            },
+            {
+              "value": "dt-collection-gifts-hobbies.png",
+              "label": "Gifts & Hobbies"
+            },
+            {
+              "value": "dt-collection-christmas.png",
+              "label": "Christmas Shop"
+            },
+            {
+              "value": "dt-collection-clothing.png",
+              "label": "Clothing (legacy)"
+            },
+            {
+              "value": "dt-collection-shoes.png",
+              "label": "Shoes (legacy)"
+            },
+            {
+              "value": "dt-collection-home.png",
+              "label": "Home & Living (legacy)"
+            },
+            {
+              "value": "dt-collection-gifts.png",
+              "label": "Gifts (legacy)"
+            },
+            {
+              "value": "dt-collection-seasonal.png",
+              "label": "Seasonal (legacy)"
+            },
+            {
+              "value": "dt-collection-accessories.png",
+              "label": "Accessories (legacy)"
+            }
+          ],
+          "default": "dt-collection-clothing-shoes.png"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.dt_collection_grid.presets.name",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

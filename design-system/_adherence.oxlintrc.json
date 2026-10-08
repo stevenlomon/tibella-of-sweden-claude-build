@@ -1,0 +1,558 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/actions/**",
+              "components/cart/**",
+              "components/collection/**",
+              "components/faq/**",
+              "components/navigation/**",
+              "components/product/**",
+              "components/trust/**",
+              "ui_kits/storefront/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Cormorant Garamond|Manrope))/i]",
+        "message": "Font not provided by the design system. Available: Cormorant Garamond, Manrope."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AccordionFAQ'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|state|text1|text2|text3|key|ref|className|style|children)$/]",
+        "message": "<AccordionFAQ> doesn't accept that prop. Declared props: className, style, breakpoint, state, text1, text2, text3."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AccordionFAQ'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<AccordionFAQ> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AccordionFAQ'] > JSXAttribute[name.name='state'] > Literal[value!=/^(?:closed|open)$/]",
+        "message": "<AccordionFAQ> state must be one of 'closed' | 'open'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AccordionProductDetails'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|label|text1|key|ref|className|style|children)$/]",
+        "message": "<AccordionProductDetails> doesn't accept that prop. Declared props: className, style, label, text1."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AnnouncementBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|text1|key|ref|className|style|children)$/]",
+        "message": "<AnnouncementBar> doesn't accept that prop. Declared props: className, style, breakpoint, text1."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AnnouncementBar'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<AnnouncementBar> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|label|onClick|disabled|style2|size|text1|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: className, style, label, onClick, disabled, style2, size, text1."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='style2'] > Literal[value!=/^(?:primary|secondary)$/]",
+        "message": "<Button> style2 must be one of 'primary' | 'secondary'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:lg|standard)$/]",
+        "message": "<Button> size must be one of 'lg' | 'standard'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CarouselControls'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|size|key|ref|className|style|children)$/]",
+        "message": "<CarouselControls> doesn't accept that prop. Declared props: className, style, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CarouselControls'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<CarouselControls> size must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CartDrawer'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|image|breakpoint|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<CartDrawer> doesn't accept that prop. Declared props: className, style, image, breakpoint, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CartDrawer'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<CartDrawer> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CartQuantitySelector'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|key|ref|className|style|children)$/]",
+        "message": "<CartQuantitySelector> doesn't accept that prop. Declared props: className, style, text1, text2, text3."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CollectionFilterSortDrawer'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|text1|text2|key|ref|className|style|children)$/]",
+        "message": "<CollectionFilterSortDrawer> doesn't accept that prop. Declared props: className, style, breakpoint, text1, text2."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CollectionFilterSortDrawer'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<CollectionFilterSortDrawer> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CollectionToolbar'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|text1|text2|key|ref|className|style|children)$/]",
+        "message": "<CollectionToolbar> doesn't accept that prop. Declared props: className, style, breakpoint, text1, text2."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CollectionToolbar'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<CollectionToolbar> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FAQSection'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<FAQSection> doesn't accept that prop. Declared props: className, style, breakpoint, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FAQSection'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<FAQSection> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Footer'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<Footer> doesn't accept that prop. Declared props: className, style, breakpoint, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Footer'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<Footer> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Header'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|mode|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<Header> doesn't accept that prop. Declared props: className, style, mode, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Header'] > JSXAttribute[name.name='mode'] > Literal[value!=/^(?:desktop|mobile|mobile drawer)$/]",
+        "message": "<Header> mode must be one of 'desktop' | 'mobile' | 'mobile drawer'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconTrust30DayReturns'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|key|ref|className|style|children)$/]",
+        "message": "<IconTrust30DayReturns> doesn't accept that prop. Declared props: className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconTrustFreeShipping'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|key|ref|className|style|children)$/]",
+        "message": "<IconTrustFreeShipping> doesn't accept that prop. Declared props: className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconTrustHelpfulSupport'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|key|ref|className|style|children)$/]",
+        "message": "<IconTrustHelpfulSupport> doesn't accept that prop. Declared props: className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconTrustSecureCheckout'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|key|ref|className|style|children)$/]",
+        "message": "<IconTrustSecureCheckout> doesn't accept that prop. Declared props: className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationMenu'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|breakpoint|state|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<NavigationMenu> doesn't accept that prop. Declared props: className, style, breakpoint, state, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationMenu'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<NavigationMenu> breakpoint must be one of 'desktop' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationMenu'] > JSXAttribute[name.name='state'] > Literal[value!=/^(?:clothing open)$/]",
+        "message": "<NavigationMenu> state must be one of 'clothing open'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationSharedCategoryClothing'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<NavigationSharedCategoryClothing> doesn't accept that prop. Declared props: className, style, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationSharedCategoryGifts'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<NavigationSharedCategoryGifts> doesn't accept that prop. Declared props: className, style, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationSharedCategoryHomeLiving'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<NavigationSharedCategoryHomeLiving> doesn't accept that prop. Declared props: className, style, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationSharedCategorySeasonal'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|key|ref|className|style|children)$/]",
+        "message": "<NavigationSharedCategorySeasonal> doesn't accept that prop. Declared props: className, style, text1, text2, text3."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavigationSharedCategoryShoes'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<NavigationSharedCategoryShoes> doesn't accept that prop. Declared props: className, style, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|image|title|usage|price|breakpoint|category|text1|text2|text3|key|ref|className|style|children)$/]",
+        "message": "<ProductCard> doesn't accept that prop. Declared props: className, style, image, title, usage, price, breakpoint, category, text1, text2, text3."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute[name.name='usage'] > Literal[value!=/^(?:editorial|grid)$/]",
+        "message": "<ProductCard> usage must be one of 'editorial' | 'grid'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop)$/]",
+        "message": "<ProductCard> breakpoint must be one of 'desktop'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCardCollectionFilterSort'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|title|price|category|text1|text2|text3|text4|key|ref|className|style|children)$/]",
+        "message": "<ProductCardCollectionFilterSort> doesn't accept that prop. Declared props: className, style, title, price, category, text1, text2, text3, text4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCardGridMobile'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|image|title|price|category|key|ref|className|style|children)$/]",
+        "message": "<ProductCardGridMobile> doesn't accept that prop. Declared props: className, style, image, title, price, category."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCardSliderMobile'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|image|title|price|category|text1|text2|text3|key|ref|className|style|children)$/]",
+        "message": "<ProductCardSliderMobile> doesn't accept that prop. Declared props: className, style, image, title, price, category, text1, text2, text3."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductSwatches'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|size|key|ref|className|style|children)$/]",
+        "message": "<ProductSwatches> doesn't accept that prop. Declared props: className, style, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductSwatches'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:desktop|mobile|pdp)$/]",
+        "message": "<ProductSwatches> size must be one of 'desktop' | 'mobile' | 'pdp'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrustItemPurchase'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|type|text1|text2|icon1|key|ref|className|style|children)$/]",
+        "message": "<TrustItemPurchase> doesn't accept that prop. Declared props: className, style, type, text1, text2, icon1."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrustItemPurchase'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:free shipping|30-day returns|secure checkout|helpful support)$/]",
+        "message": "<TrustItemPurchase> type must be one of 'free shipping' | '30-day returns' | 'secure checkout' | 'helpful support'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrustStrip'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|style|context|breakpoint|text1|text2|text3|text4|icon1|icon2|icon3|icon4|key|ref|className|style|children)$/]",
+        "message": "<TrustStrip> doesn't accept that prop. Declared props: className, style, context, breakpoint, text1, text2, text3, text4, icon1, icon2, icon3, icon4."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrustStrip'] > JSXAttribute[name.name='context'] > Literal[value!=/^(?:page|purchase|checkout)$/]",
+        "message": "<TrustStrip> context must be one of 'page' | 'purchase' | 'checkout'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrustStrip'] > JSXAttribute[name.name='breakpoint'] > Literal[value!=/^(?:desktop|mobile)$/]",
+        "message": "<TrustStrip> breakpoint must be one of 'desktop' | 'mobile'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "AccordionFAQ": {
+        "replaces": []
+      },
+      "AccordionProductDetails": {
+        "replaces": []
+      },
+      "AnnouncementBar": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "CarouselControls": {
+        "replaces": []
+      },
+      "CartDrawer": {
+        "replaces": []
+      },
+      "CartQuantitySelector": {
+        "replaces": []
+      },
+      "CollectionFilterSortDrawer": {
+        "replaces": []
+      },
+      "CollectionToolbar": {
+        "replaces": []
+      },
+      "FAQSection": {
+        "replaces": []
+      },
+      "Footer": {
+        "replaces": []
+      },
+      "Header": {
+        "replaces": []
+      },
+      "IconTrust30DayReturns": {
+        "replaces": []
+      },
+      "IconTrustFreeShipping": {
+        "replaces": []
+      },
+      "IconTrustHelpfulSupport": {
+        "replaces": []
+      },
+      "IconTrustSecureCheckout": {
+        "replaces": []
+      },
+      "NavigationMenu": {
+        "replaces": []
+      },
+      "NavigationSharedCategoryClothing": {
+        "replaces": []
+      },
+      "NavigationSharedCategoryGifts": {
+        "replaces": []
+      },
+      "NavigationSharedCategoryHomeLiving": {
+        "replaces": []
+      },
+      "NavigationSharedCategorySeasonal": {
+        "replaces": []
+      },
+      "NavigationSharedCategoryShoes": {
+        "replaces": []
+      },
+      "ProductCard": {
+        "replaces": []
+      },
+      "ProductCardCollectionFilterSort": {
+        "replaces": []
+      },
+      "ProductCardGridMobile": {
+        "replaces": []
+      },
+      "ProductCardSliderMobile": {
+        "replaces": []
+      },
+      "ProductSwatches": {
+        "replaces": []
+      },
+      "TrustItemPurchase": {
+        "replaces": []
+      },
+      "TrustStrip": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--action-on-primary",
+      "--action-primary",
+      "--action-primary-hover",
+      "--border-hairline",
+      "--border-subtle",
+      "--color-accent-gold",
+      "--color-action-primary",
+      "--color-action-primary-hover",
+      "--color-bg-parchment",
+      "--color-bg-surface",
+      "--color-border-subtle",
+      "--color-footer-accent",
+      "--color-footer-background",
+      "--color-footer-divider",
+      "--color-footer-text",
+      "--color-footer-text-muted",
+      "--color-icon-trust",
+      "--color-text-brand",
+      "--color-text-muted",
+      "--color-text-primary",
+      "--container-desktop",
+      "--dt-antique-gold",
+      "--dt-burgundy-deep",
+      "--dt-deep-forest",
+      "--dt-dove-grey",
+      "--dt-ink",
+      "--dt-muted-burgundy",
+      "--dt-stone",
+      "--dt-warm-charcoal",
+      "--dt-warm-parchment",
+      "--dt-white",
+      "--dt-wine-black",
+      "--duration-base",
+      "--duration-fast",
+      "--ease-standard",
+      "--font-sans",
+      "--font-serif",
+      "--gutter-desktop",
+      "--gutter-mobile",
+      "--image-scrim-bottom",
+      "--image-scrim-left",
+      "--layout-canvas-desktop",
+      "--layout-canvas-mobile",
+      "--layout-container-desktop",
+      "--layout-container-mobile",
+      "--layout-grid-desktop-columns",
+      "--layout-grid-mobile-columns",
+      "--layout-gutter-desktop",
+      "--layout-gutter-mobile",
+      "--radius-none",
+      "--radius-sm",
+      "--shadow-drawer",
+      "--shadow-none",
+      "--spacing-12",
+      "--spacing-120",
+      "--spacing-16",
+      "--spacing-20",
+      "--spacing-24",
+      "--spacing-32",
+      "--spacing-4",
+      "--spacing-40",
+      "--spacing-48",
+      "--spacing-56",
+      "--spacing-64",
+      "--spacing-8",
+      "--spacing-80",
+      "--spacing-96",
+      "--surface-card",
+      "--surface-inverse",
+      "--surface-page",
+      "--surface-warm",
+      "--text-body",
+      "--text-brand",
+      "--text-eyebrow",
+      "--text-inverse",
+      "--text-link",
+      "--text-muted",
+      "--tracking-button",
+      "--tracking-label",
+      "--type-accordion-question",
+      "--type-announcement",
+      "--type-body-l",
+      "--type-body-m",
+      "--type-body-s",
+      "--type-card-price",
+      "--type-card-title",
+      "--type-display-xl",
+      "--type-heading-l",
+      "--type-heading-m",
+      "--type-heading-s",
+      "--type-heading-xl",
+      "--type-heading-xs",
+      "--type-label-xs",
+      "--type-meta-xs",
+      "--type-nav",
+      "--type-price-product",
+      "--type-trust-detail",
+      "--type-trust-label",
+      "--type-ui-l",
+      "--type-ui-m",
+      "--type-ui-s",
+      "--type-wordmark"
+    ],
+    "tokenKinds": {
+      "--color-accent-gold": "color",
+      "--color-action-primary-hover": "color",
+      "--color-action-primary": "color",
+      "--color-bg-parchment": "color",
+      "--color-bg-surface": "color",
+      "--color-border-subtle": "color",
+      "--color-footer-accent": "color",
+      "--color-footer-background": "color",
+      "--color-footer-divider": "color",
+      "--color-footer-text-muted": "color",
+      "--color-footer-text": "color",
+      "--color-icon-trust": "color",
+      "--color-text-brand": "color",
+      "--color-text-muted": "color",
+      "--color-text-primary": "color",
+      "--layout-canvas-desktop": "other",
+      "--layout-canvas-mobile": "other",
+      "--layout-container-desktop": "other",
+      "--layout-container-mobile": "other",
+      "--layout-grid-desktop-columns": "other",
+      "--layout-grid-mobile-columns": "other",
+      "--layout-gutter-desktop": "other",
+      "--layout-gutter-mobile": "other",
+      "--spacing-120": "spacing",
+      "--spacing-12": "spacing",
+      "--spacing-16": "spacing",
+      "--spacing-20": "spacing",
+      "--spacing-24": "spacing",
+      "--spacing-32": "spacing",
+      "--spacing-40": "spacing",
+      "--spacing-48": "spacing",
+      "--spacing-4": "spacing",
+      "--spacing-56": "spacing",
+      "--spacing-64": "spacing",
+      "--spacing-80": "spacing",
+      "--spacing-8": "spacing",
+      "--spacing-96": "spacing",
+      "--dt-deep-forest": "color",
+      "--dt-warm-parchment": "color",
+      "--dt-warm-charcoal": "color",
+      "--dt-muted-burgundy": "color",
+      "--dt-burgundy-deep": "color",
+      "--dt-antique-gold": "color",
+      "--dt-dove-grey": "color",
+      "--dt-stone": "color",
+      "--dt-ink": "color",
+      "--dt-white": "color",
+      "--dt-wine-black": "color",
+      "--text-brand": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-inverse": "font",
+      "--text-eyebrow": "font",
+      "--text-link": "font",
+      "--surface-page": "color",
+      "--surface-warm": "color",
+      "--surface-card": "color",
+      "--surface-inverse": "color",
+      "--action-primary": "color",
+      "--action-primary-hover": "color",
+      "--action-on-primary": "color",
+      "--border-subtle": "color",
+      "--image-scrim-bottom": "other",
+      "--image-scrim-left": "other",
+      "--font-serif": "font",
+      "--font-sans": "font",
+      "--type-display-xl": "font",
+      "--type-heading-xl": "font",
+      "--type-heading-l": "font",
+      "--type-heading-m": "font",
+      "--type-heading-s": "font",
+      "--type-heading-xs": "font",
+      "--type-body-l": "font",
+      "--type-body-m": "font",
+      "--type-body-s": "font",
+      "--type-ui-l": "font",
+      "--type-ui-m": "font",
+      "--type-ui-s": "font",
+      "--type-label-xs": "font",
+      "--type-meta-xs": "font",
+      "--type-price-product": "font",
+      "--type-card-title": "font",
+      "--type-card-price": "font",
+      "--type-accordion-question": "font",
+      "--type-trust-label": "font",
+      "--type-trust-detail": "font",
+      "--type-announcement": "font",
+      "--type-nav": "font",
+      "--type-wordmark": "font",
+      "--tracking-label": "font",
+      "--tracking-button": "font",
+      "--radius-none": "radius",
+      "--radius-sm": "radius",
+      "--border-hairline": "other",
+      "--shadow-none": "shadow",
+      "--shadow-drawer": "shadow",
+      "--ease-standard": "other",
+      "--duration-fast": "other",
+      "--duration-base": "other",
+      "--container-desktop": "other",
+      "--gutter-desktop": "other",
+      "--gutter-mobile": "other"
+    },
+    "fontFamilies": [
+      "Cormorant Garamond",
+      "Manrope"
+    ]
+  }
+}

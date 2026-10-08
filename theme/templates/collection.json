@@ -1,0 +1,151 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "parent_collection": "shoes",
+        "subcollection_menu": "shoes-meny",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "subcollection_menu": "shoes-meny",
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "dt_trust": {
+      "type": "dt-trust-bar",
+      "blocks": {
+        "shipping": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-shipping.svg",
+            "title": "Free shipping",
+            "text": "On every US order"
+          }
+        },
+        "returns": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-returns.svg",
+            "title": "30-day returns",
+            "text": "Shop with confidence"
+          }
+        },
+        "secure": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-secure.svg",
+            "title": "Secure checkout",
+            "text": "Your payment is protected"
+          }
+        },
+        "support": {
+          "type": "benefit",
+          "settings": {
+            "icon_asset": "dt-trust-help.svg",
+            "title": "Helpful support",
+            "text": "Here when you need us"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "secure",
+        "support"
+      ],
+      "settings": {
+        "accessibility_label": "Shopping with confidence"
+      }
+    },
+    "dt_faq": {
+      "type": "dt-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Orders are processed within 1–2 business days. Delivery estimates are shown at checkout and included in your confirmation email. Once your order ships, we’ll send a tracking link so you can follow it every step of the way.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Free shipping is available on every US order.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>Eligible items can be returned within 30 days of delivery.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>We’ll email your tracking link as soon as your order ships.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the right size?",
+            "answer": "<p>Use the size guide on each product page, or contact our support team for a recommendation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "Customer care",
+        "heading": "A few things you may be wondering",
+        "intro": "Everything you need to shop with confidence.",
+        "support_text": "Still have a question?",
+        "support_label": "Contact us",
+        "support_link": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "dt_trust",
+    "dt_faq"
+  ]
+}

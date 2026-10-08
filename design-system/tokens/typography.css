@@ -1,0 +1,56 @@
+/* Type system — "Dove & Thistle / Typography System / FINAL" frame.
+   Cormorant Garamond SemiBold: editorial headings. Manrope: body + commerce UI. Wordmark: Cormorant Regular. */
+:root{
+--font-serif:"Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
+--font-sans:Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+--type-display-xl:600 48px/52px var(--font-serif);
+--type-heading-xl:600 40px/44px var(--font-serif);
+--type-heading-l:600 36px/44px var(--font-serif);
+--type-heading-m:600 32px/38px var(--font-serif);
+--type-heading-s:600 28px/36px var(--font-serif);
+--type-heading-xs:600 24px/30px var(--font-serif);
+--type-body-l:400 16px/26px var(--font-sans);
+--type-body-m:400 15px/24px var(--font-sans);
+--type-body-s:400 14px/22px var(--font-sans);
+--type-ui-l:600 16px/20px var(--font-sans);
+--type-ui-m:600 13px/18px var(--font-sans);
+--type-ui-s:600 12px/16px var(--font-sans);
+--type-label-xs:700 12px/16px var(--font-sans);
+--type-meta-xs:500 11px/16px var(--font-sans);
+--type-price-product:600 17px/24px var(--font-sans);
+--type-card-title:400 15px/22px var(--font-sans);
+--type-card-price:600 14px/20px var(--font-sans);
+--type-accordion-question:600 16px/24px var(--font-sans);
+--type-trust-label:600 13px/18px var(--font-sans);
+--type-trust-detail:400 12px/18px var(--font-sans);
+--type-announcement:700 12px/16px var(--font-sans);
+--type-nav:500 13px/18px var(--font-sans);
+--type-wordmark:400 44px/52px var(--font-serif);
+--tracking-label:0.1em;
+--tracking-button:0.4px;
+}
+@media (max-width:767px){:root{
+--type-display-xl:600 32px/36px var(--font-serif);
+--type-heading-xl:600 32px/36px var(--font-serif);
+--type-heading-l:600 28px/33px var(--font-serif);
+--type-heading-m:600 24px/29px var(--font-serif);
+--type-heading-s:600 20px/24px var(--font-serif);
+--type-heading-xs:600 17px/21px var(--font-serif);
+--type-body-l:400 15px/24px var(--font-sans);
+--type-body-m:400 14px/22px var(--font-sans);
+--type-body-s:400 12px/19px var(--font-sans);
+--type-ui-s:600 11px/16px var(--font-sans);
+--type-meta-xs:500 9px/12px var(--font-sans);
+--type-label-xs:700 10px/14px var(--font-sans);
+--type-price-product:600 17px/23px var(--font-sans);
+--type-card-title:400 14px/20px var(--font-sans);
+--type-card-price:600 13px/18px var(--font-sans);
+--type-trust-label:700 10px/14px var(--font-sans);
+--type-trust-detail:400 10px/16px var(--font-sans);
+--type-wordmark:600 25px/30px var(--font-serif);
+}}
+.dt-display-xl{font:var(--type-display-xl)}.dt-heading-xl{font:var(--type-heading-xl)}.dt-heading-l{font:var(--type-heading-l)}.dt-heading-m{font:var(--type-heading-m)}.dt-heading-s{font:var(--type-heading-s)}.dt-heading-xs{font:var(--type-heading-xs)}
+.dt-body-l{font:var(--type-body-l)}.dt-body-m{font:var(--type-body-m)}.dt-body-s{font:var(--type-body-s)}
+.dt-ui-l{font:var(--type-ui-l)}.dt-ui-m{font:var(--type-ui-m)}.dt-ui-s{font:var(--type-ui-s)}
+.dt-label{font:var(--type-label-xs);letter-spacing:var(--tracking-label);text-transform:uppercase}
+.dt-meta{font:var(--type-meta-xs)}
