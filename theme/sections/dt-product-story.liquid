@@ -1,6 +1,6 @@
 {%- assign story_eyebrow = product.metafields.custom.story_eyebrow.value | default: section.settings.eyebrow -%}
 {%- assign story_heading = product.metafields.custom.story_heading.value | default: section.settings.heading -%}
-{%- assign story_image = product.metafields.custom.story_image.value | default: section.settings.image -%}
+{%- assign story_image = product.metafields.custom.story_image.value | default: section.settings.image | default: product.featured_image -%}
 {%- assign story_body_metafield = product.metafields.custom.story_body.value -%}
 
 {%- if story_heading != blank or story_body_metafield != blank or section.settings.body != blank -%}
