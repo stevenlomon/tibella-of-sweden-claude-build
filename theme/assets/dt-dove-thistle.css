@@ -204,6 +204,7 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.3;
+  text-transform: uppercase;
 }
 
 .dt-collection-hero {
@@ -1179,7 +1180,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
   }
 
   .dt-product-story__content {
-    padding: 64px clamp(32px, 5vw, 80px) 64px max(24px, calc((100vw - var(--page-width)) / 2));
+    padding: 64px clamp(32px, 5vw, 80px) 64px clamp(24px, 2.5vw, 40px);
   }
 
   .dt-product-story__media {

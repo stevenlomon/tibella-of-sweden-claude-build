@@ -1206,7 +1206,7 @@ body .facets-container.facets-container-drawer .facet-filters__label {
 
 @media screen and (max-width: 749px) {
   body .facets-container.facets-container-drawer {
-    padding: 14px 24px;
+    padding: 18px 24px;
   }
 
   body .facets-container.facets-container-drawer menu-drawer {
