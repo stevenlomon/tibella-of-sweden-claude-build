@@ -176,7 +176,13 @@ this.gallery.setActiveMedia = function(mediaId) {
 };
 ```
 
-### 5. `animationend` events may not fire in Dawn's context
+### 5. Don't crossfade gallery items with `position: absolute`
+
+Crossfading old and new images by making the old item `position: absolute` during exit causes a visible flash — the image briefly renders at its natural/collapsed size before the absolute constraints apply. Dawn's responsive image sizing (padding-top aspect-ratio hacks, percentage widths) breaks when the element leaves normal flow.
+
+**Use incoming-only animation instead.** The old item disappears instantly (`display: none` via `is-active` removal) and the new item slides in. The slide-in provides enough visual continuity without the complexity of dual animations and absolute positioning.
+
+### 6. `animationend` events may not fire in Dawn's context
 
 When using CSS animations on gallery items, `animationend` events can silently fail to fire — even though the animation visually runs and `getComputedStyle` shows the correct animation property. This may be caused by Dawn's other JS intercepting or canceling the animation lifecycle, or by the element's display/position changing mid-animation.
 

@@ -68,19 +68,15 @@ if (!customElements.get('dt-gallery-nav')) {
       var inClass = dir > 0 ? 'dt-slide-in-right' : 'dt-slide-in-left';
 
       this.animating = true;
-
       oldItem.classList.remove('is-active');
-      oldItem.classList.add('dt-slide-out');
-
       newItem.classList.add('is-active', inClass);
       this.set(next);
 
       var self = this;
       setTimeout(function() {
-        oldItem.classList.remove('dt-slide-out');
         newItem.classList.remove(inClass);
         self.animating = false;
-      }, 420);
+      }, 320);
     }
 
     disconnectedCallback() {}
