@@ -2,6 +2,7 @@
   assign heading_id = 'tabbed-heading-' | append: section.id
   assign collection = section.settings.collection
   assign products_to_show = section.settings.products_to_show | default: 5
+  assign grid_count = products_to_show | minus: 1
 -%}
 
 <section
@@ -53,7 +54,7 @@
         </div>
         <div class="dt-tabbed-collection__side">
           <ul class="dt-tabbed-collection__product-grid" role="list">
-            {%- for product in collection.products limit: products_to_show offset: 1 -%}
+            {%- for product in collection.products limit: grid_count offset: 1 -%}
               <li class="dt-tabbed-collection__item">
                 {% render 'card-product',
                   card_product: product,
