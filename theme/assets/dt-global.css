@@ -157,11 +157,13 @@ body .announcement-bar__link:hover .announcement-bar__message {
 /* ---------- 4. Header & navigation ---------- */
 
 body .header-wrapper {
-  background: var(--dt-color-white);
+  background: transparent;
+  transition: background-color 0.3s ease;
 }
 
 body .header-wrapper--border-bottom {
-  border-bottom: 1px solid var(--dt-color-grey);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
 body .header__menu-item,
@@ -169,13 +171,14 @@ body .header__menu-item span {
   font: var(--dt-type-nav);
   letter-spacing: var(--dt-tracking-label);
   text-transform: uppercase;
-  color: var(--tb-text-body);
+  color: var(--tb-sno);
+  transition: color 0.3s ease;
 }
 
 body .header__menu-item:hover span {
   text-decoration: underline;
   text-underline-offset: 3px;
-  color: var(--tb-natt);
+  color: var(--tb-sno);
 }
 
 body .header__active-menu-item {
@@ -184,7 +187,8 @@ body .header__active-menu-item {
 }
 
 body .header__icon {
-  color: var(--tb-natt);
+  color: var(--tb-sno);
+  transition: color 0.3s ease;
 }
 
 body .header__icon:hover .icon {
@@ -194,7 +198,34 @@ body .header__icon:hover .icon {
 body .header__heading-link .h2 {
   font-family: var(--dt-font-display);
   font-weight: 400;
-  color: var(--tb-natt);
+  color: var(--tb-sno);
+  transition: color 0.3s ease;
+}
+
+/* Sticky header: restore solid background with dark text */
+.shopify-section-header-sticky .header-wrapper {
+  background: var(--dt-color-white) !important;
+}
+
+.shopify-section-header-sticky .header-wrapper--border-bottom {
+  border-bottom-color: var(--dt-color-grey) !important;
+}
+
+.shopify-section-header-sticky .header__menu-item,
+.shopify-section-header-sticky .header__menu-item span {
+  color: var(--tb-text-body) !important;
+}
+
+.shopify-section-header-sticky .header__menu-item:hover span {
+  color: var(--tb-natt) !important;
+}
+
+.shopify-section-header-sticky .header__icon {
+  color: var(--tb-natt) !important;
+}
+
+.shopify-section-header-sticky .header__heading-link .h2 {
+  color: var(--tb-natt) !important;
 }
 
 /* Dropdown mega menu / submenu panels */

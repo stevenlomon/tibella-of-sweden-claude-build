@@ -162,9 +162,13 @@
   outline-offset: var(--dt-focus-offset);
 }
 
+.shopify-section--dt-hero {
+  margin-top: calc(-1 * (var(--header-height, 68px) + 44px));
+}
+
 .dt-hero {
   position: relative;
-  min-height: min(90vh, 860px);
+  min-height: 100vh;
   overflow: hidden;
   background: var(--dt-color-forest);
   color: var(--dt-color-parchment);
@@ -195,8 +199,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  min-height: min(90vh, 860px);
-  padding: 64px 48px 96px;
+  min-height: 100vh;
+  padding: 140px 48px 96px;
   margin: 0 auto;
 }
 
@@ -2132,7 +2136,7 @@ body .mobile-facets__footer .button--primary:hover {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--tb-kol);
 }
 
@@ -2258,6 +2262,7 @@ body .mobile-facets__footer .button--primary:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 35%;
 }
 
 .dt-editorial-banner__scrim {
@@ -2620,7 +2625,7 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-tabbed-collection__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr 1fr;
   grid-template-rows: 280px 280px;
   gap: 16px;
   list-style: none;
@@ -3106,9 +3111,13 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 @media screen and (max-width: 749px) {
+  .shopify-section--dt-hero {
+    margin-top: calc(-1 * (var(--header-height, 56px) + 40px));
+  }
+
   .dt-hero,
   .dt-hero__content {
-    min-height: min(80vh, 600px);
+    min-height: 100vh;
   }
 
   .dt-hero__image {
@@ -3116,7 +3125,7 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-hero__content {
-    padding: 48px 24px 56px;
+    padding: 120px 24px 56px;
   }
 
   .dt-hero h1 {
@@ -3359,6 +3368,10 @@ body .mobile-facets__footer .button--primary:hover {
 
   .dt-featured-collection .collection__title {
     margin-bottom: 32px;
+  }
+
+  .dt-tabbed-collection__container {
+    width: calc(100% - 32px);
   }
 
   .dt-tabbed-collection {
