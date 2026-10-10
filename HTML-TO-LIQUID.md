@@ -249,3 +249,25 @@ Dawn's `card-product.liquid` snippet outputs multiple layers of decorative chrom
 .card__media { border-radius: 0; }
 ```
 All four selectors are needed — Dawn applies decoration at every level.
+
+---
+
+## 12. Multi-file CSS specificity trap: dt-global.css vs dt-dove-thistle.css
+
+### The bug
+When translating a reference page's styles into `dt-dove-thistle.css`, the changes may appear to do nothing — even with a hard refresh. The most likely cause: `dt-global.css` has older rules for the same `.dt-*` classes with higher specificity (`body .class` = 0-1-1 vs `.class` = 0-1-0).
+
+### How to diagnose
+In DevTools or via `document.styleSheets`, check computed values on the target element. If the computed value doesn't match your rule, iterate all matching rules to find which file is winning:
+```javascript
+for (const sheet of document.styleSheets) {
+  for (const rule of sheet.cssRules) {
+    if (rule.selectorText && element.matches(rule.selectorText)) {
+      // log rule.selectorText, rule.style.propertyName, sheet.href
+    }
+  }
+}
+```
+
+### Prevention
+Before writing CSS for any `.dt-*` class, grep BOTH CSS files. If the class exists in `dt-global.css`, either remove it there first or match its specificity pattern.

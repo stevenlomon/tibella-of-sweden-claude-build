@@ -340,3 +340,15 @@ The trap: widening `max-width` to 800px to "give more room" lets "VAR VÄLKLÄDD
 `padding-left: max(24px, calc((100% - var(--dt-content-width)) / 2))` creates a centered-content effect — good for page-width alignment, but on wide screens (1920px+) it pushes headings far from the viewport edge: `(1920 - 1440) / 2 = 240px`.
 
 For sections where the heading should hug the left edge (category cards, tabbed collections), use `padding-left: clamp(24px, 3vw, 80px)` instead. This scales with viewport but caps at 80px, keeping headings close to the edge on any screen. Use the `max()` formula only when you want content to align with a centered page-width column.
+
+## Multi-file CSS specificity: `body` prefix in dt-global.css silently wins
+
+When the same component has rules in both `dt-global.css` (with `body .class` selectors) and `dt-dove-thistle.css` (with `.class` selectors), `dt-global.css` always wins — `body .class` (0-1-1) beats `.class` (0-1-0). Worse: `dt-global.css` uses `body :is(.color-scheme-1, ...) .class` (0-2-1) for some rules, which beats even two-class selectors in `dt-dove-thistle.css`.
+
+This caused the collection page to look unchanged after a full CSS rewrite: `dt-dove-thistle.css` had correct Sunoire-style rules (sentence-case title, rounded pills, compact toolbar), but `dt-global.css` had older Dove & Thistle rules (uppercase title, square pills, different toolbar layout) that silently overrode them.
+
+**Debugging:** `getComputedStyle()` showed the wrong values. Iterating all `document.styleSheets` and checking `el.matches(rule.selectorText)` revealed the competing rules and their source files.
+
+**Fix:** Don't maintain the same component in two CSS files. Remove the old rules from `dt-global.css` when `dt-dove-thistle.css` takes over a component. Or, if both files must coexist, use the same specificity pattern (e.g., both use `body .class` prefix).
+
+**Prevention:** Before writing new CSS for an existing `.dt-*` class, grep BOTH `dt-global.css` and `dt-dove-thistle.css` for that class name. If it appears in both, decide which file owns it and remove the other.

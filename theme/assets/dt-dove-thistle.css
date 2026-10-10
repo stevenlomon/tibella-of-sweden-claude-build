@@ -562,6 +562,10 @@
   grid-template-columns: none;
 }
 
+.dt-collection-product-grid .facets-container-drawer > facet-filters-form.facets-pill {
+  display: none !important;
+}
+
 .dt-collection-product-grid .facets-container-drawer > facet-filters-form {
   order: 1;
   flex: 0 0 auto;
@@ -584,12 +588,12 @@
 }
 
 .dt-collection-product-grid .facets-container-drawer .facet-filters__label {
-  margin: 0;
-  color: var(--tb-text-body);
-  font-family: var(--dt-font-body);
-  font-size: 13px;
-  font-weight: 400;
-  text-transform: lowercase;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .dt-collection-product-grid .facets-container-drawer .select {
