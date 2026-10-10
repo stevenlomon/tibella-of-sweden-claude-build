@@ -215,17 +215,17 @@
 
 .dt-hero h1 {
   margin: 0;
-  color: var(--dt-color-parchment);
-  font-size: clamp(48px, 6vw, 76px);
-  line-height: 0.98;
+  color: var(--tb-text-inverse);
+  font: var(--tb-type-display-hero);
+  letter-spacing: var(--tb-tracking-display);
+  text-transform: uppercase;
 }
 
 .dt-hero__text {
   max-width: 500px;
   margin: 24px 0 28px;
-  color: var(--dt-color-parchment);
-  font-size: 16px;
-  line-height: 1.7;
+  color: var(--tb-text-inverse);
+  font: var(--tb-type-hero-subtitle);
 }
 
 .dt-button {
@@ -245,22 +245,37 @@
 }
 
 .dt-button--primary {
-  background: var(--dt-color-burgundy);
-  color: var(--dt-color-parchment);
+  background: var(--tb-action-primary);
+  color: var(--tb-text-inverse);
 }
 
 .dt-button--primary:hover {
-  background: var(--dt-color-burgundy-deep);
-  color: var(--dt-color-parchment);
+  background: var(--tb-action-primary-hover);
+  color: var(--tb-text-inverse);
+}
+
+.dt-link-cta {
+  display: inline-block;
+  font: var(--tb-type-link-cta);
+  letter-spacing: var(--tb-tracking-cta);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  color: inherit;
+}
+
+.dt-link-cta:hover {
+  text-decoration-thickness: 2px;
 }
 
 .dt-eyebrow {
   margin: 0 0 14px;
-  color: var(--dt-color-gold);
+  color: var(--tb-text-eyebrow);
   font-family: var(--dt-font-body);
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tb-tracking-cta);
   line-height: 1.3;
   text-transform: uppercase;
 }
@@ -1494,7 +1509,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 .dt-collections {
   padding-top: 96px;
   padding-bottom: 96px;
-  background: var(--dt-color-parchment);
+  background: var(--tb-surface-warm);
 }
 
 .dt-collections__container {
@@ -1512,8 +1527,10 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 .dt-collections__intro h2 {
   max-width: 720px;
   margin: 0;
-  font-size: clamp(32px, 3vw, 36px);
-  line-height: 1.22;
+  font: var(--tb-type-section-title);
+  letter-spacing: var(--tb-tracking-section);
+  text-transform: uppercase;
+  color: var(--tb-natt);
 }
 
 .dt-collection-grid {
@@ -2155,14 +2172,16 @@ body .mobile-facets__footer .button--primary:hover {
   align-items: flex-start;
   justify-content: center;
   padding: 80px clamp(32px, 6vw, 96px);
-  background: var(--dt-color-cream, var(--dt-color-parchment));
+  background: var(--tb-surface-warm);
 }
 
 .dt-image-feature__copy h2 {
   max-width: 480px;
   margin: 0;
-  font-size: clamp(40px, 5vw, 58px);
-  line-height: 1;
+  font: var(--tb-type-section-title);
+  letter-spacing: var(--tb-tracking-section);
+  text-transform: uppercase;
+  color: var(--tb-natt);
 }
 
 .dt-image-feature__text {
@@ -2202,11 +2221,10 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-featured-collection .collection__title .title {
   margin: 0;
-  color: var(--dt-color-forest);
-  font-family: var(--dt-font-display);
-  font-size: clamp(40px, 5vw, 58px);
-  font-weight: 600;
-  line-height: 1;
+  color: var(--tb-natt);
+  font: var(--tb-type-section-title);
+  letter-spacing: var(--tb-tracking-section);
+  text-transform: uppercase;
 }
 
 .dt-featured-collection .collection__description {
@@ -2472,11 +2490,10 @@ body .mobile-facets__footer .button--primary:hover {
 .dt-multirow .image-with-text__heading {
   max-width: 520px;
   margin: 0;
-  color: var(--dt-color-forest);
-  font-family: var(--dt-font-display);
-  font-size: clamp(40px, 5vw, 58px);
-  font-weight: 600;
-  line-height: 1.05;
+  color: var(--tb-natt);
+  font: var(--tb-type-section-title);
+  letter-spacing: var(--tb-tracking-section);
+  text-transform: uppercase;
 }
 
 .dt-multirow .image-with-text__text {
@@ -2489,17 +2506,17 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-multirow .image-with-text__text--caption {
   margin-bottom: 14px;
-  color: var(--dt-color-burgundy);
+  color: var(--tb-text-eyebrow);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: var(--tb-tracking-cta);
   line-height: 1.2;
   text-transform: uppercase;
 }
 
 .dt-multirow .image-with-text__content .button {
-  background: var(--dt-color-burgundy);
-  color: var(--dt-color-parchment);
+  background: var(--tb-action-primary);
+  color: var(--tb-text-inverse);
 }
 
 .dt-trust {
@@ -2587,11 +2604,11 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 .dt-faq__intro .dt-eyebrow {
-  color: var(--dt-color-forest);
+  color: var(--tb-text-eyebrow);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--tb-tracking-cta);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .dt-faq__intro h2 {
