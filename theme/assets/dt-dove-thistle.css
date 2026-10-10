@@ -2582,10 +2582,10 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 .dt-tabbed-collection__container {
-  width: calc(100% - 32px);
-  max-width: var(--dt-content-width);
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;
+  margin: 0;
+  padding-left: max(24px, calc((100% - var(--dt-content-width)) / 2));
+  padding-right: max(24px, calc((100% - var(--dt-content-width)) / 2));
 }
 
 .dt-tabbed-collection__header {
@@ -3404,7 +3404,7 @@ body .mobile-facets__footer .button--primary:hover {
 
   .dt-collections__container {
     padding-left: 16px;
-    padding-right: 0;
+    padding-right: 16px;
   }
 
   .dt-collections__header {
@@ -3468,7 +3468,8 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-tabbed-collection__container {
-    width: calc(100% - 32px);
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .dt-tabbed-collection__side {
@@ -3662,10 +3663,6 @@ body .mobile-facets__footer .button--primary:hover {
   .dt-tabbed-collection {
     padding-top: 64px;
     padding-bottom: 80px;
-  }
-
-  .dt-tabbed-collection__container {
-    width: calc(100% - 48px);
   }
 
   .dt-tabbed-collection__tabs {
