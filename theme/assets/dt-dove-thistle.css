@@ -2245,19 +2245,15 @@ body .mobile-facets__footer .button--primary:hover {
   padding: 0;
 }
 
-.dt-editorial-banner__images {
+.dt-editorial-banner__media {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   min-height: 520px;
-}
-
-.dt-editorial-banner__image-wrap {
-  position: relative;
   overflow: hidden;
 }
 
 .dt-editorial-banner__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -2286,10 +2282,10 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-editorial-banner__overlay h2 {
   margin: 0;
-  max-width: 600px;
+  max-width: 700px;
   font: var(--tb-type-display-banner);
   letter-spacing: var(--tb-tracking-display);
-  text-transform: none;
+  text-transform: uppercase;
   color: var(--tb-sno);
 }
 
@@ -3316,13 +3312,8 @@ body .mobile-facets__footer .button--primary:hover {
     aspect-ratio: 1 / 1.1;
   }
 
-  .dt-editorial-banner__images {
-    grid-template-columns: 1fr;
-    min-height: 400px;
-  }
-
-  .dt-editorial-banner__image-wrap:nth-child(2) {
-    display: none;
+  .dt-editorial-banner__media {
+    min-height: 380px;
   }
 
   .dt-editorial-banner__overlay {
@@ -3330,7 +3321,7 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-editorial-banner__overlay h2 {
-    font-size: clamp(28px, 8vw, 40px);
+    font-size: clamp(24px, 7vw, 36px);
   }
 
   .dt-featured-collection .collection {
