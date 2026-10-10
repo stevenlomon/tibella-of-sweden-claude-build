@@ -35,53 +35,86 @@
       {%- endif -%}
     </div>
 
-    <div class="dt-tabbed-collection__grid" role="list">
+    <div class="dt-tabbed-collection__grid">
       {%- if collection != blank -%}
-        {%- for product in collection.products limit: products_to_show -%}
-          <div class="dt-tabbed-collection__item{% if forloop.first %} dt-tabbed-collection__item--featured{% endif %}">
-            {% render 'card-product',
-              card_product: product,
-              media_aspect_ratio: 'portrait',
-              image_shape: 'default',
-              lazy_load: true,
-              show_secondary_image: true,
-              show_vendor: false,
-              show_rating: false,
-              section_id: section.id,
-              quick_add: 'none',
-              product_view_context: 'collection'
-            %}
-          </div>
-        {%- endfor -%}
+        <div class="dt-tabbed-collection__item dt-tabbed-collection__item--featured">
+          {% render 'card-product',
+            card_product: collection.products.first,
+            media_aspect_ratio: 'portrait',
+            image_shape: 'default',
+            lazy_load: true,
+            show_secondary_image: true,
+            show_vendor: false,
+            show_rating: false,
+            section_id: section.id,
+            quick_add: 'none',
+            product_view_context: 'collection'
+          %}
+        </div>
+        <div class="dt-tabbed-collection__side">
+          <ul class="dt-tabbed-collection__product-grid" role="list">
+            {%- for product in collection.products limit: products_to_show offset: 1 -%}
+              <li class="dt-tabbed-collection__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'portrait',
+                  image_shape: 'default',
+                  lazy_load: true,
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  section_id: section.id,
+                  quick_add: 'none',
+                  product_view_context: 'collection'
+                %}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if section.settings.button_label != blank -%}
+            <a class="dt-tabbed-collection__view-all" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
       {%- else -%}
-        {%- for i in (1..products_to_show) -%}
-          <div class="dt-tabbed-collection__item{% if forloop.first %} dt-tabbed-collection__item--featured{% endif %}">
-            {% liquid
-              assign ridx = forloop.index | modulo: 6
-              if ridx == 0
-                assign ridx = 6
-              endif
-              assign placeholder_image = 'product-apparel-' | append: ridx
-            %}
-            {% render 'card-product',
-              show_vendor: false,
-              media_aspect_ratio: 'portrait',
-              image_shape: 'default',
-              lazy_load: false,
-              placeholder_image: placeholder_image
-            %}
-          </div>
-        {%- endfor -%}
+        <div class="dt-tabbed-collection__item dt-tabbed-collection__item--featured">
+          {% render 'card-product',
+            show_vendor: false,
+            media_aspect_ratio: 'portrait',
+            image_shape: 'default',
+            lazy_load: false,
+            placeholder_image: 'product-apparel-1'
+          %}
+        </div>
+        <div class="dt-tabbed-collection__side">
+          <ul class="dt-tabbed-collection__product-grid" role="list">
+            {%- for i in (2..products_to_show) -%}
+              <li class="dt-tabbed-collection__item">
+                {% liquid
+                  assign ridx = i | modulo: 6
+                  if ridx == 0
+                    assign ridx = 6
+                  endif
+                  assign placeholder_image = 'product-apparel-' | append: ridx
+                %}
+                {% render 'card-product',
+                  show_vendor: false,
+                  media_aspect_ratio: 'portrait',
+                  image_shape: 'default',
+                  lazy_load: false,
+                  placeholder_image: placeholder_image
+                %}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if section.settings.button_label != blank -%}
+            <a class="dt-tabbed-collection__view-all" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </div>
-
-    {%- if section.settings.button_label != blank -%}
-      <div class="dt-tabbed-collection__cta">
-        <a class="dt-button dt-button--outline" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
-          {{ section.settings.button_label | escape }}
-        </a>
-      </div>
-    {%- endif -%}
   </div>
 
   <script>
