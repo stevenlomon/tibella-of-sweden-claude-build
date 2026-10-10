@@ -510,6 +510,98 @@ Setting `height: 100%` on the `.ratio` element doesn't reliably fix this because
 
 The grid cell dimensions come from the grid (e.g. `grid-row: 1 / -1` spanning both rows), the card-wrapper fills that cell via `inset: 0`, and the image inside uses `object-fit: cover` (already set by Dawn's `.media img`). This completely bypasses Dawn's ratio system.
 
+## GraphQL `collectionCreate` doesn't publish to Online Store
+
+Collections created via the Admin API `collectionCreate` mutation exist in admin with correct handles and products, but **are not published to the Online Store sales channel by default**. They return 404 on the storefront even though `collections(first:15)` lists them with products.
+
+**Symptoms:** Nav links to `/collections/jackor-kappor` return 404. The collection handle is correct. The collection has 37 products. But the storefront can't see it.
+
+**Why:** Shopify requires resources to be explicitly published to each sales channel. `collectionCreate` creates the collection but doesn't assign it to any channel.
+
+**Fix (Admin UI):** Shopify admin → Products → Collections → select collection → right sidebar → check "Online Store" under Sales channels → Save. Repeat for each collection.
+
+**Fix (API):** Use `publishablePublish` mutation — requires `write_publications` scope. First get the Online Store publication ID via `appByHandle(handle: "online_store")` (requires `read_publications` scope). Then:
+
+```graphql
+mutation {
+  publishablePublish(id: "gid://shopify/Collection/123", input: {
+    publicationId: "gid://shopify/Publication/456"
+  }) {
+    publishable { publishedOnCurrentPublication }
+    userErrors { field message }
+  }
+}
+```
+
+**Prevention:** After `collectionCreate`, always follow up with `publishablePublish`. Or create collections from the admin UI where "Online Store" is checked by default.
+
+## `!important` in base CSS blocks mobile media query overrides
+
+When base styles (outside any media query) use `!important`, mobile overrides inside `@media (max-width: 749px)` **without** `!important` silently lose. `!important` always wins regardless of media query or source order.
+
+```css
+/* Base — no media query */
+.dt-multirow .image-with-text__content {
+  padding: 120px !important;  /* needed to beat Dawn's collapse-padding */
+}
+
+/* Mobile — LOSES because no !important */
+@media (max-width: 749px) {
+  .dt-multirow .image-with-text__content {
+    padding: 64px 28px;  /* ← never applies, 120px wins */
+  }
+}
+```
+
+On a 375px screen: 240px horizontal padding, 135px left for content. The fix is adding `!important` to the mobile override AND matching the full selector chain so both `!important` rules resolve by specificity:
+
+```css
+@media (max-width: 749px) {
+  .dt-multirow .image-with-text__content,
+  .dt-multirow .collapse-padding .image-with-text__grid .image-with-text__content {
+    padding: 64px 28px !important;
+  }
+}
+```
+
+**Rule:** Grep for `!important` in every base-level rule. If you find one, any responsive override of that property also needs `!important`.
+
+## Dawn's `grid--peek` adds margin to product media items on mobile
+
+Dawn's `.grid--peek` class and slider system add `margin-left: 15px` to `.slider__slide` items for a peek-through carousel effect. When the PDP uses a single-focus gallery (show one image, hide rest via `.is-active`), the active item still gets 15px margin. Combined with `width: 100%` of the parent (375px), the image extends 15px past the viewport edge.
+
+```css
+/* Fix: zero the margin on mobile */
+@media (max-width: 749px) {
+  .dt-product-page .product__media-list .product__media-item.is-active {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+```
+
+This is invisible on desktop (the 2-column grid constrains the media wrapper) but breaks mobile layout. Always check product pages on 375px viewport after touching media gallery styles.
+
+## `shopify store execute` scopes for collection publishing
+
+The scopes needed for each operation:
+
+| Operation | Scopes needed |
+|---|---|
+| Create/edit products | `write_products, read_products` |
+| Create/edit collections | `write_products, read_products` |
+| Update navigation menus | `write_online_store_navigation, read_online_store_navigation` |
+| Query publication channels | `read_publications` |
+| Publish to Online Store | `write_publications` |
+
+Re-auth command (adds all scopes):
+
+```bash
+source ~/.nvm/nvm.sh && nvm use 24 && \
+shopify store auth --store kei3va-ym.myshopify.com \
+  --scopes write_products,read_products,write_online_store_navigation,read_online_store_navigation,read_publications,write_publications
+```
+
 ## Bento grid: use 4-column grid + `display: contents`, not nested grids
 
 When building a bento layout (one large featured image spanning the height of a 2×2 product grid), don't nest a 2-column grid inside the right column of a 2-column parent grid. The featured card's `height: 100%` won't cascade through Dawn's card components (see above).

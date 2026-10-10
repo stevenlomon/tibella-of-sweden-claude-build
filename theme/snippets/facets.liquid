@@ -78,11 +78,19 @@
                   </facet-remove>
                 </div>
                 {%- for filter in results.filters -%}
+                  {%- liquid
+                    assign dt_filter_label = filter.label
+                    if filter.label == 'Price'
+                      assign dt_filter_label = 'Pris'
+                    elsif filter.label == 'Color'
+                      assign dt_filter_label = 'Färg'
+                    endif
+                  -%}
                   {%- for value in filter.active_values -%}
                     <facet-remove>
                       <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                         <span class="active-facets__button-inner button button--tertiary">
-                          {{ filter.label | escape }}: {{ value.label | escape }}
+                          {{ dt_filter_label | escape }}: {{ value.label | escape }}
                           <span class="svg-wrapper">
                             {{- 'icon-close-small.svg' | inline_asset_content -}}
                           </span>
@@ -126,6 +134,12 @@
                   assign show_more_number = 10
                   assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
                 endif
+                assign dt_filter_label = filter.label
+                if filter.label == 'Price'
+                  assign dt_filter_label = 'Pris'
+                elsif filter.label == 'Color'
+                  assign dt_filter_label = 'Färg'
+                endif
               %}
 
               {% case filter.type %}
@@ -140,11 +154,11 @@
                   >
                     <summary
                       class="facets__summary caption-large focus-offset"
-                      aria-label="{{ filter.label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
+                      aria-label="{{ dt_filter_label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
                     >
                       <div>
                         <span class="facets__summary-label">
-                          {{- filter.label | escape }}
+                          {{- dt_filter_label | escape }}
                           {%- if filter_type == 'vertical' -%}
                             <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
                               ({{ filter.active_values.size }})</span
@@ -183,7 +197,7 @@
                         </div>
                       {%- endif -%}
                       <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
-                        <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+                        <legend class="visually-hidden">{{ dt_filter_label | escape }}</legend>
                         {%- liquid
                           assign sorted_values = filter.values
                           # Keep the selected values grouped together when operator is AND
@@ -311,7 +325,7 @@
                   >
                     <summary class="facets__summary caption-large focus-offset">
                       <div>
-                        <span>{{ filter.label | escape }}</span>
+                        <span>{{ dt_filter_label | escape }}</span>
                         {{- 'icon-caret.svg' | inline_asset_content -}}
                       </div>
                     </summary>
@@ -348,7 +362,7 @@
                   <facet-remove>
                     <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                       <span class="active-facets__button-inner button button--tertiary">
-                        {{ filter.label | escape }}: {{ value.label | escape }}
+                        {{ dt_filter_label | escape }}: {{ value.label | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-close-small.svg' | inline_asset_content -}}
                         </span>
@@ -535,7 +549,7 @@
               {%- if enable_sorting -%}
                 {%- liquid
                   assign dt_sort_values = 'manual|created-descending|price-ascending|price-descending|title-ascending|title-descending' | split: '|'
-                  assign dt_sort_labels = 'Featured|Newest|Price: Low to High|Price: High to Low|Name: A-Z|Name: Z-A' | split: '|'
+                  assign dt_sort_labels = 'Utvalda|Nyast|Pris: Lågt till högt|Pris: Högt till lågt|Namn: A-Ö|Namn: Ö-A' | split: '|'
                   # Fall back to Featured when the collection's current sort isn't in our whitelist
                   # (e.g., default is `best-selling`). Matches the Figma's pre-selected "Featured".
                   assign dt_current_sort = sort_by
@@ -605,6 +619,12 @@
                     else
                       assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
                     endif
+                    assign dt_filter_label = filter.label
+                    if filter.label == 'Price'
+                      assign dt_filter_label = 'Pris'
+                    elsif filter.label == 'Color'
+                      assign dt_filter_label = 'Färg'
+                    endif
                   %}
 
                   {% case filter.type %}
@@ -616,7 +636,7 @@
                       >
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{{ dt_filter_label | escape }}</span>
                             <span class="mobile-facets__arrow">
                               {{- 'icon-arrow.svg' | inline_asset_content -}}
                             </span>
@@ -632,7 +652,7 @@
                             type="button"
                           >
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{{ dt_filter_label | escape }}</span>
                             {%- if filter.operator == 'AND' -%}
                               <span class="facets__and-helptext">
                                 {{ 'products.facets.filter_and_operator_subtitle' | t }}
@@ -764,7 +784,7 @@
                       >
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
-                            <span>{{ filter.label | escape }}</span>
+                            <span>{{ dt_filter_label | escape }}</span>
                             <span class="mobile-facets__arrow" aria-hidden="true"></span>
                           </div>
                         </summary>
@@ -836,7 +856,7 @@
                 >
                   <summary class="mobile-facets__summary focus-inset">
                     <div>
-                      <span>Color</span>
+                      <span>Färg</span>
                       <span class="mobile-facets__arrow" aria-hidden="true"></span>
                     </div>
                   </summary>
@@ -966,11 +986,19 @@
 
   <div class="active-facets active-facets-mobile medium-hide large-up-hide">
     {%- for filter in results.filters -%}
+      {%- liquid
+        assign dt_filter_label = filter.label
+        if filter.label == 'Price'
+          assign dt_filter_label = 'Pris'
+        elsif filter.label == 'Color'
+          assign dt_filter_label = 'Färg'
+        endif
+      -%}
       {%- for value in filter.active_values -%}
         <facet-remove>
           <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
             <span class="active-facets__button-inner button button--tertiary">
-              {{ filter.label | escape }}: {{ value.label | escape }}
+              {{ dt_filter_label | escape }}: {{ value.label | escape }}
               <span class="svg-wrapper">
                 {{- 'icon-close-small.svg' | inline_asset_content -}}
               </span>
@@ -1079,11 +1107,19 @@
       <form id="FacetFiltersPillsForm" class="facets__form">
         <div class="active-facets active-facets-desktop">
           {%- for filter in results.filters -%}
+            {%- liquid
+              assign dt_filter_label = filter.label
+              if filter.label == 'Price'
+                assign dt_filter_label = 'Pris'
+              elsif filter.label == 'Color'
+                assign dt_filter_label = 'Färg'
+              endif
+            -%}
             {%- for value in filter.active_values -%}
               <facet-remove>
                 <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
                   <span class="active-facets__button-inner button button--tertiary">
-                    {{ filter.label | escape }}: {{ value.label | escape }}
+                    {{ dt_filter_label | escape }}: {{ value.label | escape }}
                     <span class="svg-wrapper">
                       {{- 'icon-close-small.svg' | inline_asset_content -}}
                     </span>
