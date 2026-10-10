@@ -12,3 +12,4 @@ Three essentials when working with AI:
 2. **No false confidence** — if you don't know, say so. Never bluff or paper over uncertainty.
 3. **Precision** — be exact. Vague answers waste time. Specific file paths, specific values, specific reasoning.
 4. **Stop when done** — when verification passes, say so and stop. Don't keep going with "let me take a screenshot" or extra busywork. State the result, let Ben check it.
+5. **Skip live preview** — Ben does the visual QA himself. After a successful `shopify theme push` with no CLI errors, that's sufficient. Don't open the browser pane, take screenshots, or verify computed styles. Just report the push succeeded and provide the preview URL.

@@ -102,43 +102,43 @@
     ]
   },
   {
-    "name": "Dove & Thistle brand colors",
+    "name": "Tibella of Sweden brand colors",
     "settings": [
       {
         "type": "color",
         "id": "dt_color_forest",
-        "label": "Deep forest",
-        "default": "#234238"
+        "label": "Natt (primary dark)",
+        "default": "#1E1A1B"
       },
       {
         "type": "color",
         "id": "dt_color_parchment",
-        "label": "Warm parchment",
+        "label": "Linne (warm surface)",
         "default": "#F7F2E9"
       },
       {
         "type": "color",
         "id": "dt_color_charcoal",
-        "label": "Warm charcoal",
+        "label": "Kol (body text)",
         "default": "#292624"
       },
       {
         "type": "color",
         "id": "dt_color_burgundy",
-        "label": "Muted burgundy",
+        "label": "Plommon (action)",
         "default": "#6A3446"
       },
       {
         "type": "color",
         "id": "dt_color_gold",
-        "label": "Antique gold",
-        "default": "#AD8954"
+        "label": "Vinröd (accent)",
+        "default": "#6D2634"
       },
       {
         "type": "color",
         "id": "dt_color_grey",
-        "label": "Dove grey",
-        "default": "#C9C3BC"
+        "label": "Is (border/subtle)",
+        "default": "#D6D3D0"
       }
     ]
   },

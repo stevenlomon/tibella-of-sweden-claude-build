@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/logo_1.png",
+    "logo": "shopify://shop_images/Wordmark.png",
     "logo_width": 140,
     "favicon": "shopify://shop_images/favicon_1.png",
     "type_header_font": "garamond_n4",
@@ -147,11 +147,11 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#FFFFFF",
+          "background": "#ffffff",
           "background_gradient": "",
           "text": "#292624",
-          "button": "#6A3446",
-          "button_label": "#FFFFFF",
+          "button": "#6a3446",
+          "button_label": "#ffffff",
           "secondary_button_label": "#292624",
           "shadow": "#292624"
         }
@@ -160,43 +160,43 @@
         "settings": {
           "background": "#6D2634",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#FFFFFF",
+          "text": "#F7F2E9",
+          "button": "#F7F2E9",
           "button_label": "#6D2634",
-          "secondary_button_label": "#FFFFFF",
+          "secondary_button_label": "#F7F2E9",
           "shadow": "#292624"
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#F7F2E9",
+          "background": "#f7f2e9",
           "background_gradient": "",
           "text": "#292624",
-          "button": "#6A3446",
-          "button_label": "#FFFFFF",
+          "button": "#6a3446",
+          "button_label": "#ffffff",
           "secondary_button_label": "#292624",
           "shadow": "#292624"
         }
       },
       "scheme-4": {
         "settings": {
-          "background": "#6A3446",
+          "background": "#6a3446",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#F7F2E9",
+          "text": "#ffffff",
+          "button": "#f7f2e9",
           "button_label": "#292624",
-          "secondary_button_label": "#F7F2E9",
+          "secondary_button_label": "#f7f2e9",
           "shadow": "#292624"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#1E1A1B",
+          "background": "#160209",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#FFFFFF",
-          "button_label": "#1E1A1B",
-          "secondary_button_label": "#FFFFFF",
+          "text": "#f7f2e9",
+          "button": "#f7f2e9",
+          "button_label": "#160209",
+          "secondary_button_label": "#f7f2e9",
           "shadow": "#292624"
         }
       }

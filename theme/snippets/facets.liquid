@@ -535,7 +535,7 @@
               {%- if enable_sorting -%}
                 {%- liquid
                   assign dt_sort_values = 'manual|created-descending|price-ascending|price-descending|title-ascending|title-descending' | split: '|'
-                  assign dt_sort_labels = 'Utvalt|Nyast|Pris: lågt till högt|Pris: högt till lågt|Namn: A–Ö|Namn: Ö–A' | split: '|'
+                  assign dt_sort_labels = 'Featured|Newest|Price: Low to High|Price: High to Low|Name: A-Z|Name: Z-A' | split: '|'
                   # Fall back to Featured when the collection's current sort isn't in our whitelist
                   # (e.g., default is `best-selling`). Matches the Figma's pre-selected "Featured".
                   assign dt_current_sort = sort_by
@@ -836,12 +836,12 @@
                 >
                   <summary class="mobile-facets__summary focus-inset">
                     <div>
-                      <span>Färg</span>
+                      <span>Color</span>
                       <span class="mobile-facets__arrow" aria-hidden="true"></span>
                     </div>
                   </summary>
                   <div class="mobile-facets__color-panel">
-                    {%- assign dt_color_names = 'Svart,Brun,Creme,Vinröd' | split: ',' -%}
+                    {%- assign dt_color_names = 'Black,Brown,Cream,Burgundy' | split: ',' -%}
                     {%- assign dt_color_hex = '#1A1816,#7A4E2D,#ECE3C8,#6A3446' | split: ',' -%}
                     <ul class="mobile-facets__color-list list-unstyled" role="list">
                       {%- for name in dt_color_names -%}
@@ -849,7 +849,7 @@
                         {%- assign current_params = request.url | split: '?' | last -%}
                         {%- assign href = request.path | append: '?' | append: dt_color_param | append: '=' | append: name -%}
                         <li class="mobile-facets__color-item">
-                          <a href="{{ href }}" class="mobile-facets__color-swatch-link" aria-label="Filtrera efter {{ name }}">
+                          <a href="{{ href }}" class="mobile-facets__color-swatch-link" aria-label="Filter by {{ name }}">
                             <span class="mobile-facets__color-swatch" style="background: {{ hex }};" aria-hidden="true"></span>
                             <span class="mobile-facets__color-swatch-label">{{ name }}</span>
                           </a>
@@ -871,7 +871,7 @@
                   class="button button--primary"
                   onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
                 >
-                  Visa produkter
+                  Show Products
                 </button>
               </div>
             </div>
@@ -889,12 +889,6 @@
       </facet-filters-form>
     </details>
   </menu-drawer>
-
-  {%- if filter_type == 'drawer' and enable_filtering -%}
-    <button type="button" class="dt-color-filter-btn" aria-label="Öppna färgfilter">
-      <span>färg</span>
-    </button>
-  {%- endif -%}
 
   {%- comment -%}
     Capture-phase delegation on the mobile drawer:
@@ -967,33 +961,6 @@
         }
       }
       customElements.define('dt-price-slider', DtPriceSlider);
-    })();
-  </script>
-
-  <script>
-    (function () {
-      var btn = document.querySelector('.dt-color-filter-btn');
-      if (!btn) return;
-      btn.addEventListener('click', function () {
-        var drawer = document.querySelector('menu-drawer.mobile-facets__wrapper');
-        if (!drawer) return;
-        var details = drawer.querySelector('details.mobile-facets__disclosure');
-        var summary = details.querySelector('summary');
-        if (!details.hasAttribute('open')) {
-          summary.click();
-        }
-        setTimeout(function () {
-          var colorDetails = drawer.querySelector('.mobile-facets__details--color')
-                          || drawer.querySelector('[id*="Color"]');
-          if (colorDetails) {
-            if (!colorDetails.hasAttribute('open')) {
-              var colorSummary = colorDetails.querySelector('summary');
-              if (colorSummary) colorSummary.click();
-            }
-            colorDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }, 300);
-      });
     })();
   </script>
 
