@@ -102,6 +102,24 @@
         </facet-filters-form>
       {%- endif -%}
 
+      {%- if section.settings.subcollection_menu != blank
+            and linklists[section.settings.subcollection_menu].links.size > 0
+      -%}
+        <div class="dt-collection-subcollections">
+          <nav class="dt-collection-banner__pills" aria-label="{{ 'general.collection_navigation.label' | t }}">
+            {%- for link in linklists[section.settings.subcollection_menu].links -%}
+              <a
+                href="{{ link.url }}"
+                class="dt-pill{% if link.active %} dt-pill--active{% endif %}"
+                {% if link.active %}aria-current="page"{% endif %}
+              >
+                {{ link.title | escape }}
+              </a>
+            {%- endfor -%}
+          </nav>
+        </div>
+      {%- endif -%}
+
       <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
         {{ 'component-facets.css' | asset_url | stylesheet_tag }}
         <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
@@ -120,24 +138,6 @@
               paginate: paginate
             %}
           </aside>
-        {%- endif -%}
-
-        {%- if section.settings.subcollection_menu != blank
-              and linklists[section.settings.subcollection_menu].links.size > 0
-        -%}
-          <div class="dt-collection-subcollections page-width">
-            <nav class="dt-collection-banner__pills" aria-label="{{ 'general.collection_navigation.label' | t }}">
-              {%- for link in linklists[section.settings.subcollection_menu].links -%}
-                <a
-                  href="{{ link.url }}"
-                  class="dt-pill{% if link.active %} dt-pill--active{% endif %}"
-                  {% if link.active %}aria-current="page"{% endif %}
-                >
-                  {{ link.title | escape }}
-                </a>
-              {%- endfor -%}
-            </nav>
-          </div>
         {%- endif -%}
 
         <div
