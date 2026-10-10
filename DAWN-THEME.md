@@ -274,3 +274,20 @@ The grid approach using `border` on the container + `border-right` on odd items 
 ## Collection filter pills: horizontal scroll on mobile
 
 The subcollection pills container needs `overflow-x: auto` + `scrollbar-width: none`. Key: add `padding-left` to the pills flex container so the first pill has spacing, and `padding-right` so the last pill has room when scrolled fully right. Without these, the pills touch the edge of the screen.
+
+## Dawn color schemes live in `settings_data.json`, not CSS tokens
+
+Dawn sections (announcement bar, header, footer, cards, badges) get their colors from **color scheme definitions** in `config/settings_data.json`, not from `--dt-*` or `--tb-*` CSS custom properties. The schemes are stored as hardcoded hex values under `current.color_schemes.scheme-N.settings` and injected by Dawn as inline `--color-background`, `--color-foreground` etc.
+
+Changing `--dt-color-forest` in `dt-dove-thistle.css` does **not** change the announcement bar's background — that's driven by whichever `scheme-N` the section references in `header-group.json` (or `footer-group.json`, template JSON, etc.). To rebrand Dawn's built-in sections, update both:
+
+1. The CSS custom properties in `dt-dove-thistle.css` (for custom `.dt-*` components)
+2. The color scheme hex values in `config/settings_data.json` (for Dawn's native sections)
+
+```
+announcement-bar → color_scheme in sections/header-group.json
+header           → color_scheme in sections/header-group.json
+footer           → color_scheme in sections/footer-group.json
+product cards    → card_color_scheme in settings_data.json global settings
+badges           → sale_badge_color_scheme / sold_out_badge_color_scheme in global settings
+```

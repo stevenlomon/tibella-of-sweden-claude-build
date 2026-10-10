@@ -18,39 +18,39 @@
           "type": "brand_information",
           "settings": {
             "brand_image": "",
-            "brand_heading": "Dove & Thistle",
-            "brand_description": "<p>Thoughtful style, useful comforts and meaningful gifts, chosen to make the everyday feel a little more considered.</p>",
+            "brand_heading": "Tibella of Sweden",
+            "brand_description": "<p>Genomtänkt stil, bekväma vardagskläder och vackra accessoarer — utvalda för att göra vardagen lite mer omtänksam.</p>",
             "social_label": "Instagram",
             "show_social": true,
-            "instagram_link": "https://instagram.com/doveandthistle"
+            "instagram_link": "https://instagram.com/tibellaofsweden"
           }
         },
         "shop": {
           "type": "link_list",
           "settings": {
-            "heading": "Shop",
+            "heading": "Handla",
             "menu": "main-menu"
           }
         },
         "care": {
           "type": "link_list",
           "settings": {
-            "heading": "Customer Care",
+            "heading": "Kundservice",
             "menu": "footer"
           }
         },
         "policies": {
           "type": "link_list",
           "settings": {
-            "heading": "Policies",
+            "heading": "Villkor",
             "menu": "footer"
           }
         },
         "business": {
           "type": "text",
           "settings": {
-            "heading": "Business information",
-            "subtext": "<p>Dove &amp; Thistle is operated by [LEGAL ENTITY NAME].<br>Registration no. [COMPANY NUMBER]<br>support@doveandthistle.com<br>[BUSINESS PHONE]<br>[PHYSICAL BUSINESS ADDRESS]<br>Customer care: [HOURS + TIME ZONE]</p>"
+            "heading": "Företagsinformation",
+            "subtext": "<p>Tibella of Sweden drivs av [JURIDISKT NAMN].<br>Org.nr [ORGANISATIONSNUMMER]<br>kontakt@tibellaofsweden.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: [ÖPPETTIDER]</p>"
           }
         }
       },
@@ -70,12 +70,12 @@
         "enable_country_selector": true,
         "enable_language_selector": true,
         "payment_enable": true,
-        "payment_heading": "Accepted payment methods",
-        "payment_methods_text": "Visa · Mastercard · American Express · PayPal · Shop Pay · Apple Pay · Google Pay",
-        "secure_checkout_heading": "Secure checkout",
-        "secure_checkout_text": "Payments are encrypted and processed by trusted providers.",
+        "payment_heading": "Betalningsmetoder",
+        "payment_methods_text": "Visa · Mastercard · American Express · PayPal · Shop Pay · Apple Pay · Google Pay · Klarna",
+        "secure_checkout_heading": "Säker betalning",
+        "secure_checkout_text": "Betalningar krypteras och hanteras av betrodda leverantörer.",
         "show_policy": false,
-        "copyright_text": "All rights reserved.",
+        "copyright_text": "Alla rättigheter förbehållna.",
         "margin_top": 0,
         "padding_top": 0,
         "padding_bottom": 0

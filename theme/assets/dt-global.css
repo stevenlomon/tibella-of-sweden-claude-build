@@ -103,11 +103,16 @@ body .button--secondary:hover {
   box-shadow: inset 0 0 0 1px var(--dt-color-charcoal);
 }
 
-body .color-scheme-2 .button--secondary,
+body .color-scheme-2 .button--secondary {
+  --color-button: 109, 38, 52;
+  --color-button-text: 255, 255, 255;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
 body .color-scheme-5 .button--secondary {
-  --color-button: 35, 66, 56;
-  --color-button-text: 247, 242, 233;
-  box-shadow: inset 0 0 0 1px rgba(247, 242, 233, 0.55);
+  --color-button: 30, 26, 27;
+  --color-button-text: 255, 255, 255;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
 }
 
 body .button--tertiary {
@@ -162,14 +167,15 @@ body .header-wrapper--border-bottom {
 body .header__menu-item,
 body .header__menu-item span {
   font: var(--dt-type-nav);
-  letter-spacing: normal;
-  color: var(--dt-color-charcoal);
+  letter-spacing: var(--dt-tracking-label);
+  text-transform: uppercase;
+  color: var(--tb-text-body);
 }
 
 body .header__menu-item:hover span {
   text-decoration: underline;
   text-underline-offset: 3px;
-  color: var(--dt-color-charcoal);
+  color: var(--tb-natt);
 }
 
 body .header__active-menu-item {
@@ -178,7 +184,7 @@ body .header__active-menu-item {
 }
 
 body .header__icon {
-  color: var(--dt-color-forest);
+  color: var(--tb-natt);
 }
 
 body .header__icon:hover .icon {
@@ -188,7 +194,7 @@ body .header__icon:hover .icon {
 body .header__heading-link .h2 {
   font-family: var(--dt-font-display);
   font-weight: 400;
-  color: var(--dt-color-forest);
+  color: var(--tb-natt);
 }
 
 /* Dropdown mega menu / submenu panels */
@@ -216,14 +222,14 @@ body .menu-drawer {
 
 body .menu-drawer__menu-item {
   font: var(--dt-type-body-m);
-  color: var(--dt-color-charcoal);
+  color: var(--tb-text-body);
 }
 
 body .menu-drawer__menu-item--active,
 body .menu-drawer__menu-item:focus,
 body .menu-drawer__close-button,
 body .menu-drawer__menu-item:hover {
-  color: var(--dt-color-burgundy);
+  color: var(--tb-vinrod);
 }
 
 /* ---------- 5. Price ---------- */
@@ -910,9 +916,7 @@ body .focus-inset:focus-visible {
 
 /* ---------- 22. Scope-escapes: keep dt sections immune to the global h2/.rte reset ----------
    The body h2/.rte rules above cover stock Dawn surfaces. The dt-* sections have their own
-   typography in dt-dove-thistle.css, so we revert the generic reset here. Scheme-1 is the
-   page ground (white) but dt-footer paints forest internally — the global forest-h2 rule
-   would make its gold eyebrows invisible against that forest.
+   typography in dt-dove-thistle.css, so we revert the generic reset here.
 */
 
 body .dt-footer .footer-block__heading,
@@ -920,11 +924,11 @@ body .dt-footer .footer-block__brand-info .footer-block__heading {
   font: inherit;
   font-family: var(--dt-font-body);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.12em;
   line-height: 1.3;
   text-transform: uppercase;
-  color: var(--dt-color-gold);
+  color: var(--tb-vinrod);
   margin: 0 0 22px;
 }
 
@@ -933,11 +937,11 @@ body .dt-footer .footer-block__brand-info h2 {
   font: inherit;
   font-family: var(--dt-font-display);
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1;
   text-transform: none;
-  color: var(--dt-color-parchment);
+  color: var(--tb-natt);
   margin-bottom: 20px;
 }
 
@@ -945,38 +949,38 @@ body .dt-footer__subfooter .footer-block__heading {
   margin-bottom: 16px;
 }
 
-/* Business column: parchment-tinted body text on forest */
+/* Business column + body text */
 body .dt-footer .dt-footer__business,
 body .dt-footer .dt-footer__business p,
 body .dt-footer .footer-block__details-content.rte,
 body .dt-footer .footer-block__details-content.rte p,
 body .dt-footer .footer-block__brand-info .rte,
 body .dt-footer .footer-block__brand-info .rte p {
-  color: rgba(247, 242, 233, 0.78);
+  color: var(--tb-text-muted);
 }
 
 /* Payment / secure checkout lines */
 body .dt-footer__payment-methods,
 body .dt-footer__security p {
-  color: rgba(247, 242, 233, 0.78);
+  color: var(--tb-text-muted);
 }
 
-/* Footer links stay parchment */
+/* Footer links */
 body .dt-footer a {
-  color: rgba(247, 242, 233, 0.78);
+  color: var(--tb-text-body);
 }
 
 body .dt-footer a:hover {
-  color: var(--dt-color-parchment);
+  color: var(--tb-natt);
 }
 
-/* Instagram icon wrapper — higher specificity than the generic .dt-footer a parchment rule */
+/* Instagram icon wrapper */
 body .dt-footer a.dt-footer__instagram {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  color: var(--dt-color-gold);
+  color: var(--tb-vinrod);
   text-decoration: none;
   font: var(--dt-type-label-xs);
   letter-spacing: var(--dt-tracking-label);
@@ -986,13 +990,13 @@ body .dt-footer a.dt-footer__instagram {
 body .dt-footer a.dt-footer__instagram svg {
   width: 20px;
   height: 20px;
-  color: var(--dt-color-gold);
+  color: var(--tb-vinrod);
   fill: currentColor;
 }
 
 body .dt-footer a.dt-footer__instagram:hover,
 body .dt-footer a.dt-footer__instagram:hover svg {
-  color: var(--dt-color-parchment);
+  color: var(--tb-natt);
 }
 
 /* dt sections generally: block generic h-reset forest colour from hitting internal headings */
