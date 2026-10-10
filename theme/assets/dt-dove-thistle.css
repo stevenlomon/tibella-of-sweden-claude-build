@@ -1512,14 +1512,16 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 }
 
 .dt-collections {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 72px;
+  padding-bottom: 72px;
   background: var(--tb-surface-warm);
 }
 
 .dt-collections__container {
-  width: min(calc(100% - 48px), 1200px);
-  max-width: none;
+  width: calc(100% - 48px);
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
   padding-right: 0;
   padding-left: 0;
 }
@@ -1533,7 +1535,10 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 
 .dt-collections__header h2 {
   margin: 0;
-  font: var(--tb-type-section-title);
+  font-family: var(--dt-font-display);
+  font-size: clamp(20px, 1.5vw, 26px);
+  font-weight: 400;
+  line-height: 1.2;
   letter-spacing: var(--tb-tracking-section);
   text-transform: uppercase;
   color: var(--tb-natt);
@@ -1575,7 +1580,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 
 .dt-collection-grid {
   display: flex;
-  gap: 20px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2112,7 +2117,8 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 .dt-collection-card {
-  flex: 0 0 280px;
+  flex: 0 0 calc((100% - 48px) / 5);
+  min-width: 200px;
   scroll-snap-align: start;
 }
 
@@ -3069,8 +3075,8 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-collections {
-    padding-top: 72px;
-    padding-bottom: 72px;
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
 
   .dt-collection-hero__media-shell,
@@ -3268,7 +3274,8 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-collection-card {
-    flex: 0 0 220px;
+    flex: 0 0 44vw;
+    min-width: 160px;
   }
 
   .dt-image-feature__inner {

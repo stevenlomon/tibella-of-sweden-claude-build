@@ -49,12 +49,12 @@
 
       prev.addEventListener('click', function() {
         var card = grid.querySelector('.dt-collection-card');
-        if (card) grid.scrollBy({ left: -(card.offsetWidth + 20), behavior: 'smooth' });
+        if (card) grid.scrollBy({ left: -(card.offsetWidth + 12), behavior: 'smooth' });
       });
 
       next.addEventListener('click', function() {
         var card = grid.querySelector('.dt-collection-card');
-        if (card) grid.scrollBy({ left: card.offsetWidth + 20, behavior: 'smooth' });
+        if (card) grid.scrollBy({ left: card.offsetWidth + 12, behavior: 'smooth' });
       });
 
       grid.addEventListener('scroll', updateButtons, { passive: true });
