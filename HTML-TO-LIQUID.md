@@ -139,3 +139,113 @@ Update the `sizes` attribute on `image_tag` to match your new card widths:
 
 ### `aspect-ratio` vs `--ratio-percent`
 For your own elements, use CSS `aspect-ratio`. For Dawn product cards, use `--ratio-percent` (it's what Dawn's JS and CSS expect). Don't mix them on the same element.
+
+---
+
+## 9. Restyling Dawn's drawer-mode facets as a Sunoire-style toolbar
+
+### The problem
+Sunoire uses a custom `scv4-toolbar` with sort, pipe divider, filter text, product count — all in one clean horizontal row. Dawn's drawer mode renders three sibling elements: `menu-drawer.mobile-facets__wrapper` (filter button at all sizes), `facet-filters-form.small-hide` (sort select, desktop only), and `div.product-count`. These three live inside `.facets-container-drawer` which uses `display: flex` set in `component-facets.css`.
+
+### Specificity battles with component-facets.css
+Dawn's `component-facets.css` is loaded per-page via `{{ 'component-facets.css' | asset_url | stylesheet_tag }}` inside the section Liquid. It sets:
+- `.facets-container { display: grid; grid-template-columns: repeat(2, auto); }` (line 1) — the grid override
+- `.facets-container-drawer { display: flex; }` (line ~1222) — flex for drawer mode
+- `.mobile-facets__wrapper { flex-grow: 1; margin-right: 2rem; }` (line ~1230) — the filter button eats all available space
+
+The `flex-grow: 1` on `.mobile-facets__wrapper` is the main layout breaker: it pushes the sort select and product count to the far right and occupies all remaining space. You MUST use `!important` on `flex-grow: 0` to defeat it — a longer selector alone isn't enough because Dawn's rule is on the element class.
+
+### What you need to override (with !important)
+```css
+.dt-collection-product-grid .facets-container.facets-container-drawer {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+}
+.dt-collection-product-grid .facets-container-drawer .mobile-facets__wrapper {
+  flex-grow: 0 !important;
+  margin-right: 0 !important;
+}
+```
+
+### Reordering toolbar items with CSS order
+Dawn renders filter first, then sort, then count. Sunoire shows sort first, pipe, filter, count. Use `order` properties:
+- `facet-filters-form` → `order: 1` (sort)
+- `menu-drawer` → `order: 2` (filter)
+- `.product-count` → `order: 3` (count, pushed right with `margin-left: auto`)
+- `.active-facets-mobile` → `order: 4` (active filter pills, full width below)
+
+### Pipe divider between sort and filter
+Use a `::after` pseudo-element on `facet-filters-form`:
+```css
+.facets-container-drawer > facet-filters-form::after {
+  content: "|";
+  margin: 0 14px;
+  color: var(--tb-border-subtle);
+}
+```
+On mobile, hide it with `display: none`.
+
+### Mobile: hide sort, show filter icon
+Dawn's `.small-hide` utility hides the sort `facet-filters-form` on mobile via `display: none !important`. This is fine — we want sort hidden on mobile. But the filter button's SVG icon is hidden on desktop (with `display: none` on `.svg-wrapper`). On mobile, restore it:
+```css
+@media (max-width: 749px) {
+  .facets-container-drawer .mobile-facets__open .svg-wrapper {
+    display: flex;
+    width: 16px;
+    height: 16px;
+  }
+}
+```
+
+### Key lesson: sentence case, not uppercase
+Sunoire's collection title "Bags" is sentence case — NOT uppercase. My first attempt wrongly used `text-transform: uppercase` because luxury sites often do. Always check the reference HTML before assuming text transform.
+
+---
+
+## 10. Subcollection pills: horizontal scroll on mobile
+
+### Desktop layout
+Centered flex-wrap container with `gap: 10px`. Each pill has `border-radius: 999px`, `padding: 9px 18px`, active pill filled with accent color.
+
+### Mobile conversion
+Switch to horizontal scroll:
+```css
+@media (max-width: 749px) {
+  .dt-collection-subcollections {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dt-collection-banner__pills {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-left: 16px;
+  }
+  .dt-collection-banner__pills::after {
+    content: '';
+    flex: 0 0 8px;
+  }
+}
+```
+The `::after` pseudo-element adds right-edge breathing room at the end of the scroll.
+
+### Placement in section Liquid
+Subcollection pills should render BEFORE the facets toolbar, not after. In `main-collection-product-grid.liquid`, move the pills block above the `<div class="facets-vertical...">` wrapper. This matches Sunoire's visual order: title → pills → toolbar → grid.
+
+---
+
+## 11. Dawn card chrome removal
+
+### The problem
+Dawn's `card-product.liquid` snippet outputs multiple layers of decorative chrome: borders on `.card`, `border-radius` on `.card-wrapper`, `box-shadow` on `.card__inner`. For a clean Sunoire-style grid (no card borders, image flows into text), you need to strip all of it.
+
+### Minimum reset
+```css
+.card-wrapper { border-radius: 0; }
+.card { border: 0; border-radius: 0; background: var(--page-bg); }
+.card--standard.card--media .card__inner {
+  border: 0; border-radius: 0; box-shadow: none; background: var(--page-bg);
+}
+.card__media { border-radius: 0; }
+```
+All four selectors are needed — Dawn applies decoration at every level.
