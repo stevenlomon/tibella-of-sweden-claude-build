@@ -137,32 +137,32 @@
           "type": "benefit",
           "settings": {
             "icon_asset": "dt-trust-shipping.svg",
-            "title": "Fri frakt",
-            "text": "På beställningar över 999 SEK"
+            "title": "Gratis frakt",
+            "text": "Över hela Sverige"
           }
         },
         "returns": {
           "type": "benefit",
           "settings": {
             "icon_asset": "dt-trust-returns.svg",
-            "title": "30 dagars returrätt",
-            "text": "Handla tryggt"
+            "title": "30-dagar retur",
+            "text": "Shoppa med säkerhet"
           }
         },
         "secure": {
           "type": "benefit",
           "settings": {
             "icon_asset": "dt-trust-secure.svg",
-            "title": "Säker betalning",
-            "text": "Din betalning är skyddad"
+            "title": "Säkra betalningar",
+            "text": "Dina betalningar är säkra"
           }
         },
         "support": {
           "type": "benefit",
           "settings": {
             "icon_asset": "dt-trust-help.svg",
-            "title": "Personlig service",
-            "text": "Vi finns här för dig"
+            "title": "Hjälpful support",
+            "text": "Här när du behöver oss"
           }
         }
       },
