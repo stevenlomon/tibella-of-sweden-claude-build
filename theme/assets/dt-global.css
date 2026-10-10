@@ -1029,11 +1029,11 @@ body .dt-collection-banner__header {
 
 body :is(.color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4, .color-scheme-5) .dt-collection-banner__title {
   margin: 0;
-  color: var(--dt-color-forest);
-  font-family: var(--dt-font-display);
-  font-weight: 600;
+  color: var(--tb-natt);
+  font: var(--tb-type-section-title);
   font-size: clamp(36px, 4vw, 52px);
-  line-height: 1.1;
+  letter-spacing: var(--tb-tracking-section);
+  text-transform: uppercase;
 }
 
 body .dt-collection-banner__description,
