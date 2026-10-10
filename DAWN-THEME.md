@@ -311,3 +311,32 @@ For a full-width editorial with centered text overlay on two side-by-side images
 - Position the scrim and text overlay with `position: absolute; inset: 0`
 - On mobile, hide the second image with `display: none` on `:nth-child(2)` rather than stacking
 - Use `--tb-scrim` tokens or `rgba(30, 26, 27, 0.45)` for the overlay darkness
+
+## Image focal point: `object-position` for hero/banner crops
+
+When `object-fit: cover` crops a tall image inside a shorter container, `object-position: center` crops evenly from top and bottom — typically cutting off heads. Fix with a vertical offset:
+- `object-position: center 20%` — shows the top 20% as the anchor, revealing heads/upper body
+- `object-position: center 35%` — middle-biased, good for full-body shots
+- On mobile, combine with horizontal shift: `object-position: 62% 20%` to favor the subject's position
+
+This is the single most common visual mismatch between Figma (which shows the full image) and live (which crops to the container's aspect ratio). Always check after pushing.
+
+## Font-size escalation trap
+
+Using Sunoire-scale `clamp()` values (e.g. `clamp(46px, 13vw, 112px)`) for headings looks right on a 1440px reference but breaks on wider screens and with longer Swedish text. Stick to the design tokens (`--tb-type-display-banner` etc.) which already embed safe `clamp()` ranges tuned for this brand's copy length. Don't override tokens with raw clamp values from a reference site without checking how the copy wraps at max.
+
+## Hero text line-wrap: font-size × container-width interaction
+
+When controlling which words land on which line of a centered display heading, you're tuning **two variables at once**: font-size and container `max-width`. Changing one without the other produces the wrong break point.
+
+The math: for each candidate line, estimate `(char_count × font_size × avg_char_width) + (char_count × font_size × letter_spacing)`. For Cormorant Garamond uppercase, average char width is ~0.55em. Then check whether that total exceeds the container `max-width`.
+
+Example: "VAR VÄLKLÄDD" (12 chars) at 58px with 0.12em tracking ≈ 470px → fits in 600px. "VAR VÄLKLÄDD UNDER" (18 chars) ≈ 720px → breaks at 600px. Result: "VAR VÄLKLÄDD" on line 1, "UNDER VINTERN" on line 2.
+
+The trap: widening `max-width` to 800px to "give more room" lets "VAR VÄLKLÄDD UNDER" fit on one line, breaking after UNDER instead of after VÄLKLÄDD. When you reduce font-size, the original container width often becomes correct again — don't widen both at once.
+
+## Left-edge gutter: `clamp()` vs `max()` with content-width
+
+`padding-left: max(24px, calc((100% - var(--dt-content-width)) / 2))` creates a centered-content effect — good for page-width alignment, but on wide screens (1920px+) it pushes headings far from the viewport edge: `(1920 - 1440) / 2 = 240px`.
+
+For sections where the heading should hug the left edge (category cards, tabbed collections), use `padding-left: clamp(24px, 3vw, 80px)` instead. This scales with viewport but caps at 80px, keeping headings close to the edge on any screen. Use the `max()` formula only when you want content to align with a centered page-width column.
