@@ -2611,7 +2611,7 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-tabbed-collection__tabs {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
   margin: 24px 0 20px;
@@ -2625,10 +2625,9 @@ body .mobile-facets__footer .button--primary:hover {
   flex: none;
   appearance: none;
   margin: 0;
-  padding: 0 0 9px;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  border-radius: 0;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   background: none;
   color: var(--tb-sten);
   font-family: var(--dt-font-body);
@@ -2650,16 +2649,14 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 .dt-tab-pill:focus-visible {
-  outline: none;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.5rem;
+  outline: var(--dt-focus-ring);
+  outline-offset: var(--dt-focus-offset);
   color: var(--tb-natt);
 }
 
 .dt-tab-pill--active {
   color: var(--tb-natt);
-  border-bottom-color: var(--tb-vinrod);
+  border-color: var(--tb-natt);
   background: none;
 }
 
@@ -2680,13 +2677,6 @@ body .mobile-facets__footer .button--primary:hover {
   --ratio-percent: 125% !important;
 }
 
-.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card-wrapper,
-.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card,
-.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card__media,
-.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .media {
-  height: auto;
-}
-
 .dt-tabbed-collection__item--featured .card__inner.ratio {
   --ratio-percent: 125% !important;
   height: 100%;
@@ -2703,6 +2693,88 @@ body .mobile-facets__footer .button--primary:hover {
 .dt-tabbed-collection__item--featured .card__media,
 .dt-tabbed-collection__item--featured .media {
   height: 100%;
+}
+
+.dt-tabbed-collection__item--featured .card > .card__content {
+  display: none;
+}
+
+.dt-tabbed-collection__item--featured .card__inner.ratio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.30) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dt-tabbed-collection__product-grid .card-wrapper {
+  position: relative;
+}
+
+.dt-tabbed-collection__product-grid .card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.dt-tabbed-collection__product-grid .card__inner.ratio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 16px;
+  background: none;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .card__heading,
+.dt-tabbed-collection__product-grid .card > .card__content .card__heading a {
+  color: var(--tb-sno);
+  font-family: var(--dt-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .price {
+  color: var(--tb-sno);
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .price .money {
+  color: var(--tb-sno);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .dt-card-category {
+  display: none;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .dt-product-swatches {
+  margin-top: 8px;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .caption-with-letter-spacing {
+  display: none;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .card__badge {
+  display: none;
+}
+
+.dt-tabbed-collection__product-grid .card .card__inner .card__badge {
+  z-index: 2;
 }
 
 .dt-tabbed-collection__cta {
@@ -3492,13 +3564,14 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-tabbed-collection__tabs {
-    gap: 20px;
+    gap: 6px;
     margin: 24px -16px 20px;
     padding: 0 16px;
   }
 
   .dt-tab-pill {
-    font-size: 13px;
+    font-size: 12px;
+    padding: 6px 12px;
   }
 
   .dt-multirow .multirow__inner {
@@ -3639,11 +3712,11 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-tabbed-collection__tabs {
-    gap: 28px;
+    gap: 10px;
   }
 
   .dt-tab-pill {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .dt-tabbed-collection__product-grid {
@@ -3666,7 +3739,7 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-tabbed-collection__tabs {
-    gap: 36px;
+    gap: 12px;
     margin: 32px 0 28px;
     padding: 0;
   }
