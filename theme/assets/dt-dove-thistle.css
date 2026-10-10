@@ -469,6 +469,14 @@
   padding: 0 24px;
 }
 
+.dt-collection-banner__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 0;
+}
+
 .dt-collection-banner__title {
   margin: 0;
   color: var(--tb-text-brand);
@@ -477,6 +485,7 @@
   font-weight: 400;
   letter-spacing: 0.04em;
   line-height: 1.15;
+  text-transform: none;
 }
 
 .dt-collection-banner__description {
