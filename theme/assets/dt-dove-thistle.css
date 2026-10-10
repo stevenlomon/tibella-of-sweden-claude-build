@@ -51,7 +51,7 @@
 
   /* ── Tibella display type (400 weight, uppercase, tracked) ── */
   --tb-type-display-hero: 400 clamp(32px, 2.8vw, 48px)/1.18 var(--dt-font-display);
-  --tb-type-display-banner: 400 clamp(38px, 3.75vw, 72px)/1.45 var(--dt-font-display);
+  --tb-type-display-banner: 400 clamp(32px, 3.2vw, 56px)/1.22 var(--dt-font-display);
   --tb-type-section-title: 400 clamp(24px, 1.78vw, 34px)/1.2 var(--dt-font-display);
   --tb-type-hero-subtitle: italic 400 clamp(18px, 1.46vw, 28px)/1.3 var(--dt-font-display);
   --tb-tracking-display: 0.12em;
@@ -2247,7 +2247,7 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-editorial-banner__media {
   position: relative;
-  min-height: 520px;
+  min-height: 620px;
   overflow: hidden;
 }
 
@@ -2282,7 +2282,7 @@ body .mobile-facets__footer .button--primary:hover {
 
 .dt-editorial-banner__overlay h2 {
   margin: 0;
-  max-width: 700px;
+  max-width: 900px;
   font: var(--tb-type-display-banner);
   letter-spacing: var(--tb-tracking-display);
   text-transform: uppercase;
