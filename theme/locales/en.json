@@ -201,9 +201,9 @@
       "clear": "Rensa",
       "clear_all": "Rensa alla",
       "from": "Från",
-      "filter_and_sort": "Filtrera & sortera",
+      "filter_and_sort": "alla filter",
       "filter_by_label": "Filtrera:",
-      "filter_button": "Filtrera",
+      "filter_button": "filtrera",
       "filters_selected": {
         "one": "{{ count }} vald",
         "other": "{{ count }} valda"
@@ -221,8 +221,8 @@
         "other": "{{ count }} produkter"
       },
       "reset": "Återställ",
-      "sort_button": "Sortera",
-      "sort_by_label": "Sortera efter",
+      "sort_button": "sortera",
+      "sort_by_label": "sortera",
       "to": "Till",
       "clear_filter": "Ta bort filter"
     }
