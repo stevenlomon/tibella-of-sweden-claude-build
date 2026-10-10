@@ -1524,7 +1524,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 .dt-collections__container {
   max-width: none;
   margin: 0;
-  padding-left: max(24px, calc((100% - var(--dt-content-width)) / 2));
+  padding-left: clamp(24px, 3vw, 80px);
   padding-right: 0;
 }
 
@@ -2580,8 +2580,8 @@ body .mobile-facets__footer .button--primary:hover {
 .dt-tabbed-collection__container {
   max-width: none;
   margin: 0;
-  padding-left: max(24px, calc((100% - var(--dt-content-width)) / 2));
-  padding-right: max(24px, calc((100% - var(--dt-content-width)) / 2));
+  padding-left: clamp(24px, 3vw, 80px);
+  padding-right: clamp(24px, 3vw, 80px);
 }
 
 .dt-tabbed-collection__header {
