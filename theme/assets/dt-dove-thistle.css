@@ -50,7 +50,7 @@
   --dt-focus-offset: 4px;
 
   /* ── Tibella display type (400 weight, uppercase, tracked) ── */
-  --tb-type-display-hero: 400 clamp(36px, 4.6vw, 70px)/1.1 var(--dt-font-display);
+  --tb-type-display-hero: 400 clamp(32px, 4vw, 58px)/1.1 var(--dt-font-display);
   --tb-type-display-banner: 400 clamp(32px, 3.2vw, 56px)/1.22 var(--dt-font-display);
   --tb-type-section-title: 400 clamp(24px, 1.78vw, 34px)/1.2 var(--dt-font-display);
   --tb-type-hero-subtitle: italic 400 clamp(18px, 1.46vw, 28px)/1.3 var(--dt-font-display);
@@ -205,7 +205,7 @@
 }
 
 .dt-hero__copy {
-  max-width: 600px;
+  max-width: 800px;
   text-align: center;
   display: flex;
   flex-direction: column;
