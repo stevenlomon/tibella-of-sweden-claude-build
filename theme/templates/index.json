@@ -78,32 +78,47 @@
         "heading": "Shoppa efter kategori"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "dt_tabbed_collection": {
+      "type": "dt-tabbed-collection",
+      "blocks": {
+        "tab_highlight": {
+          "type": "tab",
+          "settings": { "label": "Highlight" }
+        },
+        "tab_kappor": {
+          "type": "tab",
+          "settings": { "label": "Kappor" }
+        },
+        "tab_stickat": {
+          "type": "tab",
+          "settings": { "label": "Stickat" }
+        },
+        "tab_klanningar": {
+          "type": "tab",
+          "settings": { "label": "Klänningar" }
+        },
+        "tab_vaskor": {
+          "type": "tab",
+          "settings": { "label": "Väskor" }
+        },
+        "tab_stovlar": {
+          "type": "tab",
+          "settings": { "label": "Stövlar" }
+        }
+      },
+      "block_order": [
+        "tab_highlight",
+        "tab_kappor",
+        "tab_stickat",
+        "tab_klanningar",
+        "tab_vaskor",
+        "tab_stovlar"
+      ],
       "settings": {
-        "title": "Våra favoriter just nu",
-        "heading_size": "h2",
-        "description": "<p>Några utvalda plagg att börja med — tidlösa, bekväma och enkla att älska.</p>",
-        "show_description": false,
-        "description_style": "body",
+        "heading": "Våra favoriter just nu",
         "collection": "all",
         "products_to_show": 9,
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": true,
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "1",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "columns_desktop": 3
       }
     },
     "dt_editorial_banner": {
@@ -221,7 +236,7 @@
   "order": [
     "dt_hero",
     "dt_collections",
-    "featured_collection",
+    "dt_tabbed_collection",
     "dt_editorial_banner",
     "dt_trust",
     "dt_faq"

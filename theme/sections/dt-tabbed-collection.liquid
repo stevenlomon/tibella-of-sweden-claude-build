@@ -1,0 +1,165 @@
+{%- liquid
+  assign heading_id = 'tabbed-heading-' | append: section.id
+  assign collection = section.settings.collection
+  assign products_to_show = section.settings.products_to_show | default: 9
+  assign columns = section.settings.columns_desktop | default: 3
+-%}
+
+<section
+  class="dt-section dt-tabbed-collection"
+  id="{{ section.id }}"
+  {%- if section.settings.heading != blank %} aria-labelledby="{{ heading_id }}"{%- endif -%}
+>
+  <div class="page-width dt-tabbed-collection__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="dt-tabbed-collection__heading" id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="dt-tabbed-collection__tabs" role="tablist">
+        {%- for block in section.blocks -%}
+          <button
+            type="button"
+            role="tab"
+            class="dt-tab-pill{% if forloop.first %} dt-tab-pill--active{% endif %}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label | escape }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="dt-tabbed-collection__grid grid grid--{{ columns }}-col-desktop grid--2-col-tablet-down" role="list">
+      {%- if collection != blank -%}
+        {%- for product in collection.products limit: products_to_show -%}
+          <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'portrait',
+              image_shape: 'default',
+              lazy_load: true,
+              show_secondary_image: true,
+              show_vendor: false,
+              show_rating: false,
+              section_id: section.id,
+              quick_add: 'none',
+              product_view_context: 'collection'
+            %}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..products_to_show) -%}
+          <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {% liquid
+              assign ridx = forloop.index | modulo: 6
+              if ridx == 0
+                assign ridx = 6
+              endif
+              assign placeholder_image = 'product-apparel-' | append: ridx
+            %}
+            {% render 'card-product',
+              show_vendor: false,
+              media_aspect_ratio: 'portrait',
+              image_shape: 'default',
+              lazy_load: false,
+              placeholder_image: placeholder_image
+            %}
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <script>
+    (function() {
+      var section = document.getElementById('{{ section.id }}');
+      if (!section) return;
+      var tabs = section.querySelectorAll('.dt-tab-pill');
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          tabs.forEach(function(t) {
+            t.classList.remove('dt-tab-pill--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('dt-tab-pill--active');
+          tab.setAttribute('aria-selected', 'true');
+        });
+      });
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Tabbed Collection",
+  "tag": "section",
+  "class": "shopify-section--dt-tabbed-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Våra favoriter just nu"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 9,
+      "label": "Products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Desktop columns"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "All"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabbed Collection",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "Highlight" } },
+        { "type": "tab", "settings": { "label": "Kappor" } },
+        { "type": "tab", "settings": { "label": "Stickat" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
