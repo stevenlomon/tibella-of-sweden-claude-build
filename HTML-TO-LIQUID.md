@@ -81,8 +81,13 @@ Dawn's `card-product` snippet uses `--ratio-percent` to control image aspect rat
 ```
 The `!important` is necessary because Dawn sets this inline via Liquid.
 
-### Featured card height chain
-When a product card needs to fill its grid cell height (e.g. the featured left column), you need to set `height: 100%` on the entire chain: `.card-wrapper`, `.card`, `.card__media`, `.media`. Miss one and the card collapses.
+### Featured card height chain — `height: 100%` is not enough
+Setting `height: 100%` on the entire Dawn card chain (`.card-wrapper`, `.card`, `.card__inner`, `.card__media`, `.media`) does NOT reliably make a featured card fill its grid cell. Dawn's `.ratio` system uses `padding-bottom: var(--ratio-percent)` on a `::before` pseudo-element for sizing, and setting `--ratio-percent: auto` to disable it collapses the element to zero height. The `height: 100%` chain breaks somewhere inside Dawn's flex/ratio internals even with a definite grid cell height.
+
+**Use absolute positioning instead.** Make the grid item `position: relative`, then `position: absolute; inset: 0` on the `.card-wrapper`. Kill the `::before` with `display: none`. Force `height: 100% !important` on all card internals. See DAWN-THEME.md "Dawn's `.ratio` system collapses" for the full pattern.
+
+### Bento grid: 4-column flat grid, not nested 2-column
+For a bento layout (large featured image + 2×2 product grid), don't nest a grid inside the right column — use a flat 4-column, 2-row CSS Grid with `display: contents` on the wrapper elements. The featured item spans `grid-column: 1 / 3; grid-row: 1 / -1`, and the 4 product `<li>` items auto-fill columns 3-4 across both rows. Row heights come from the product cards' aspect ratios. See DAWN-THEME.md "Bento grid: use 4-column grid" for the CSS pattern.
 
 ### `page-width` class removal
 Dawn's `.page-width` constrains sections to `max-width: var(--page-width)` (default 1200px). Custom sections that need full-bleed or custom widths must NOT use this class. Remove it from the Liquid container div and manage width in your own CSS.

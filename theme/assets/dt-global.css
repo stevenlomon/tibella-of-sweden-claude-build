@@ -228,6 +228,19 @@ body .header__heading-link .h2 {
   color: var(--tb-natt) !important;
 }
 
+/* Logo swap: white on transparent header, black on sticky */
+body .header__heading-logo--dark {
+  display: none;
+}
+
+.shopify-section-header-sticky .header__heading-logo--light {
+  display: none !important;
+}
+
+.shopify-section-header-sticky .header__heading-logo--dark {
+  display: block !important;
+}
+
 /* Dropdown mega menu / submenu panels */
 body .header__submenu {
   background: var(--dt-color-white);
