@@ -1,0 +1,90 @@
+{%- liquid
+  assign heading_id = 'editorial-heading-' | append: section.id
+  assign left_alt = section.settings.image_left.alt | default: section.settings.heading | escape
+  assign right_alt = section.settings.image_right.alt | default: section.settings.heading | escape
+-%}
+
+<section
+  class="dt-section dt-editorial-banner"
+  id="{{ section.id }}"
+  {%- if section.settings.heading != blank %} aria-labelledby="{{ heading_id }}"{%- endif -%}
+>
+  <div class="dt-editorial-banner__images">
+    <div class="dt-editorial-banner__image-wrap">
+      {%- if section.settings.image_left != blank -%}
+        {{ section.settings.image_left | image_url: width: 1600 | image_tag: class: 'dt-editorial-banner__img', widths: '600, 900, 1200, 1600', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy', alt: left_alt }}
+      {%- else -%}
+        <img class="dt-editorial-banner__img" src="{{ 'dt-editorial-gifting.png' | asset_url }}" alt="{{ left_alt }}" width="1200" height="800" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="dt-editorial-banner__image-wrap">
+      {%- if section.settings.image_right != blank -%}
+        {{ section.settings.image_right | image_url: width: 1600 | image_tag: class: 'dt-editorial-banner__img', widths: '600, 900, 1200, 1600', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'lazy', alt: right_alt }}
+      {%- else -%}
+        <img class="dt-editorial-banner__img" src="{{ 'dt-editorial-philosophy.png' | asset_url }}" alt="{{ right_alt }}" width="1200" height="800" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="dt-editorial-banner__scrim" aria-hidden="true"></div>
+    <div class="dt-editorial-banner__overlay">
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p>{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a class="dt-link-cta dt-link-cta--light" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.dt_editorial_banner.name",
+  "tag": "section",
+  "class": "shopify-section--dt-editorial-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Utvalt för skandinaviska dagar"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Body text",
+      "default": "Tibella samlar tidlösa lager, mjuka texturer och genomtänkta silhuetter. Utvalda för vardagen, staden och säsongen."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Om Tibella"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -78,16 +78,6 @@
         "heading": "Shoppa efter kategori"
       }
     },
-    "dt_feature": {
-      "type": "dt-image-feature",
-      "settings": {
-        "eyebrow": "",
-        "heading": "Osäker på var du ska börja?",
-        "text": "Utforska hela sortimentet — från vardagsstil och stickat till väskor och stövlar.",
-        "button_label": "Shoppa allt",
-        "button_link": "shopify://collections/all"
-      }
-    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -116,50 +106,13 @@
         "padding_bottom": 0
       }
     },
-    "dt_editorial": {
-      "type": "multirow",
-      "blocks": {
-        "gifting": {
-          "type": "row",
-          "settings": {
-            "caption": "",
-            "heading": "Presenttips för alla tillfällen",
-            "text": "<p>Genomtänkta gåvor och fina fynd för dem du bryr dig om — oavsett säsong.</p>",
-            "button_label": "Utforska presenter",
-            "button_link": "shopify://collections/all",
-            "fallback_asset": "dt-editorial-gifting.png"
-          }
-        },
-        "philosophy": {
-          "type": "row",
-          "settings": {
-            "caption": "",
-            "heading": "Utvalt för livet du lever",
-            "text": "<p>Tibella of Sweden samlar bekväma kläder, tidlösa accessoarer och genomtänkta detaljer. En kollektion för kvinnor som vet vad de gillar och tror att vardagen kan kännas lite extra omtänksam.</p>",
-            "button_label": "Vår filosofi",
-            "button_link": "shopify://pages/about",
-            "fallback_asset": "dt-editorial-philosophy.png"
-          }
-        }
-      },
-      "block_order": [
-        "gifting",
-        "philosophy"
-      ],
+    "dt_editorial_banner": {
+      "type": "dt-editorial-banner",
       "settings": {
-        "image_height": "medium",
-        "desktop_image_width": "medium",
-        "image_layout": "alternate-left",
-        "heading_size": "h1",
-        "text_style": "body",
-        "button_style": "primary",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-1",
-        "row_color_scheme": "scheme-1",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "Utvalt för skandinaviska dagar",
+        "text": "Tibella samlar tidlösa lager, mjuka texturer och genomtänkta silhuetter. Utvalda för vardagen, staden och säsongen.",
+        "button_label": "Om Tibella",
+        "button_link": "shopify://pages/about"
       }
     },
     "dt_trust": {
@@ -268,9 +221,8 @@
   "order": [
     "dt_hero",
     "dt_collections",
-    "dt_feature",
     "featured_collection",
-    "dt_editorial",
+    "dt_editorial_banner",
     "dt_trust",
     "dt_faq"
   ]
