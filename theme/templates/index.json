@@ -115,9 +115,10 @@
         "tab_stovlar"
       ],
       "settings": {
-        "heading": "Våra favoriter just nu",
+        "heading": "Utvalt för säsongen",
+        "description": "Säsongens lager, texturer och silhuetter. Utvalda för svenska dagar.",
         "collection": "all",
-        "products_to_show": 9,
+        "products_to_show": 5,
         "columns_desktop": 3
       }
     },
