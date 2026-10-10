@@ -1519,7 +1519,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 
 .dt-collections__container {
   width: calc(100% - 48px);
-  max-width: 1440px;
+  max-width: var(--dt-content-width);
   margin-left: auto;
   margin-right: auto;
   padding-right: 0;
@@ -1536,7 +1536,7 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
 .dt-collections__header h2 {
   margin: 0;
   font-family: var(--dt-font-display);
-  font-size: clamp(20px, 1.5vw, 26px);
+  font-size: clamp(18px, 1.3vw, 22px);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: var(--tb-tracking-section);
@@ -2117,7 +2117,7 @@ body .mobile-facets__footer .button--primary:hover {
 }
 
 .dt-collection-card {
-  flex: 0 0 calc((100% - 48px) / 5);
+  flex: 0 0 calc((100% - 60px) / 5.25);
   min-width: 200px;
   scroll-snap-align: start;
 }
