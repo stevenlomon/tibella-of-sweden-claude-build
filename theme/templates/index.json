@@ -27,7 +27,6 @@
           "type": "collection",
           "settings": {
             "title": "Kappor",
-            "description": "Vinterkappor, ulljackor och lager som håller dig varm hela säsongen.",
             "fallback_asset": "dt-collection-clothing-shoes.png"
           }
         },
@@ -35,7 +34,6 @@
           "type": "collection",
           "settings": {
             "title": "Stickat",
-            "description": "Kashmir, merinoull och mjuka stickat som omfamnar dig.",
             "fallback_asset": "dt-collection-bags-jewelry.png"
           }
         },
@@ -43,7 +41,6 @@
           "type": "collection",
           "settings": {
             "title": "Klänningar",
-            "description": "Tidlösa klänningar för vardag och fest.",
             "fallback_asset": "dt-collection-home-living.png"
           }
         },
@@ -51,7 +48,6 @@
           "type": "collection",
           "settings": {
             "title": "Väskor",
-            "description": "Handväskor, axelremsväskor och clutches i skandinavisk design.",
             "fallback_asset": "dt-collection-gifts-hobbies.png"
           }
         },
@@ -59,8 +55,14 @@
           "type": "collection",
           "settings": {
             "title": "Stövlar",
-            "description": "Bekväma stövlar och boots för alla årstider.",
             "fallback_asset": "dt-collection-christmas.png"
+          }
+        },
+        "accessoarer": {
+          "type": "collection",
+          "settings": {
+            "title": "Accessoarer",
+            "fallback_asset": "dt-collection-accessories.png"
           }
         }
       },
@@ -69,11 +71,11 @@
         "stickat",
         "klanningar",
         "vaskor",
-        "stovlar"
+        "stovlar",
+        "accessoarer"
       ],
       "settings": {
-        "eyebrow": "Handla efter kategori",
-        "heading": "Vad letar du efter idag?"
+        "heading": "Shoppa efter kategori"
       }
     },
     "dt_feature": {

@@ -1,17 +1,5 @@
-{% doc %}
-  Renders a Dove & Thistle collection card.
-
-  @param {collection} collection - The selected collection
-  @param {image} image - Optional image override
-  @param {string} title - Optional card title override
-  @param {string} description - Optional card description override
-  @param {string} fallback_asset - Theme asset used when no collection image exists
-  @param {string} shopify_attributes - Theme editor block attributes
-{% enddoc %}
-
 {%- liquid
   assign card_title = title | default: collection.title | default: 'Collection'
-  assign card_description = description | default: collection.description | strip_html | truncate: 120
   assign card_url = collection.url | default: routes.all_products_collection_url
   assign card_image = image | default: collection.featured_image
 -%}
@@ -26,7 +14,7 @@
           | image_tag:
             class: 'dt-collection-card__image',
             widths: '480, 720, 960, 1200',
-            sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+            sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 70vw',
             loading: 'lazy',
             alt: card_image.alt | default: card_title
         }}
@@ -35,21 +23,19 @@
           class="dt-collection-card__image"
           src="{{ fallback_asset | asset_url }}"
           alt="{{ card_title | escape }}"
-          width="1200"
-          height="1200"
+          width="800"
+          height="1066"
           loading="lazy"
         >
       {%- else -%}
         {{ 'collection-1' | placeholder_svg_tag: 'dt-collection-card__image' }}
       {%- endif -%}
-      <span class="dt-collection-card__wash" aria-hidden="true"></span>
-      <span class="dt-collection-card__content">
-        <span class="dt-collection-card__copy">
-          <h3>{{ card_title | escape }}</h3>
-          {%- if card_description != blank -%}
-            <p>{{ card_description | escape }}</p>
-          {%- endif -%}
-        </span>
+      <span class="dt-collection-card__scrim" aria-hidden="true"></span>
+      <span class="dt-collection-card__label">
+        <span class="dt-collection-card__title">{{ card_title | escape }}</span>
+        <svg class="dt-collection-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </span>
     </div>
   </a>
