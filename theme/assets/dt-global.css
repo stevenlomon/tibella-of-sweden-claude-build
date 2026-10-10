@@ -202,42 +202,42 @@ body .header__heading-link .h2 {
   transition: color 0.3s ease;
 }
 
-/* Sticky header: restore solid background with dark text */
-.shopify-section-header-sticky .header-wrapper {
+/* Scrolled header: restore solid background with dark text */
+.scrolled-past-header .header-wrapper {
   background: var(--dt-color-white) !important;
 }
 
-.shopify-section-header-sticky .header-wrapper--border-bottom {
+.scrolled-past-header .header-wrapper--border-bottom {
   border-bottom-color: var(--dt-color-grey) !important;
 }
 
-.shopify-section-header-sticky .header__menu-item,
-.shopify-section-header-sticky .header__menu-item span {
+.scrolled-past-header .header__menu-item,
+.scrolled-past-header .header__menu-item span {
   color: var(--tb-text-body) !important;
 }
 
-.shopify-section-header-sticky .header__menu-item:hover span {
+.scrolled-past-header .header__menu-item:hover span {
   color: var(--tb-natt) !important;
 }
 
-.shopify-section-header-sticky .header__icon {
+.scrolled-past-header .header__icon {
   color: var(--tb-natt) !important;
 }
 
-.shopify-section-header-sticky .header__heading-link .h2 {
+.scrolled-past-header .header__heading-link .h2 {
   color: var(--tb-natt) !important;
 }
 
-/* Logo swap: white on transparent header, black on sticky */
+/* Logo swap: white on transparent header, black when scrolled */
 body .header__heading-logo--dark {
   display: none;
 }
 
-.shopify-section-header-sticky .header__heading-logo--light {
+.scrolled-past-header .header__heading-logo--light {
   display: none !important;
 }
 
-.shopify-section-header-sticky .header__heading-logo--dark {
+.scrolled-past-header .header__heading-logo--dark {
   display: block !important;
 }
 
