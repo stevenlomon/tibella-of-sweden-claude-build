@@ -2680,6 +2680,13 @@ body .mobile-facets__footer .button--primary:hover {
   --ratio-percent: 125% !important;
 }
 
+.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card-wrapper,
+.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card,
+.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .card__media,
+.dt-tabbed-collection__product-grid .dt-tabbed-collection__item .media {
+  height: auto;
+}
+
 .dt-tabbed-collection__item--featured .card__inner.ratio {
   --ratio-percent: 125% !important;
   height: 100%;
@@ -2733,6 +2740,7 @@ body .mobile-facets__footer .button--primary:hover {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 20px 8px;
 }
 
