@@ -291,3 +291,23 @@ footer           → color_scheme in sections/footer-group.json
 product cards    → card_color_scheme in settings_data.json global settings
 badges           → sale_badge_color_scheme / sold_out_badge_color_scheme in global settings
 ```
+
+## `locales/en.json` blocks Shopify CLI dev server
+
+The Shopify CLI dev server shows a blocking error overlay when `locales/en.json` exists locally — "The locale 'en' already exists". This file is a locale override that must be uploaded manually via Shopify Admin (Settings → Languages → English → Import). **For dev server use, temporarily rename it to `en.json.bak` before starting `shopify theme dev`, then restore it afterward.** The error also appears during `shopify theme push` but is harmless there — the push still succeeds for all other files.
+
+## Custom sections: new Liquid files need both section + template reference
+
+Creating a new section file (e.g., `dt-editorial-banner.liquid`) is not enough — it must also be referenced in the template JSON (`index.json`) with a section key in both the `sections` object and the `order` array. If the key is in `sections` but not `order`, the section exists but won't render.
+
+## Dawn's `.grid` class uses flexbox, not CSS grid
+
+Despite the name, Dawn's `.grid` class uses `display: flex` with `flex-wrap: wrap`. The companion classes `grid--3-col-desktop`, `grid--2-col-tablet-down` etc. set `flex-basis` on children via `--grid-desktop-columns`. This works fine for product grids — don't override with CSS grid unless you need features flex can't provide.
+
+## Editorial banner: two-image section pattern
+
+For a full-width editorial with centered text overlay on two side-by-side images:
+- Use `display: grid; grid-template-columns: 1fr 1fr` for the image container
+- Position the scrim and text overlay with `position: absolute; inset: 0`
+- On mobile, hide the second image with `display: none` on `:nth-child(2)` rather than stacking
+- Use `--tb-scrim` tokens or `rgba(30, 26, 27, 0.45)` for the overlay darkness

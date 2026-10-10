@@ -50,7 +50,7 @@
   --dt-focus-offset: 4px;
 
   /* ── Tibella display type (400 weight, uppercase, tracked) ── */
-  --tb-type-display-hero: 400 clamp(40px, 3.96vw, 76px)/1.12 var(--dt-font-display);
+  --tb-type-display-hero: 400 clamp(36px, 3.4vw, 58px)/1.18 var(--dt-font-display);
   --tb-type-display-banner: 400 clamp(38px, 3.75vw, 72px)/1.45 var(--dt-font-display);
   --tb-type-section-title: 400 clamp(24px, 1.78vw, 34px)/1.2 var(--dt-font-display);
   --tb-type-hero-subtitle: italic 400 clamp(18px, 1.46vw, 28px)/1.3 var(--dt-font-display);
@@ -164,7 +164,7 @@
 
 .dt-hero {
   position: relative;
-  min-height: 560px;
+  min-height: min(85vh, 780px);
   overflow: hidden;
   background: var(--dt-color-forest);
   color: var(--dt-color-parchment);
@@ -195,9 +195,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  min-height: 560px;
+  min-height: min(85vh, 780px);
   padding-top: 64px;
-  padding-bottom: 96px;
+  padding-bottom: 72px;
 }
 
 .dt-hero__copy {
@@ -3051,7 +3051,7 @@ body .mobile-facets__footer .button--primary:hover {
 @media screen and (max-width: 749px) {
   .dt-hero,
   .dt-hero__content {
-    min-height: 620px;
+    min-height: min(80vh, 600px);
   }
 
   .dt-hero__image {
@@ -3060,11 +3060,11 @@ body .mobile-facets__footer .button--primary:hover {
 
   .dt-hero__content {
     padding-top: 48px;
-    padding-bottom: 64px;
+    padding-bottom: 56px;
   }
 
   .dt-hero h1 {
-    font-size: clamp(44px, 12vw, 60px);
+    font-size: clamp(32px, 9vw, 44px);
     overflow-wrap: break-word;
   }
 
