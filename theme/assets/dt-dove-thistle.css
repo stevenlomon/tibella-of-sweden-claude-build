@@ -45,16 +45,16 @@
   /* ── Fonts & layout ── */
   --dt-font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
   --dt-font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --dt-content-width: 1320px;
+  --dt-content-width: 1440px;
   --dt-focus-ring: 2px solid var(--tb-vinrod);
   --dt-focus-offset: 4px;
 
   /* ── Tibella display type (400 weight, uppercase, tracked) ── */
-  --tb-type-display-hero: 400 clamp(36px, 3.4vw, 58px)/1.18 var(--dt-font-display);
+  --tb-type-display-hero: 400 clamp(32px, 2.8vw, 48px)/1.18 var(--dt-font-display);
   --tb-type-display-banner: 400 clamp(38px, 3.75vw, 72px)/1.45 var(--dt-font-display);
   --tb-type-section-title: 400 clamp(24px, 1.78vw, 34px)/1.2 var(--dt-font-display);
   --tb-type-hero-subtitle: italic 400 clamp(18px, 1.46vw, 28px)/1.3 var(--dt-font-display);
-  --tb-tracking-display: 0.18em;
+  --tb-tracking-display: 0.12em;
   --tb-tracking-section: 0.20em;
 
   /* ── Tibella UI type ── */
@@ -164,7 +164,7 @@
 
 .dt-hero {
   position: relative;
-  min-height: min(85vh, 780px);
+  min-height: min(90vh, 860px);
   overflow: hidden;
   background: var(--dt-color-forest);
   color: var(--dt-color-parchment);
@@ -195,13 +195,13 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  min-height: min(85vh, 780px);
-  padding-top: 64px;
-  padding-bottom: 72px;
+  min-height: min(90vh, 860px);
+  padding: 64px 48px 96px;
+  margin: 0 auto;
 }
 
 .dt-hero__copy {
-  max-width: 680px;
+  max-width: 600px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -2555,6 +2555,13 @@ body .mobile-facets__footer .button--primary:hover {
   background: var(--tb-linne);
 }
 
+.dt-tabbed-collection__container {
+  width: calc(100% - 48px);
+  max-width: var(--dt-content-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .dt-tabbed-collection__header {
   margin-bottom: 40px;
 }
@@ -3087,8 +3094,7 @@ body .mobile-facets__footer .button--primary:hover {
   }
 
   .dt-hero__content {
-    padding-top: 48px;
-    padding-bottom: 56px;
+    padding: 48px 24px 56px;
   }
 
   .dt-hero h1 {

@@ -5,7 +5,7 @@
   id="{{ section.id }}"
   {%- if section.settings.heading != blank %} aria-labelledby="{{ heading_id }}"{%- endif -%}
 >
-  <div class="page-width dt-collections__container">
+  <div class="dt-collections__container">
     <div class="dt-collections__header">
       {%- if section.settings.heading != blank -%}
         <h2 id="{{ heading_id }}">{{ section.settings.heading | escape }}</h2>
