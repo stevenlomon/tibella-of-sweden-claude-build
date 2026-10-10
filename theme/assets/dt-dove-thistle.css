@@ -123,6 +123,11 @@
     --dt-type-meta-xs: 500 9px/12px var(--dt-font-body);
     --dt-type-card-title: 400 14px/20px var(--dt-font-body);
     --dt-type-card-price: 600 13px/18px var(--dt-font-body);
+
+    --tb-tracking-display: 0.06em;
+    --tb-tracking-section: 0.08em;
+    --tb-tracking-cta: 0.10em;
+    --tb-tracking-button: 0.10em;
   }
 }
 
@@ -2920,6 +2925,7 @@ body .mobile-facets__footer .button--primary:hover {
 
   .dt-hero h1 {
     font-size: clamp(44px, 12vw, 60px);
+    overflow-wrap: break-word;
   }
 
   .dt-collections {
@@ -3103,6 +3109,13 @@ body .mobile-facets__footer .button--primary:hover {
 
   .dt-collections__intro {
     margin-bottom: 32px;
+  }
+
+  .dt-collections__intro h2,
+  .dt-image-feature__copy h2,
+  .dt-featured-collection .collection__title .title,
+  .dt-multirow .image-with-text__heading {
+    overflow-wrap: break-word;
   }
 
   .dt-collection-grid {

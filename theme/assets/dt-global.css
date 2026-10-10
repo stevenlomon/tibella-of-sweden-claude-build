@@ -1220,4 +1220,9 @@ body .facets-container.facets-container-drawer .facet-filters__label {
   body .facets-container.facets-container-drawer .active-facets-mobile {
     margin: 0;
   }
+
+  body :is(.color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4, .color-scheme-5) .dt-collection-banner__title {
+    font-size: clamp(28px, 8vw, 36px);
+    overflow-wrap: break-word;
+  }
 }
