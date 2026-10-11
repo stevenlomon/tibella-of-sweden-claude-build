@@ -210,6 +210,46 @@ Skip step 9 and the product is invisible to customers despite being Active.
 
 - Primary market cannot have regions added via API — `marketRegionsCreate` returns "Cannot add regions to the primary market." Workaround: create a new market and deactivate the old primary.
 
+### Color metafield (color-pattern)
+
+The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not plain text. Each color is a metaobject of type `shopify--color-pattern` with these required fields:
+
+| Field | Type | Example |
+|---|---|---|
+| `label` | `single_line_text_field` | `"Beige"` |
+| `color` | `color` (hex) | `"#D4B896"` |
+| `color_taxonomy_reference` | `list.product_taxonomy_value_reference` | `["gid://shopify/TaxonomyValue/6"]` |
+| `pattern_taxonomy_reference` | `product_taxonomy_value_reference` | `gid://shopify/TaxonomyValue/2874` (Solid) |
+
+**Common taxonomy value IDs (colors):**
+
+| Color | ID |
+|---|---|
+| Beige | `gid://shopify/TaxonomyValue/6` |
+| Black | `gid://shopify/TaxonomyValue/1` |
+| Blue | `gid://shopify/TaxonomyValue/2` |
+| Brown | `gid://shopify/TaxonomyValue/7` |
+| Gray | `gid://shopify/TaxonomyValue/8` |
+| Navy | `gid://shopify/TaxonomyValue/15` |
+| Red | `gid://shopify/TaxonomyValue/13` |
+| White | `gid://shopify/TaxonomyValue/3` |
+| Green | `gid://shopify/TaxonomyValue/9` |
+| Pink | `gid://shopify/TaxonomyValue/11` |
+
+**Common pattern:** `Solid` = `gid://shopify/TaxonomyValue/2874`
+
+**Existing metaobjects (created Session 14):**
+
+| Label | Metaobject ID | Base color |
+|---|---|---|
+| Beige | `gid://shopify/Metaobject/261897093342` | Beige |
+| Svart | `gid://shopify/Metaobject/261897126110` | Black |
+| Grå | `gid://shopify/Metaobject/261897158878` | Gray |
+| Röd | `gid://shopify/Metaobject/261897191646` | Red |
+| Mörkblå | `gid://shopify/Metaobject/261897224414` | Navy |
+
+Create new colors with `metaobjectCreate`, then link to product with `metafieldsSet` using the metaobject GIDs as a JSON array.
+
 ### Metafields (rich text)
 
 Format for `rich_text_field` type:
@@ -343,13 +383,14 @@ Current working set:
 ```
 write_products,read_products,write_online_store_navigation,read_online_store_navigation,
 read_publications,write_publications,read_inventory,write_inventory,
-read_locations,read_markets,write_markets
+read_locations,read_markets,write_markets,
+read_metaobjects,write_metaobjects,read_metaobject_definitions,write_metaobject_definitions
 ```
 
 Re-auth command:
 ```bash
 bash -c 'export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh" && nvm use 24 && \
-  shopify store auth --store kei3va-ym.myshopify.com --scopes write_products,read_products,write_online_store_navigation,read_online_store_navigation,read_publications,write_publications,read_inventory,write_inventory,read_locations,read_markets,write_markets'
+  shopify store auth --store kei3va-ym.myshopify.com --scopes write_products,read_products,write_online_store_navigation,read_online_store_navigation,read_publications,write_publications,read_inventory,write_inventory,read_locations,read_markets,write_markets,read_metaobjects,write_metaobjects,read_metaobject_definitions,write_metaobject_definitions'
 ```
 
 ---
