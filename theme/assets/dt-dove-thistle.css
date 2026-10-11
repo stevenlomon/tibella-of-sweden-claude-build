@@ -2649,6 +2649,10 @@ body .mobile-facets__footer .button--primary:hover {
   background: none;
 }
 
+.dt-tabbed-collection__panel--hidden {
+  display: none !important;
+}
+
 .dt-tabbed-collection__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

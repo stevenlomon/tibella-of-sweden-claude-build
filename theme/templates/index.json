@@ -89,27 +89,27 @@
       "blocks": {
         "tab_highlight": {
           "type": "tab",
-          "settings": { "label": "Highlight" }
+          "settings": { "label": "Highlight", "collection": "utvalt-highlight" }
         },
         "tab_kappor": {
           "type": "tab",
-          "settings": { "label": "Kappor" }
+          "settings": { "label": "Kappor", "collection": "utvalt-kappor" }
         },
         "tab_stickat": {
           "type": "tab",
-          "settings": { "label": "Stickat" }
+          "settings": { "label": "Stickat", "collection": "utvalt-stickat" }
         },
         "tab_klanningar": {
           "type": "tab",
-          "settings": { "label": "Klänningar" }
+          "settings": { "label": "Klänningar", "collection": "utvalt-klanningar" }
         },
         "tab_vaskor": {
           "type": "tab",
-          "settings": { "label": "Väskor" }
+          "settings": { "label": "Väskor", "collection": "utvalt-vaskor" }
         },
         "tab_stovlar": {
           "type": "tab",
-          "settings": { "label": "Stövlar" }
+          "settings": { "label": "Stövlar", "collection": "utvalt-stovlar" }
         }
       },
       "block_order": [
@@ -123,9 +123,7 @@
       "settings": {
         "heading": "Utvalt för säsongen",
         "description": "Säsongens lager, texturer och silhuetter. Utvalda för svenska dagar.",
-        "collection": "all",
-        "products_to_show": 5,
-        "columns_desktop": 3
+        "products_to_show": 5
       }
     },
     "dt_editorial_banner": {
