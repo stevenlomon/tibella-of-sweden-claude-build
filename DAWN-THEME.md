@@ -632,3 +632,25 @@ Instead, use a flat 4-column, 2-row grid and flatten the wrapper elements with `
 ```
 
 The featured item spans columns 1-2 and both rows (50% width, full height). The `<div>` side wrapper and `<ul>` product list both become `display: contents`, so the 4 `<li>` items auto-place into columns 3-4 across both rows. Row heights come from the product cards' `--ratio-percent: 125%`, and the featured card fills both rows naturally via grid spanning — no height cascade needed.
+
+---
+
+### Lesson 14 — Dawn's root font-size is 62.5%, so 1rem = 10px
+
+Dawn sets `font-size: calc(var(--font-body-scale) * 62.5%)` on the root `html` element (theme.liquid ~line 281). With the default `body_scale: 100`, this gives `1rem = 10px` not the browser-default `16px`.
+
+When writing custom CSS for Dawn, **all `rem` values must be scaled for a 10px base.** If you want 16px, write `1.6rem`. If you want 500px, write `50rem`. Values written for a 16px base will render at 62.5% of intended size — a drawer meant to be 500px becomes 312px, a heading meant to be 24px becomes 15px.
+
+Dawn's own CSS uses this 10px base everywhere (e.g., `.drawer__inner { width: 40rem }` = 400px, `.drawer__close { min-width: 4.4rem }` = 44px).
+
+---
+
+### Lesson 15 — Dawn's component-cart-drawer.css uses `.cart-drawer` class selectors
+
+Dawn's `component-cart-drawer.css` uses `.cart-drawer` **class** selectors (targeting the inner `<div class="cart-drawer">`), not `cart-drawer` **element** selectors (the custom element `<cart-drawer>`).
+
+A class selector (`.cart-drawer`, specificity `0,1,0`) always beats a type/element selector (`cart-drawer`, specificity `0,0,1`). So `cart-drawer .cart-item` (specificity `0,1,1`) loses to Dawn's `.cart-drawer .cart-item` (specificity `0,2,0`), even if our CSS loads second.
+
+Fix: use `#CartDrawer` (the ID on the inner wrapper div) in descendant selectors. ID-level specificity (`1,x,x`) beats any class-based Dawn rule.
+
+But then active/state-toggle selectors (like `cart-drawer.active .drawer__inner { transform: translateX(0) }`) must also include `#CartDrawer` to beat the initial-state ID selector. Otherwise `#CartDrawer .drawer__inner { transform: translateX(102%) }` (specificity `1,1,0`) permanently wins over `cart-drawer.active .drawer__inner` (specificity `0,2,1`). Use `cart-drawer.active #CartDrawer .drawer__inner` (specificity `1,2,1`) for all state overrides.

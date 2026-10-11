@@ -501,12 +501,6 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
       </cart-drawer-items>
-      {%- if cart != empty -%}
-        <div class="dt-cart-drawer__delivery-note">
-          <h3>{{ 'sections.cart.delivery_note_heading' | t }}</h3>
-          <p>{{ 'sections.cart.delivery_note_body' | t }}</p>
-        </div>
-      {%- endif -%}
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
           <details id="Details-CartDrawer">
@@ -608,7 +602,21 @@
             {{ 'sections.cart.checkout' | t }}
           </button>
           {%- if cart != empty -%}
-            <p class="dt-cart-drawer__payment-note">{{ 'sections.cart.payment_note' | t }}</p>
+            <div class="dt-cart-drawer__trust-badges">
+              <div class="dt-cart-drawer__trust-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"/><path d="M7 6h6l3 4v6H7V6z"/><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="17.5" cy="18.5" r="2.5"/></svg>
+                <span>Fri frakt</span>
+              </div>
+              <div class="dt-cart-drawer__trust-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                <span>30 dagars retur</span>
+              </div>
+              <div class="dt-cart-drawer__trust-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Säker betalning</span>
+              </div>
+            </div>
+            <p class="dt-cart-drawer__payment-note">Betalningar är krypterade och behandlas säkert</p>
             <button
               type="button"
               class="dt-cart-drawer__continue"
