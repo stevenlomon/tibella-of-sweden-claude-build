@@ -196,7 +196,7 @@
           "type": "question",
           "settings": {
             "question": "Erbjuder ni fri frakt?",
-            "answer": "<p>Fri frakt på alla beställningar över 999 SEK.</p>"
+            "answer": "<p>Fri frakt på alla beställningar.</p>"
           }
         },
         "returns": {
