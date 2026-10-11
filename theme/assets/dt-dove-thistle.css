@@ -715,10 +715,11 @@
   background: none;
   color: var(--dt-color-burgundy);
   cursor: pointer;
-  font-family: var(--dt-font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
   text-decoration: underline;
   text-transform: uppercase;
 }
@@ -961,7 +962,7 @@
 .dt-product-page variant-selects {
   display: block;
   margin-top: 2rem;
-  padding-top: 1.8rem;
+  padding-top: 0.6rem;
   border-top: 1px solid var(--dt-color-grey);
 }
 
