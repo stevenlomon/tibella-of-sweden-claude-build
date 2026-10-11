@@ -55,10 +55,17 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+        {%- assign option_name = option.name | downcase -%}
+        {%- assign is_color_option = false -%}
+        {%- if option_name contains 'färg' or option_name contains 'color' or option_name contains 'colour' -%}
+          {%- assign is_color_option = true -%}
+        {%- endif -%}
+        <fieldset class="js product-form__input product-form__input--pill{% if is_color_option %} product-form__input--color{% endif %}">
           <legend class="form__label">
-            {%- assign option_name = option.name | downcase -%}
             {{ option.name }}
+            {%- if is_color_option -%}
+              &nbsp; · &nbsp;<span data-selected-value>{{ option.selected_value }}</span>
+            {%- endif -%}
             {%- if option_name contains 'size' or option_name contains 'storlek' -%}
               <button type="button" class="dt-size-guide" data-dt-size-guide-open>
                 {{ 'products.product.dt_size_guide' | t }}
@@ -69,7 +76,8 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            is_color_option: is_color_option
           %}
         </fieldset>
       {%- else -%}

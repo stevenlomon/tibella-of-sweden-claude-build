@@ -95,10 +95,36 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
-      {{ label_unavailable }}
-    </label>
+    {%- if is_color_option -%}
+      {%- assign color_hex = '' -%}
+      {%- assign clc = escaped_value | downcase -%}
+      {%- case clc -%}
+        {%- when 'beige' -%}{%- assign color_hex = '#C8B89A' -%}
+        {%- when 'svart', 'black' -%}{%- assign color_hex = '#1E1A1B' -%}
+        {%- when 'grå', 'grey', 'gray' -%}{%- assign color_hex = '#8C8888' -%}
+        {%- when 'röd', 'red' -%}{%- assign color_hex = '#8B2532' -%}
+        {%- when 'mörkblå', 'navy' -%}{%- assign color_hex = '#1B2A4A' -%}
+        {%- when 'vit', 'white', 'cream' -%}{%- assign color_hex = '#F5F0E5' -%}
+        {%- when 'brun', 'brown' -%}{%- assign color_hex = '#5C3A21' -%}
+        {%- when 'grön', 'green' -%}{%- assign color_hex = '#2D4A3E' -%}
+        {%- when 'blå', 'blue' -%}{%- assign color_hex = '#3B5998' -%}
+        {%- when 'rosa', 'pink' -%}{%- assign color_hex = '#D4A0A0' -%}
+        {%- when 'kamel', 'camel' -%}{%- assign color_hex = '#C19A6B' -%}
+        {%- when 'bordeaux', 'burgundy', 'vinröd' -%}{%- assign color_hex = '#6D2634' -%}
+        {%- when 'khaki' -%}{%- assign color_hex = '#8B7D5B' -%}
+        {%- when 'cognac', 'tan' -%}{%- assign color_hex = '#9A6324' -%}
+      {%- endcase -%}
+      {%- if color_hex == '' -%}{%- assign color_hex = '#CCCCCC' -%}{%- endif -%}
+      <label for="{{ input_id }}" style="--swatch-bg: {{ color_hex }}" title="{{ value }}">
+        <span class="visually-hidden">{{ value }}</span>
+        {{ label_unavailable }}
+      </label>
+    {%- else -%}
+      <label for="{{ input_id }}">
+        {{ value -}}
+        {{ label_unavailable }}
+      </label>
+    {%- endif -%}
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option
       id="{{ input_id }}"
