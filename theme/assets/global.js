@@ -1223,7 +1223,11 @@ class ProductRecommendations extends HTMLElement {
         const recommendations = html.querySelector('product-recommendations');
 
         if (recommendations?.innerHTML.trim().length) {
-          this.innerHTML = recommendations.innerHTML;
+          const currentCount = this.querySelectorAll('.grid__item').length;
+          const newCount = recommendations.querySelectorAll('.grid__item').length;
+          if (newCount >= currentCount || currentCount === 0) {
+            this.innerHTML = recommendations.innerHTML;
+          }
         }
 
         if (!this.querySelector('slideshow-component') && this.classList.contains('complementary-products')) {
