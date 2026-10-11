@@ -1,42 +1,40 @@
 {%- assign sg_fit = product.metafields.custom.fit_sizing -%}
 {%- assign sg_materials = product.metafields.custom.materials_care -%}
 
-<div class="dt-size-guide-overlay" id="dt-size-guide" aria-modal="true" role="dialog" aria-label="Size guide">
+<div class="dt-size-guide-overlay" id="dt-size-guide" aria-modal="true" role="dialog" aria-label="Storleksguide">
   <div class="dt-size-guide-modal">
-    <button type="button" class="dt-size-guide-modal__close" data-dt-size-guide-close aria-label="Close">&times;</button>
-    <h3>Size guide</h3>
+    <button type="button" class="dt-size-guide-modal__close" data-dt-size-guide-close aria-label="Stäng">&times;</button>
+    <h3>Storleksguide</h3>
     <table>
       <thead>
         <tr>
-          <th>Size</th>
-          <th>US</th>
-          <th>EU</th>
-          <th>UK</th>
-          <th>Length (in)</th>
+          <th>Storlek</th>
+          <th>Bröst (cm)</th>
+          <th>Midja (cm)</th>
+          <th>Höft (cm)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>S</td><td>6 – 7</td><td>36 – 37</td><td>4 – 5</td><td>9.3</td></tr>
-        <tr><td>M</td><td>7.5 – 8.5</td><td>38 – 39</td><td>5.5 – 6.5</td><td>9.8</td></tr>
-        <tr><td>L</td><td>9 – 10</td><td>40 – 41</td><td>7 – 8</td><td>10.2</td></tr>
-        <tr><td>XL</td><td>10.5 – 11.5</td><td>42 – 43</td><td>8.5 – 9.5</td><td>10.7</td></tr>
-        <tr><td>2XL</td><td>12 – 13</td><td>44 – 46</td><td>10 – 11</td><td>11.1</td></tr>
+        <tr><td>S</td><td>84 – 88</td><td>66 – 70</td><td>92 – 96</td></tr>
+        <tr><td>M</td><td>88 – 92</td><td>70 – 74</td><td>96 – 100</td></tr>
+        <tr><td>L</td><td>92 – 96</td><td>74 – 78</td><td>100 – 104</td></tr>
+        <tr><td>XL</td><td>96 – 102</td><td>78 – 84</td><td>104 – 110</td></tr>
       </tbody>
     </table>
     {%- if sg_fit != blank -%}
       <div class="dt-size-guide-modal__section">
-        <p class="dt-size-guide-modal__label">Fit</p>
+        <p class="dt-size-guide-modal__label">Passform</p>
         <div class="dt-size-guide-modal__text rte">{{ sg_fit | metafield_tag }}</div>
       </div>
     {%- else -%}
       <div class="dt-size-guide-modal__section">
-        <p class="dt-size-guide-modal__label">Fit</p>
-        <p class="dt-size-guide-modal__text">A relaxed fit that runs true to size. If you are between sizes, we recommend sizing up.</p>
+        <p class="dt-size-guide-modal__label">Passform</p>
+        <p class="dt-size-guide-modal__text">Avslappnad passform som följer normal storlek. Om du är mellan storlekar rekommenderar vi att du väljer en storlek upp.</p>
       </div>
     {%- endif -%}
     {%- if sg_materials != blank -%}
       <div class="dt-size-guide-modal__section">
-        <p class="dt-size-guide-modal__label">Materials</p>
+        <p class="dt-size-guide-modal__label">Material</p>
         <div class="dt-size-guide-modal__text rte">{{ sg_materials | metafield_tag }}</div>
       </div>
     {%- endif -%}
@@ -47,28 +45,26 @@
   (function() {
     var overlay = document.getElementById('dt-size-guide');
     if (!overlay) return;
-    document.querySelectorAll('[data-dt-size-guide-open]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        overlay.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    overlay.querySelector('[data-dt-size-guide-close]').addEventListener('click', function() {
+    function open() {
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
       overlay.classList.remove('is-open');
       document.body.style.overflow = '';
-    });
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) {
-        overlay.classList.remove('is-open');
-        document.body.style.overflow = '';
+    }
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('[data-dt-size-guide-open]')) {
+        e.preventDefault();
+        open();
       }
+    });
+    overlay.querySelector('[data-dt-size-guide-close]').addEventListener('click', close);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
     });
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-        overlay.classList.remove('is-open');
-        document.body.style.overflow = '';
-      }
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
     });
   })();
 </script>

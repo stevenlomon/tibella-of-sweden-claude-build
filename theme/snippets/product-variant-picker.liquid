@@ -38,10 +38,10 @@
         <fieldset class="js product-form__input product-form__input--swatch">
           <legend class="form__label">
             {%- assign option_name = option.name | downcase -%}
-            {%- if option_name contains 'size' -%}Size{%- else -%}{{ option.name }}{%- endif -%}  ·  <span data-selected-value>
+            {{ option.name }}  ·  <span data-selected-value>
               {{- option.selected_value -}}
             </span>
-            {%- if option_name contains 'size' -%}
+            {%- if option_name contains 'size' or option_name contains 'storlek' -%}
               <button type="button" class="dt-size-guide" data-dt-size-guide-open>
                 {{ 'products.product.dt_size_guide' | t }}
               </button>
@@ -58,8 +58,8 @@
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">
             {%- assign option_name = option.name | downcase -%}
-            {%- if option_name contains 'size' -%}Size{%- else -%}{{ option.name }}{%- endif -%}
-            {%- if option_name contains 'size' -%}
+            {{ option.name }}
+            {%- if option_name contains 'size' or option_name contains 'storlek' -%}
               <button type="button" class="dt-size-guide" data-dt-size-guide-open>
                 {{ 'products.product.dt_size_guide' | t }}
               </button>
