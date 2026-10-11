@@ -26,6 +26,7 @@
         "kappor": {
           "type": "collection",
           "settings": {
+            "collection": "jackor-kappor",
             "title": "Kappor",
             "fallback_asset": "dt-collection-clothing-shoes.png"
           }
@@ -33,6 +34,7 @@
         "stickat": {
           "type": "collection",
           "settings": {
+            "collection": "stickat-toppar",
             "title": "Stickat",
             "fallback_asset": "dt-collection-bags-jewelry.png"
           }
@@ -40,6 +42,7 @@
         "klanningar": {
           "type": "collection",
           "settings": {
+            "collection": "klanningar-set",
             "title": "Klänningar",
             "fallback_asset": "dt-collection-home-living.png"
           }
@@ -47,6 +50,7 @@
         "vaskor": {
           "type": "collection",
           "settings": {
+            "collection": "vaskor",
             "title": "Väskor",
             "fallback_asset": "dt-collection-gifts-hobbies.png"
           }
@@ -54,15 +58,9 @@
         "stovlar": {
           "type": "collection",
           "settings": {
+            "collection": "stovlar-skor",
             "title": "Stövlar",
             "fallback_asset": "dt-collection-christmas.png"
-          }
-        },
-        "accessoarer": {
-          "type": "collection",
-          "settings": {
-            "title": "Accessoarer",
-            "fallback_asset": "dt-collection-accessories.png"
           }
         }
       },
@@ -71,8 +69,7 @@
         "stickat",
         "klanningar",
         "vaskor",
-        "stovlar",
-        "accessoarer"
+        "stovlar"
       ],
       "settings": {
         "heading": "Shoppa efter kategori"
