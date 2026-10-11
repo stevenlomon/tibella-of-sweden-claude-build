@@ -62,6 +62,14 @@
             "title": "Stövlar",
             "fallback_asset": "dt-collection-christmas.png"
           }
+        },
+        "accessoarer": {
+          "type": "collection",
+          "settings": {
+            "collection": "accessoarer",
+            "title": "Accessoarer",
+            "fallback_asset": "dt-collection-accessories.png"
+          }
         }
       },
       "block_order": [
@@ -69,7 +77,8 @@
         "stickat",
         "klanningar",
         "vaskor",
-        "stovlar"
+        "stovlar",
+        "accessoarer"
       ],
       "settings": {
         "heading": "Shoppa efter kategori"
