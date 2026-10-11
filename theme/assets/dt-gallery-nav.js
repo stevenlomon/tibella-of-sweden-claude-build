@@ -50,6 +50,8 @@ if (!customElements.get('dt-gallery-nav')) {
 
         var totalEl = self.querySelector('.dt-gallery-nav__total');
         if (totalEl) totalEl.textContent = self.total;
+
+        self.style.display = self.total < 2 ? 'none' : '';
       };
 
       this.prevBtn.addEventListener('click', () => this.go(-1));
