@@ -111,6 +111,11 @@ mutation {
 
 **What DOESN'T work**: `mediaSrc` on `productVariantsBulkUpdate` does NOT link existing images — it's for uploading new images from external URLs. Using CloudFront or Shopify CDN URLs in `mediaSrc` silently does nothing when the image already exists on the product.
 
+**API constraints on `productVariantAppendMedia`:**
+- Each `variantMedia` entry can only have **1 mediaId** — multiple IDs in the array returns "Only one mediaId is allowed per media input"
+- Each variant can only appear **once per mutation call** — duplicates return "Variant was specified in more than one media input"
+- To link multiple images to one variant, make multiple mutation calls (or just link the primary color image — the simplest approach that works)
+
 Other notes:
 - `productDeleteMedia` takes `mediaIds` (MediaImage GIDs), not ProductImage IDs
 - When variant images aren't assigned, ALL product images show in every variant's gallery
@@ -192,19 +197,23 @@ mutation {
 }
 ```
 
-**Full publish pipeline (end-to-end for one product):**
+**Full enrichment pipeline (end-to-end for one product):**
 
-1. `productCreate` → creates product with default variant (DRAFT status)
-2. `productVariantsBulkUpdate` → set price on default variant
-3. `productOptionsCreate` → add Färg + Storlek options (creates 1 variant)
-4. `productVariantsBulkCreate` → create remaining color × size combinations
-5. `productCreateMedia` → upload images from CDN URLs
-6. `productVariantAppendMedia` → link images to correct color variants
-7. `inventoryAdjustQuantities` → stock each variant (with `@idempotent` + `changeFromQuantity`)
-8. `productUpdate` → set status to ACTIVE
-9. `publishablePublish` → publish to Online Store + Point of Sale + Shop
+1. `metaobjectCreate` → create any new color metaobjects that don't exist yet
+2. `productCreate` → creates product with default variant (DRAFT status)
+3. `productVariantsBulkUpdate` → set price on default variant
+4. `metafieldsSet` → write product metafields (specifications, materials_care, shipping_returns, fit_sizing, key_features). **key_features must use bulleted list format, not paragraph.** All text in Swedish. shipping_returns uses the standard text (see "Content language" below).
+5. `productOptionsCreate` → add Färg + Storlek options (creates 1 auto-variant)
+6. `productVariantsBulkCreate` → create remaining color × size combinations (set price on each)
+7. `productCreateMedia` → upload images from CDN URLs
+8. `productVariantAppendMedia` → link primary color image to each color's variants (1 image per variant, 1 entry per variant per call)
+9. `inventorySetQuantities` → set stock to 10 per variant (requires `@idempotent` directive on the field + `changeFromQuantity: 0`)
+10. `productUpdate` → set status to ACTIVE
+11. `publishablePublish` → publish to Online Store + Point of Sale + Shop
 
-Skip step 9 and the product is invisible to customers despite being Active.
+Skip step 11 and the product is invisible to customers despite being Active.
+
+**CLI response format:** `shopify store execute` returns JSON **without** a `data` wrapper — e.g. `{"productCreate": {...}}` not `{"data": {"productCreate": {...}}}`. Parse accordingly.
 
 ### Markets
 
@@ -238,21 +247,25 @@ The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not p
 
 **Common pattern:** `Solid` = `gid://shopify/TaxonomyValue/2874`
 
-**Existing metaobjects (created Session 14):**
+**Existing metaobjects:**
 
-| Label | Metaobject ID | Base color |
-|---|---|---|
-| Beige | `gid://shopify/Metaobject/261897093342` | Beige |
-| Svart | `gid://shopify/Metaobject/261897126110` | Black |
-| Grå | `gid://shopify/Metaobject/261897158878` | Gray |
-| Röd | `gid://shopify/Metaobject/261897191646` | Red |
-| Mörkblå | `gid://shopify/Metaobject/261897224414` | Navy |
+| Label | Metaobject ID | Base color | Taxonomy |
+|---|---|---|---|
+| Beige | `gid://shopify/Metaobject/261897093342` | Beige | 6 |
+| Svart | `gid://shopify/Metaobject/261897126110` | Black | 1 |
+| Grå | `gid://shopify/Metaobject/261897158878` | Gray | 8 |
+| Röd | `gid://shopify/Metaobject/261897191646` | Red | 13 |
+| Mörkblå | `gid://shopify/Metaobject/261897224414` | Navy | 15 |
+| Brun | `gid://shopify/Metaobject/261917868254` | Brown | 7 |
+| Kamel | `gid://shopify/Metaobject/261917901022` | Brown | 7 |
+| Rosa | `gid://shopify/Metaobject/261917933790` | Pink | 11 |
+| Olivgrön | `gid://shopify/Metaobject/261917966558` | Green | 9 |
 
 Create new colors with `metaobjectCreate`, then link to product with `metafieldsSet` using the metaobject GIDs as a JSON array.
 
 ### Metafields (rich text)
 
-Format for `rich_text_field` type:
+Format for `rich_text_field` type — **paragraph** (plain text block):
 ```json
 {
   "type": "root",
@@ -264,6 +277,36 @@ Format for `rich_text_field` type:
   ]
 }
 ```
+
+Format for `rich_text_field` type — **bulleted list** (renders as `<ul><li>` via `metafield_tag`):
+```json
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "list",
+      "listType": "unordered",
+      "children": [
+        { "type": "list-item", "children": [{ "type": "text", "value": "First bullet" }] },
+        { "type": "list-item", "children": [{ "type": "text", "value": "Second bullet" }] }
+      ]
+    }
+  ]
+}
+```
+
+**Use bulleted lists for `key_features`.** The theme renders features under "Höjdpunkter" — plain paragraph text with period-separated sentences looks wrong. Each feature should be its own `list-item`.
+
+### Content language
+
+**All product content must be in Swedish.** Descriptions, metafields (specifications, key_features, materials_care, fit_sizing, shipping_returns) — all Swedish. The spreadsheet uses English product names but the store is Swedish-facing.
+
+The standard `shipping_returns` text for all products:
+```
+Fri frakt på alla beställningar. Leverans inom 5–10 arbetsdagar. 30 dagars öppet köp — returnera enkelt via vår retursida.
+```
+
+Never write "Fri frakt över 999 SEK" or any threshold — shipping is free, period.
 
 ---
 
@@ -395,24 +438,45 @@ bash -c 'export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh" && nvm use 24 &
 
 ---
 
-## Product counts after Session 10
+## Product counts after Session 16
 
 | Category | Count | Status |
 |---|---|---|
 | Boot placeholders (Boot 1–9) | 9 | ACTIVE |
-| Woolen Coat | 1 | ACTIVE |
-| Long Wool Trenchcoat | 1 | ACTIVE (8 variants, images mapped, stocked) |
-| Outerwear (imported) | 35 | DRAFT |
+| Woolen Coat | 1 | ACTIVE (enriched) |
+| Outerwear — enriched | 4 | ACTIVE (variants, images, stock, published) |
+| Outerwear — imported only | 31 | DRAFT (need enrichment) |
 | Knitwear / Tops (imported) | 46 | DRAFT |
 | Dresses (imported Session 9) | 17 | DRAFT |
 | Accessories (Tassel Shawl — was in knitwear batch) | 1 | DRAFT |
 | **Total** | **110** | |
 
-All 89 unique "Launch" products from the Product Planner spreadsheet are now in the store.
+All 89 unique "Launch" products from the Product Planner spreadsheet are now in the store. Next: scale enrichment to remaining Outerwear rows (31 DRAFT products).
 
 ### Fully enriched products
 
-| Product | Variants | Price | Images | Status |
-|---|---|---|---|---|
-| Woolen Coat | 16 (4 colors × 4 sizes) | 899 SEK | 4 (1 per color) | ACTIVE |
-| Long Wool Trenchcoat | 20 (5 colors × 4 sizes) | 999 SEK | 9 (5 Beige + Grå + Svart + Röd + Mörkblå) | ACTIVE |
+| Product | Product ID | Variants | Price | Images | Inventory | Status |
+|---|---|---|---|---|---|---|
+| Woolen Coat | 9363407274206 | 16 (4 colors × 4 sizes) | 899 SEK | 4 (1 per color) | ? | ACTIVE |
+| Lång Ullblandad Trenchcoat | 9370989658334 | 20 (5 colors × 4 sizes) | 999 SEK | 9 (5 Beige + 4 color variants) | 10/variant | ACTIVE |
+| Kappa i Fuskpäls och Fleece | 9370989592798 | 20 (5 colors × 4 sizes) | 899 SEK | 9 (5 Beige + 4 color variants) | 10/variant | ACTIVE |
+| Lätt Mockajacka | 9370989691102 | 16 (4 colors × 4 sizes) | 699 SEK | 8 (5 Brun + 3 color variants) | 10/variant | ACTIVE |
+| Fleecekappa med Huva | 9370990477534 | 12 (3 colors × 4 sizes) | 699 SEK | 7 (5 Beige + 2 color variants) | 10/variant | ACTIVE |
+
+### One-shot script bugs found and fixed
+
+The `enrich_products.py` script in the scratchpad has these known issues that must be fixed before scaling:
+
+1. **Response parsing assumes `data` wrapper** — Lines like `data.get("data", {}).get("metaobjectCreate", {})` fail silently because `shopify store execute` returns JSON without a `data` wrapper. Fix: parse directly, e.g. `data.get("metaobjectCreate", {})`.
+
+2. **`productVariantAppendMedia` sends multiple mediaIds per entry** — The script builds `mediaIds: ["id1", "id2", ...]` arrays. The API only accepts 1 mediaId per entry. Fix: only link the primary color image (index 0 of each color's media list) to each variant.
+
+3. **`key_features` metafield uses paragraph format** — Script writes features as a single paragraph with period-separated sentences. Fix: use `list` + `list-item` rich text structure for bullet points.
+
+4. **`shipping_returns` text says "Fri frakt över 999 SEK"** — False. Fix: use "Fri frakt på alla beställningar. Leverans inom 5–10 arbetsdagar. 30 dagars öppet köp — returnera enkelt via vår retursida."
+
+5. **Descriptions are in English** — The script doesn't set `descriptionHtml` explicitly, and the import step used English descriptions. Fix: include a Swedish `descriptionHtml` in the `productCreate` or `productUpdate` step.
+
+6. **No inventory step** — Script ends after image linking. Fix: add `inventorySetQuantities` with `@idempotent` directive and `changeFromQuantity: 0` for all new variants.
+
+7. **No publish step** — Script doesn't call `publishablePublish`. Fix: add it after `productUpdate(status: ACTIVE)`.

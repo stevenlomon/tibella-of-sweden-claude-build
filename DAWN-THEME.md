@@ -646,6 +646,52 @@ Instead, use a flat 4-column, 2-row grid and flatten the wrapper elements with `
 
 The featured item spans columns 1-2 and both rows (50% width, full height). The `<div>` side wrapper and `<ul>` product list both become `display: contents`, so the 4 `<li>` items auto-place into columns 3-4 across both rows. Row heights come from the product cards' `--ratio-percent: 125%`, and the featured card fills both rows naturally via grid spanning — no height cascade needed.
 
+## Product recommendations: JS replaces better fallback with API results
+
+Dawn's `<product-recommendations>` custom element (in `global.js`) fetches product recommendations via AJAX from the Shopify Recommendations API. On page load, the section SSR-renders a **collection-based fallback** (products from the same collection, excluding self). When the JS fires, it **unconditionally replaces** the fallback HTML with the API response — even when the API returns fewer products.
+
+**The problem:** For new products with no sales data, the Recommendations API returns very few results (sometimes just 1). The JS replaces a good 3-product fallback with a single card. The user sees products flash and then collapse.
+
+**The fix:** Only replace if the API returns at least as many products as the current content:
+
+```javascript
+// In loadRecommendations():
+if (recommendations?.innerHTML.trim().length) {
+  const currentCount = this.querySelectorAll('.grid__item').length;
+  const newCount = recommendations.querySelectorAll('.grid__item').length;
+  if (newCount >= currentCount || currentCount === 0) {
+    this.innerHTML = recommendations.innerHTML;
+  }
+}
+```
+
+This preserves the collection fallback until the API has enough data to improve on it. File: `assets/global.js`, class `ProductRecommendations`, method `loadRecommendations`.
+
+## Dawn's locale translations drive PDP trust badges
+
+The trust badges on the PDP (`dt-product-trust.liquid`) read from locale translations, not from product metafields or section settings:
+
+```liquid
+{{ 'products.product.dt_trust_shipping' | t }}
+{{ 'products.product.dt_trust_shipping_detail' | t }}
+```
+
+These live in `locales/en.default.json` (primary) and `locales/en.json` (override). Both must be updated when changing trust badge text. The announcement bar text is in `sections/header-group.json`, and FAQ answers are in `templates/index.json` — four separate locations for shipping messaging.
+
+## Shipping messaging: four locations + product metafields
+
+"Fri frakt" messaging appears in five places. When changing it, all five must be updated:
+
+| Location | File | Field |
+|---|---|---|
+| Announcement bar | `sections/header-group.json` | `blocks.announcement-bar-0.settings.text` |
+| PDP trust badge | `locales/en.default.json` | `products.product.dt_trust_shipping_detail` |
+| PDP trust badge (override) | `locales/en.json` | `products.product.dt_trust_shipping_detail` |
+| Homepage FAQ | `templates/index.json` | `blocks.free_shipping.settings.answer` |
+| Product metafield | API: `custom.shipping_returns` | Per-product rich text field |
+
+The homepage trust bar (`dt-trust-bar`) uses its own section settings in `templates/index.json` — currently says "Gratis frakt / Över hela Sverige" which is fine.
+
 ---
 
 ### Lesson 14 — Dawn's root font-size is 62.5%, so 1rem = 10px
