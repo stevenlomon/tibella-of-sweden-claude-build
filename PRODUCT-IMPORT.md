@@ -266,9 +266,38 @@ Each product has:
 - Per color: 1 main image + 4 variation images = 5 images
 - Minimum 5 images per product, up to 20+ for multi-color products
 
+### Image ordering — position matters
+
+Upload main images in **spreadsheet column order** (Main 1 → Main 5, then Var images). The resulting `product.images` array must follow this convention:
+
+| Position | `product.images` index | Role | Used by |
+|---|---|---|---|
+| Main 1 | `[0]` | Front view (featured image) | PDP hero, collection cards |
+| Main 2 | `[1]` | Hover shot | Collection grid hover |
+| Main 3 | `[2]` | **In-action / lifestyle** | **Product story section** (`dt-product-story.liquid`) |
+| Main 4 | `[3]` | Detail (texture, collar, buttons) | Gallery |
+| Main 5 | `[4]` | Secondary detail or angle | Gallery |
+
+**Main 3 is load-bearing.** The product story section below the buy box pulls `product.images[2]` as its image. If Main 3 is not the in-action shot, the product story shows the wrong image.
+
+**If images land out of order**, fix with `productReorderMedia`:
+
+```graphql
+mutation {
+  productReorderMedia(id: "gid://shopify/Product/...", moves: [
+    { id: "gid://shopify/MediaImage/...", newPosition: "2" }
+  ]) {
+    job { id }
+    userErrors { field message }
+  }
+}
+```
+
+**Verification after import:** Open the PDP, scroll to the product story section, and confirm the in-action image (not a detail/close-up shot) is displayed.
+
 ### Mapping images to variants
 
-After upload, use `productVariantsBulkUpdate` with `mediaSrc` to assign the main image for each color to all size variants of that color. Each variant gets exactly 1 image (the color's main shot).
+After upload, use `productVariantAppendMedia` to link images to correct color variants. Each variant's first linked image becomes its featured image.
 
 ---
 
