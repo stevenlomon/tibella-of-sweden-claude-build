@@ -1431,6 +1431,14 @@ body:has(.dt-product-mobile-sticky-atc) .dt-footer,
   .dt-product-page .product-media-container.media-fit-contain .product__media img {
     object-fit: cover;
   }
+
+  .dt-product-page .price--large {
+    margin-bottom: 0;
+  }
+
+  .dt-product-page variant-selects {
+    margin-top: 0.5rem;
+  }
 }
 
 @media screen and (min-width: 750px) {

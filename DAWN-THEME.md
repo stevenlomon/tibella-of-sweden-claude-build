@@ -4,6 +4,19 @@ Hard-won lessons from the Dove & Thistle build. Read this before touching Dawn C
 
 ## Push safety
 
+**Always verify the target theme ID before pushing.** The store has multiple themes: a live theme, draft themes, dev themes. Pushing `--only assets/file.css` to the wrong theme (e.g. a stale "Claude Build" draft instead of the live "Tibella of Sweden X Dawn") deploys the CSS in isolation — without the Liquid, JS, and config changes the CSS depends on. The result looks broken: missing color swatches, wrong navbar, wrong images.
+
+```bash
+# Step 1: list themes, note the [live] one
+npx shopify theme list --store kei3va-ym.myshopify.com
+
+# Step 2: push to the live theme by ID
+npx shopify theme push --path theme --store kei3va-ym.myshopify.com \
+  --theme 159361106142 --allow-live --only assets/dt-dove-thistle.css --nodelete
+```
+
+Never push to a draft theme for "preview" unless that draft has ALL the current changes. A stale draft will show regressions from missing files, not from your CSS.
+
 **Always `cd theme/` before pushing.** Running `shopify theme push --path .` from the project root treats the root as the theme directory and silently deletes every remote file not present at root level during its "clean" step. This nuked the draft to 4 files mid-session.
 
 ```bash

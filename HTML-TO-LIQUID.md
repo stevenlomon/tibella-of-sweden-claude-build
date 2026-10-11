@@ -276,3 +276,49 @@ for (const sheet of document.styleSheets) {
 
 ### Prevention
 Before writing CSS for any `.dt-*` class, grep BOTH CSS files. If the class exists in `dt-global.css`, either remove it there first or match its specificity pattern.
+
+---
+
+## 13. Grid items are BFCs — margin collapse breaks at desktop breakpoint
+
+### The problem
+On mobile, Dawn's `product__info-container` is a regular block element. Child margins collapse through zero-height wrappers:
+
+```
+Price inner margin-bottom: 12px
+Price wrapper margin-bottom: 15px  (from > * + *)
+Installment wrapper: margin 0, height 0  — collapses through
+variant-selects margin-top: 20px
+
+Collapsed result: max(12, 15, 0, 20) = 20px gap
+```
+
+At `min-width: 990px`, `product__info-container` becomes `display: grid`. Grid items establish new block formatting contexts (BFCs). Child margins no longer collapse with their parent's margins:
+
+```
+Price inner margin-bottom: 12px  — stays INSIDE wrapper (BFC boundary)
+Price wrapper margin-bottom: 15px  — outside wrapper
+variant-selects margin-top: 5px
+
+Additive result: 12 + 15 + 5 = 32px gap  ← 12px wider than mobile
+```
+
+The 12px inner margin that collapsed away on mobile becomes additive on desktop.
+
+### The fix
+Zero the inner element's margin on desktop so only the wrapper's margin contributes:
+
+```css
+@media screen and (min-width: 990px) {
+  .dt-product-page .price--large {
+    margin-bottom: 0;
+  }
+  .dt-product-page variant-selects {
+    margin-top: 0.5rem;
+  }
+}
+/* Desktop: 0 + 15 + 5 = 20px — matches mobile's collapsed 20px */
+```
+
+### Rule of thumb
+When tuning spacing between elements that live in a container that switches from `display: block` (mobile) to `display: grid` or `display: flex` (desktop), check for inner element margins that collapse on mobile but become additive on desktop. The fix is always to zero the inner margin at the grid breakpoint — let the wrapper margin handle the gap alone.
