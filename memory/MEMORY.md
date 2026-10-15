@@ -7,3 +7,4 @@
 - [Dawn .dt-section h3 specificity](dawn-section-h3-specificity.md) — `.dt-section h3` beats single-class heading overrides inside `.dt-section`s; chain two classes or `body`-prefix. Also: Manrope only loaded at 400–700.
 - [Product story height](feedback_product_story_height.md) — Cap desktop image height on full-bleed sections; unconstrained images balloon the section
 - [Image convention](image-convention.md) — Main 1-5 positions matter: 3 = in-action (product story section pulls it); Image Var 1-4 = one shot per additional color
+- [Handoff format](feedback-handoff-format.md) — Every handoff must open with a "Start here" reading list of essential files for the next session
