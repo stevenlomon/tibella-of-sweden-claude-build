@@ -39,6 +39,8 @@ COLOR_METAOBJECTS = {
     "Grå": "gid://shopify/Metaobject/261897158878",
     "Grön": "gid://shopify/Metaobject/266896474334",
     "Gul": "gid://shopify/Metaobject/266896081118",
+    "Lila": "gid://shopify/Metaobject/266965385438",
+    "Orange": "gid://shopify/Metaobject/266981638366",
     "Kamel": "gid://shopify/Metaobject/261917901022",
     "Khaki": "gid://shopify/Metaobject/266896015582",
     "Mörkblå": "gid://shopify/Metaobject/261897224414",

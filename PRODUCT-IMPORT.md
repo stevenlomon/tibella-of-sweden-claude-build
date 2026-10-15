@@ -247,7 +247,7 @@ The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not p
 
 **Common pattern:** `Solid` = `gid://shopify/TaxonomyValue/2874`
 
-**All color metaobjects (20 total):**
+**All color metaobjects (22 total):**
 
 | Label | Metaobject ID | Hex | Base color | Taxonomy |
 |---|---|---|---|---|
@@ -262,10 +262,12 @@ The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not p
 | Gul | `gid://shopify/Metaobject/266896081118` | `#E8C44A` | Yellow | 4 |
 | Kamel | `gid://shopify/Metaobject/261917901022` | — | Brown | 7 |
 | Khaki | `gid://shopify/Metaobject/266896015582` | `#BDB395` | Beige | 6 |
+| Lila | `gid://shopify/Metaobject/266965385438` | `#7B3F8E` | Purple | 12 |
 | Mörkblå | `gid://shopify/Metaobject/261897224414` | — | Navy | 15 |
 | Mörkbrun | `gid://shopify/Metaobject/266896441566` | `#4A2912` | Brown | 7 |
 | Mörkgrön | `gid://shopify/Metaobject/266896310494` | `#2D5A27` | Green | 9 |
 | Olivgrön | `gid://shopify/Metaobject/261917966558` | — | Green | 9 |
+| Orange | `gid://shopify/Metaobject/266981638366` | `#CC5500` | Orange | 5 |
 | Rosa | `gid://shopify/Metaobject/261917933790` | — | Pink | 11 |
 | Röd | `gid://shopify/Metaobject/261897191646` | — | Red | 13 |
 | Svart | `gid://shopify/Metaobject/261897126110` | — | Black | 1 |

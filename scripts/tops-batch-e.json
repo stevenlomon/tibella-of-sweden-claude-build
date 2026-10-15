@@ -1,0 +1,104 @@
+[
+  {
+    "csv_row": 34,
+    "shopify_gid": "gid://shopify/Product/9370993328350",
+    "current_title": "Långärmad Sidenblus",
+    "price": "699.00",
+    "colors": ["Svart", "Vit", "Mörkblå"],
+    "main_images": ["bdpkplv4Q9c", "V4FRzRj827U", "SZRI0FNjMtw", "Iipumf2kE_4", "XqfEfM5HK1Q"],
+    "var_images": ["Y4cMTzxLyxY", "VCLob3KKplA"],
+    "n_main": 5,
+    "description_html": "<p>Elegant sidenblus i polyester med lyxig satängfinish och genomskinliga randiga ballongärmar. Skjortkrage och knappstängning fram ger en sofistikerad silhuett som passar lika bra till vardags som till fest.</p>",
+    "specifications": "Material: Polyester\nStängning: Knappar\nHalsringning: Skjortkrage\nÄrmlängd: Lång med ballongform\nMönster: Enfärgad\nDetaljer: Genomskinliga randiga ärmar, satängmuddar",
+    "materials_care": "Polyester med satängfinish.",
+    "fit_sizing": "Normal passform. Normal längd. Välj din vanliga storlek.",
+    "key_features": [
+      "Satängfinish med sidenliknande glans",
+      "Genomskinliga randiga ballongärmar",
+      "Elegant skjortkrage",
+      "Knappstängning fram med satängmuddar"
+    ],
+    "_notes": "AliExpress-redirect laddade fel produkt (O-neck hollow out blus). Specifikationer baserade på bilder + polyester bekräftat från leverantören."
+  },
+  {
+    "csv_row": 39,
+    "shopify_gid": "gid://shopify/Product/9370993524958",
+    "current_title": "Satängblus",
+    "price": "499.00",
+    "colors": ["Rosa", "Grön", "Vinröd", "Grå", "Svart"],
+    "main_images": ["Wfl3tz2bqOc", "Y61aMzCK9TI", "bpSChVZ6bRY", "AwPerlCjj5U", "2HoXL5OXgig"],
+    "var_images": ["QxruoSv3mp8", "FvzU-Ccn2bI", "0ank50iGhJE", "EiXvENze9Po"],
+    "n_main": 5,
+    "description_html": "<p>Klassisk satängblus i polyester med stilren skjortkrage och knappstängning fram. Det mjuka satängtyget har en elegant glans som lyfter varje outfit. Normal passform med lätt stretch för bekvämlighet hela dagen.</p>",
+    "specifications": "Material: Polyester\nTygtyp: Broadcloth med satängfinish\nStängning: Enkelknäppt med knappar\nHalsringning: Skjortkrage\nÄrmlängd: Lång ärm\nMönster: Enfärgad\nTjocklek: Standard\nElasticitet: Lätt stretch",
+    "materials_care": "Polyester (syntetfiber) med satängfinish. Lätt stretch.",
+    "fit_sizing": "Normal passform. Normal längd. Välj din vanliga storlek.",
+    "key_features": [
+      "Mjuk satäng med elegant glans",
+      "Enkelknäppt med knappstängning fram",
+      "Stilren skjortkrage",
+      "Lätt stretch för komfort"
+    ]
+  },
+  {
+    "csv_row": 56,
+    "shopify_gid": "gid://shopify/Product/9370993721566",
+    "current_title": "Fluffig Mjuk Lös Kofta",
+    "price": "799.00",
+    "colors": ["Beige", "Grå"],
+    "main_images": ["1u3Mgkyr2I0", "g1RY4Gwt7-w", "9ZW8Qw25gF8", "9OyogxdlH-A", "y4GzAV0BEEg"],
+    "var_images": ["LVp3-PY-XKg"],
+    "n_main": 5,
+    "description_html": "<p>Fluffig och mjuk kofta i polyester med en ombonad, ludig textur som känns lyxig mot huden. V-ringning och knappstängning fram med lös, avslappnad passform. Ribbade muddar och fåll ger en stilren avslutning.</p>",
+    "specifications": "Material: Polyester\nStängning: Knappar\nHalsringning: V-ringning\nÄrmlängd: Lång ärm\nPassform: Lös\nMönster: Enfärgad\nTjocklek: Medel\nElasticitet: Lätt stretch\nSäsong: Höst/Vinter",
+    "materials_care": "Polyester med mjuk, ludig textur. Lätt stretch.",
+    "fit_sizing": "Lös passform. Normal längd. Välj din vanliga storlek.",
+    "key_features": [
+      "Mjuk och fluffig textur",
+      "V-ringning med knappstängning",
+      "Lös avslappnad passform",
+      "Ribbade muddar och fåll"
+    ]
+  },
+  {
+    "csv_row": 59,
+    "shopify_gid": "gid://shopify/Product/9370993852638",
+    "current_title": "Ärmlös Fleeceväst Dam",
+    "price": "499.00",
+    "colors": ["Beige"],
+    "main_images": ["wBoMvbYvPzo", "wBoMvbYvPzo", "BFblcxL4vIg", "GXEzVdWC2CQ", "AKfp3p5mNPw"],
+    "var_images": [],
+    "n_main": 5,
+    "description_html": "<p>Mjuk ärmlös fleeceväst i bomull- och polyesterblandning med mysig, plyschig textur. Huva och praktiska fickor gör den perfekt som ytterplagg under höst och vinter. Öppen front och lös passform för enkel layering.</p>",
+    "specifications": "Material: Bomull- och polyesterblandning\nStängning: Öppen front\nHuva: Ja\nÄrmar: Ärmlös\nPassform: Lös\nMönster: Enfärgad\nDetaljer: Påsydda fickor\nSäsong: Höst/Vinter",
+    "materials_care": "Bomull- och polyesterblandning med fleeceyta.",
+    "fit_sizing": "Lös passform. Normal längd. Välj din vanliga storlek.",
+    "key_features": [
+      "Mjuk plyschig fleeceyta",
+      "Huva för extra värme",
+      "Praktiska påsydda fickor",
+      "Öppen front för enkel layering"
+    ]
+  },
+  {
+    "csv_row": 61,
+    "shopify_gid": "gid://shopify/Product/9370993983710",
+    "current_title": "Flätstickad Tröja med Rund Hals",
+    "price": "499.00",
+    "colors": ["Orange", "Vit", "Svart", "Vinröd", "Gul"],
+    "main_images": ["oQQU80Q0y0E", "3nJ6ZUZGZIc", "eosTzSSTwYM", "HuXvhdaCQKY", "PXteiOxB3-I"],
+    "var_images": ["AYMVG1HzWYk", "dzSdcVQnBVQ", "dAYIDqK9vKs", "AmMACCG0XGU"],
+    "n_main": 5,
+    "description_html": "<p>Flätstickad tröja med rund hals och vackert flätstickat mönster på framsidan. Ballongärmar med ribbade muddar och fåll skapar en modern silhuett. Perfekt för att skapa en varm och stilren höst- och vinterlook.</p>",
+    "specifications": "Stängning: Pullover\nHalsringning: Rund hals\nÄrmlängd: Lång med ballongform\nPassform: Normal\nMönster: Flätstickat\nDetaljer: Ribbade muddar och fåll",
+    "materials_care": "Flätstickat material.",
+    "fit_sizing": "Normal passform. Normal till lätt croppad längd. Välj din vanliga storlek.",
+    "key_features": [
+      "Vackert flätstickat mönster",
+      "Rund hals med ribbad kant",
+      "Moderna ballongärmar",
+      "Ribbade muddar och fåll"
+    ],
+    "_notes": "AliExpress-sidan (1005011592813167) var helt otillgänglig p.g.a. CAPTCHA-blockering. Specifikationer baserade enbart på bilder. Materialkomposition behöver verifieras manuellt. Primärfärgen orange saknas som Shopify-metaobjekt och behöver skapas."
+  }
+]

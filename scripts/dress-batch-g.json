@@ -1,0 +1,62 @@
+[
+  {
+    "csv_row": 16,
+    "shopify_gid": "gid://shopify/Product/9371144356062",
+    "current_title": "Stickad Klänning Elegant",
+    "price": "849.00",
+    "colors": ["Rosa", "Svart", "Vinröd"],
+    "main_images": ["-fM4DkGsdsM", "XWxPDYLQx5I", "daGsE6uBfGo", "iS3KDlZJrzA", "HCUqAXoLXOc"],
+    "var_images": ["jVcLace-ocI", "70mkwRpAyk4"],
+    "n_main": 5,
+    "description_html": "<p>Elegant stickad klänning med rullkrage och lös passform i tröjmodell. Tillverkad i mjuk polyester- och viskosblandning med hög stretch som ger bekväm rörlighet under hela dagen.</p><p>En mångsidig vardagsklänning som enkelt kombineras med strumpbyxor och stövlar under höst och vinter. Ribbstickade detaljer vid krage, manschetter och nederkant ger ett omsorgsfullt finish.</p>",
+    "specifications": "Material: Polyester, viskos\nStängning: Pullover\nHalsringning: Rullkrage\nMönster: Enfärgad\nPassform: Lös\nÄrmlängd: Lång ärm\nLängd: Kort\nElasticitet: Hög stretch",
+    "materials_care": "Polyester och viskos.",
+    "fit_sizing": "Lös passform i tröjmodell. Kort längd ovanför knäet. Hög stretch i tyget. Välj din vanliga storlek.",
+    "key_features": ["Mjuk rullkrage med ribbstickade detaljer", "Lös och bekväm passform med hög stretch", "Polyester- och viskosblandning för mjukhet", "Ribbstickade manschetter och nederkant"]
+  },
+  {
+    "csv_row": 21,
+    "shopify_gid": "gid://shopify/Product/9371144519902",
+    "current_title": "Flätstickad Cocktailklänning",
+    "price": "899.00",
+    "colors": ["Vinröd", "Rosa", "Kamel"],
+    "main_images": ["yt5BgzdfJ5g", "pUy9zR2tZEo", "K6LJKlS_8pI", "nH2YctQ7rRw", "KVhODh76MJw"],
+    "var_images": ["BURXJ8dutxM", "yC4Mc0NJo0I"],
+    "n_main": 5,
+    "description_html": "<p>Flätstickad cocktailklänning med dekorativt kabelstickat mönster och djup V-ringning. Midjan är definierad med ribbstickad resår som skapar en smickrande timglassiluett.</p><p>Ballongärmar med ribbade manschetter ger klänningen en festlig känsla — perfekt för cocktailtillfällen och uppklädda kvällar under höst och vinter.</p>",
+    "specifications": "Material: Stickad kvalitet\nStängning: Pullover\nHalsringning: V-ringad\nMönster: Flätstickat (cable knit)\nPassform: Smal i midjan\nÄrmlängd: Lång ärm, ballongärm\nLängd: Kort",
+    "materials_care": "Stickad kvalitet.",
+    "fit_sizing": "Smal passform med definierad midja. Kort längd ovanför knäet. Ballongärmar med ribbade manschetter. Välj din vanliga storlek.",
+    "key_features": ["Dekorativt flätstickat mönster över hela klänningen", "Djup V-ringning med smickrande siluett", "Definierad midja med ribbstickad resår", "Ballongärmar med ribbade manschetter"]
+  },
+  {
+    "csv_row": 22,
+    "shopify_gid": "gid://shopify/Product/9371144552670",
+    "current_title": "Satängkjol Midi",
+    "price": "499.00",
+    "colors": ["Mörkbrun", "Svart", "Beige", "Olivgrön"],
+    "main_images": ["PWrvNG62l30", "6wWxyLGPz5M", "O3AVurpJ0aY", "-q4BcSNZhPM", "yFxC3PgFK18"],
+    "var_images": ["bFY1JgoIZKI", "ySMgIG9Nnug", "pSMnnA0xFqM"],
+    "n_main": 5,
+    "description_html": "<p>Satängkjol i midilängd med flytande fall och elegant silkesliknande glans. Skuren i A-linje med hög midja som skapar en smickrande och tidlös siluett.</p><p>En mångsidig kjol som fungerar lika bra till kontoret som till kvällstillfällen — bär med stickad tröja på dagen eller blus på kvällen.</p>",
+    "specifications": "Material: Satäng\nStängning: Dold dragkedja / elastisk midja\nMönster: Enfärgad\nPassform: Normal, A-linje\nLängd: Midi\nMidja: Hög midja",
+    "materials_care": "Satäng.",
+    "fit_sizing": "Normal passform med A-linjesilhuett. Midilängd till mitten av vaden. Hög midja. Välj din vanliga storlek.",
+    "key_features": ["Flytande satäng med elegant silkesliknande glans", "Midilängd med smickrande A-linjesilhuett", "Hög midja för en definierad siluett", "Mångsidig kjol för både dag och kväll"]
+  },
+  {
+    "csv_row": 23,
+    "shopify_gid": "gid://shopify/Product/9371144585438",
+    "current_title": "Midiklänning med Vikt Krage och Knytband",
+    "price": "1899.00",
+    "colors": ["Svart"],
+    "main_images": ["DDlnI4Q7HWo", "m7eiolNCHWA", "pTwa3w9HtZQ", "pbY9OOk8vfM", "CwUyupC9ZQg"],
+    "var_images": [],
+    "n_main": 5,
+    "description_html": "<p>Midiklänning med dramatisk vikt krage i vit kontrastfärg och asymmetrisk omlottkjol. Den skulpturala kragen skapar en arkitektonisk siluett som gör klänningen till ett uttalat statement-plagg.</p><p>En klänning för speciella tillfällen som kombinerar strukturerade detaljer med elegant midilängd och flytande kjolfall.</p>",
+    "specifications": "Material: Strukturerad kvalitet\nHalsringning: Vikt krage i kontrastfärg\nMönster: Tvåfärgad (svart/vit)\nPassform: Figurnära i överdelen\nÄrmlängd: Kort ärm\nLängd: Midi\nKjol: Asymmetrisk omlott",
+    "materials_care": "Strukturerad kvalitet.",
+    "fit_sizing": "Figurnära passform i överdelen med flytande midikjol. Den vikta kragen ger extra bredd vid axlarna. Välj din vanliga storlek.",
+    "key_features": ["Dramatisk vikt krage i vit kontrastfärg", "Asymmetrisk omlottkjol med flytande fall", "Figurnära överdel med definierad midja", "Statement-design med arkitektonisk siluett"]
+  }
+]
