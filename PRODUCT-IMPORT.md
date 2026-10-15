@@ -247,19 +247,30 @@ The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not p
 
 **Common pattern:** `Solid` = `gid://shopify/TaxonomyValue/2874`
 
-**Existing metaobjects:**
+**All color metaobjects (20 total):**
 
-| Label | Metaobject ID | Base color | Taxonomy |
-|---|---|---|---|
-| Beige | `gid://shopify/Metaobject/261897093342` | Beige | 6 |
-| Svart | `gid://shopify/Metaobject/261897126110` | Black | 1 |
-| Grå | `gid://shopify/Metaobject/261897158878` | Gray | 8 |
-| Röd | `gid://shopify/Metaobject/261897191646` | Red | 13 |
-| Mörkblå | `gid://shopify/Metaobject/261897224414` | Navy | 15 |
-| Brun | `gid://shopify/Metaobject/261917868254` | Brown | 7 |
-| Kamel | `gid://shopify/Metaobject/261917901022` | Brown | 7 |
-| Rosa | `gid://shopify/Metaobject/261917933790` | Pink | 11 |
-| Olivgrön | `gid://shopify/Metaobject/261917966558` | Green | 9 |
+| Label | Metaobject ID | Hex | Base color | Taxonomy |
+|---|---|---|---|---|
+| Aprikos | `gid://shopify/Metaobject/266896212190` | `#FBCEB1` | Pink | 11 |
+| Armégrön | `gid://shopify/Metaobject/266896048350` | `#4B5320` | Green | 9 |
+| Beige | `gid://shopify/Metaobject/261897093342` | `#D4B896` | Beige | 6 |
+| Blå | `gid://shopify/Metaobject/266896244958` | `#4169E1` | Blue | 2 |
+| Brun | `gid://shopify/Metaobject/261917868254` | — | Brown | 7 |
+| Cyan | `gid://shopify/Metaobject/266896376030` | `#00A9B5` | Blue | 2 |
+| Grå | `gid://shopify/Metaobject/261897158878` | — | Gray | 8 |
+| Grön | `gid://shopify/Metaobject/266896474334` | `#3A7D44` | Green | 9 |
+| Gul | `gid://shopify/Metaobject/266896081118` | `#E8C44A` | Yellow | 4 |
+| Kamel | `gid://shopify/Metaobject/261917901022` | — | Brown | 7 |
+| Khaki | `gid://shopify/Metaobject/266896015582` | `#BDB395` | Beige | 6 |
+| Mörkblå | `gid://shopify/Metaobject/261897224414` | — | Navy | 15 |
+| Mörkbrun | `gid://shopify/Metaobject/266896441566` | `#4A2912` | Brown | 7 |
+| Mörkgrön | `gid://shopify/Metaobject/266896310494` | `#2D5A27` | Green | 9 |
+| Olivgrön | `gid://shopify/Metaobject/261917966558` | — | Green | 9 |
+| Rosa | `gid://shopify/Metaobject/261917933790` | — | Pink | 11 |
+| Röd | `gid://shopify/Metaobject/261897191646` | — | Red | 13 |
+| Svart | `gid://shopify/Metaobject/261897126110` | — | Black | 1 |
+| Vinröd | `gid://shopify/Metaobject/266896146654` | `#722F37` | Red | 13 |
+| Vit | `gid://shopify/Metaobject/266896277726` | `#F5F5F5` | White | 3 |
 
 Create new colors with `metaobjectCreate`, then link to product with `metafieldsSet` using the metaobject GIDs as a JSON array.
 
@@ -307,6 +318,10 @@ Fri frakt på alla beställningar. Leverans inom 5–10 arbetsdagar. 30 dagars �
 ```
 
 Never write "Fri frakt över 999 SEK" or any threshold — shipping is free, period.
+
+**Never claim what the supplier doesn't support.** If the AliExpress listing doesn't mention a property (waterproof, windproof, UV-protective, etc.), don't add it to the Shopify description or title. The supplier listing is the source of truth for material claims. Marketing can emphasize features that exist — it cannot invent ones that don't.
+
+**AliExpress URLs can redirect — always retry once.** Some AliExpress product pages redirect on first load (region-based redirects, expired session tokens, bot detection). If a URL appears to show the wrong product or redirects, visit it a second time before flagging it as broken. One retry catches most false positives.
 
 ---
 
@@ -438,45 +453,41 @@ bash -c 'export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh" && nvm use 24 &
 
 ---
 
-## Product counts after Session 16
+## Product counts after Session 17
 
 | Category | Count | Status |
 |---|---|---|
 | Boot placeholders (Boot 1–9) | 9 | ACTIVE |
-| Woolen Coat | 1 | ACTIVE (enriched) |
-| Outerwear — enriched | 4 | ACTIVE (variants, images, stock, published) |
-| Outerwear — imported only | 31 | DRAFT (need enrichment) |
+| Outerwear — fully enriched | 33 | ACTIVE (variants, images, stock, published) |
+| Outerwear — skipped (broken supplier URLs) | 3 | DRAFT (rows 13, 27, 35) |
+| Outerwear — unmapped duplicate | 1 | DRAFT (`hooded-parkas-2`, GID 9370990084318) |
 | Knitwear / Tops (imported) | 46 | DRAFT |
 | Dresses (imported Session 9) | 17 | DRAFT |
 | Accessories (Tassel Shawl — was in knitwear batch) | 1 | DRAFT |
 | **Total** | **110** | |
 
-All 89 unique "Launch" products from the Product Planner spreadsheet are now in the store. Next: scale enrichment to remaining Outerwear rows (31 DRAFT products).
+All 33 outerwear products with valid supplier URLs are now fully enriched and live. Next category to enrich: Knitwear/Tops (46 DRAFT products).
 
-### Fully enriched products
+### Enrichment engine
 
-| Product | Product ID | Variants | Price | Images | Inventory | Status |
-|---|---|---|---|---|---|---|
-| Woolen Coat | 9363407274206 | 16 (4 colors × 4 sizes) | 899 SEK | 4 (1 per color) | ? | ACTIVE |
-| Lång Ullblandad Trenchcoat | 9370989658334 | 20 (5 colors × 4 sizes) | 999 SEK | 9 (5 Beige + 4 color variants) | 10/variant | ACTIVE |
-| Kappa i Fuskpäls och Fleece | 9370989592798 | 20 (5 colors × 4 sizes) | 899 SEK | 9 (5 Beige + 4 color variants) | 10/variant | ACTIVE |
-| Lätt Mockajacka | 9370989691102 | 16 (4 colors × 4 sizes) | 699 SEK | 8 (5 Brun + 3 color variants) | 10/variant | ACTIVE |
-| Fleecekappa med Huva | 9370990477534 | 12 (3 colors × 4 sizes) | 699 SEK | 7 (5 Beige + 2 color variants) | 10/variant | ACTIVE |
+The one-shot `enrich_products.py` script from Session 16 had 7 known bugs. A new `enrich.py` engine was built in Session 17 with all bugs fixed. It processes products from a JSON batch file through a 7-step pipeline:
 
-### One-shot script bugs found and fixed
+1. Resolve Higgsfield share URLs → CloudFront CDN PNGs
+2. `productUpdate` → set title + descriptionHtml (Swedish)
+3. `metafieldsSet` → 6 metafields (specifications, materials_care, shipping_returns, fit_sizing, key_features as bulleted list, color-pattern reference)
+4. `productOptionsCreate` + `productVariantsBulkCreate` → Färg × Storlek (S/M/L/XL)
+5. `productCreateMedia` → upload images in spreadsheet column order
+6. `productVariantAppendMedia` → link Main 1 to primary color variants, Var N to Nth additional color variants (1 mediaId per call)
+7. `inventoryAdjustQuantities` → 10 per variant (@idempotent + changeFromQuantity: 0)
+8. `productUpdate(status: ACTIVE)` + `publishablePublish` → 3 channels
 
-The `enrich_products.py` script in the scratchpad has these known issues that must be fixed before scaling:
+Usage: `python3 enrich.py batch.json` — processes each product sequentially, prints progress per step.
 
-1. **Response parsing assumes `data` wrapper** — Lines like `data.get("data", {}).get("metaobjectCreate", {})` fail silently because `shopify store execute` returns JSON without a `data` wrapper. Fix: parse directly, e.g. `data.get("metaobjectCreate", {})`.
+### Skipped outerwear products
 
-2. **`productVariantAppendMedia` sends multiple mediaIds per entry** — The script builds `mediaIds: ["id1", "id2", ...]` arrays. The API only accepts 1 mediaId per entry. Fix: only link the primary color image (index 0 of each color's media list) to each variant.
-
-3. **`key_features` metafield uses paragraph format** — Script writes features as a single paragraph with period-separated sentences. Fix: use `list` + `list-item` rich text structure for bullet points.
-
-4. **`shipping_returns` text says "Fri frakt över 999 SEK"** — False. Fix: use "Fri frakt på alla beställningar. Leverans inom 5–10 arbetsdagar. 30 dagars öppet köp — returnera enkelt via vår retursida."
-
-5. **Descriptions are in English** — The script doesn't set `descriptionHtml` explicitly, and the import step used English descriptions. Fix: include a Swedish `descriptionHtml` in the `productCreate` or `productUpdate` step.
-
-6. **No inventory step** — Script ends after image linking. Fix: add `inventorySetQuantities` with `@idempotent` directive and `changeFromQuantity: 0` for all new variants.
-
-7. **No publish step** — Script doesn't call `publishablePublish`. Fix: add it after `productUpdate(status: ACTIVE)`.
+| Row | Product | GID | Reason |
+|---|---|---|---|
+| 13 | Parka med Stor Fuskpälshuva Dam | 9370989920478 | Broken AliExpress supplier URL |
+| 27 | Dam Lång Dubbelsidig Vinterkappa | 9370990739678 | Broken AliExpress supplier URL |
+| 35 | Avslappnad Kort Kappa i Ullblandning | 9370991231198 | Broken AliExpress supplier URL |
+| — | Isolerad Parka med Huva Dam (`hooded-parkas-2`) | 9370990084318 | Unmapped duplicate from import |
