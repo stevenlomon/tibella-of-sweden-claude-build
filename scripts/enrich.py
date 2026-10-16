@@ -44,6 +44,7 @@ COLOR_METAOBJECTS = {
     "Kamel": "gid://shopify/Metaobject/261917901022",
     "Khaki": "gid://shopify/Metaobject/266896015582",
     "Mörkblå": "gid://shopify/Metaobject/261897224414",
+    "Mörkgrå": "gid://shopify/Metaobject/267411947742",
     "Mörkbrun": "gid://shopify/Metaobject/266896441566",
     "Mörkgrön": "gid://shopify/Metaobject/266896310494",
     "Olivgrön": "gid://shopify/Metaobject/261917966558",

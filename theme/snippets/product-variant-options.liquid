@@ -82,6 +82,8 @@
             assign fb_color = '#FBCEB1'
           when 'cyan'
             assign fb_color = '#00A9B5'
+          when 'mörkgrå'
+            assign fb_color = '#505050'
           when 'mörkbrun'
             assign fb_color = '#4A2912'
           when 'mörkgrön'
@@ -178,6 +180,7 @@
         {%- when 'armégrön' -%}{%- assign color_hex = '#4B5320' -%}
         {%- when 'aprikos', 'apricot' -%}{%- assign color_hex = '#FBCEB1' -%}
         {%- when 'cyan' -%}{%- assign color_hex = '#00A9B5' -%}
+        {%- when 'mörkgrå' -%}{%- assign color_hex = '#505050' -%}
       {%- endcase -%}
       {%- if color_hex == '' -%}{%- assign color_hex = '#CCCCCC' -%}{%- endif -%}
       <label for="{{ input_id }}" style="--swatch-bg: {{ color_hex }}" title="{{ value }}">

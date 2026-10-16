@@ -1,0 +1,170 @@
+[
+  {
+    "csv_row": 1,
+    "shopify_gid": "gid://shopify/Product/9379781411038",
+    "current_title": "Blazer Pants",
+    "title_update": "Kostymbyxor med Vida Ben",
+    "price": "699.00",
+    "colors": ["Svart", "Grå", "Mörkgrå", "Mörkblå"],
+    "main_images": ["r4cL0qGKX4Q", "njfNIguIs2A", "-cGZ_jFtmp8", "vza0q4e3b_w", "-bgeQ96_cDg"],
+    "var_images": ["AILOMLgFmSw", "RFY6_fcMGDY", "8F5aXOMpz_Y"],
+    "n_main": 5,
+    "description_html": "<p>Eleganta kostymbyxor med hög midja och vida, raka ben som faller mjukt till golvet. Tillverkade i en slät, strukturerad polyesterblandning med lätt stretch för bekväm passform hela dagen.</p><p>Klassisk design med platt midjeband, dold blixtlås och hyskstängning, hällor och snedställda fickor. Perfekta till kontoret eller uppklädda tillfällen.</p>",
+    "specifications": "Material: Polyester\nStängning: Dold blixtlås och hyska\nMidja: Hög midja med hällor\nFickor: Snedställda sidofickor\nBenlängd: Hela längden\nMönster: Enfärgad\nPassform: Rak, vida ben",
+    "materials_care": "Polyester med lätt stretch. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Normal passform med hög midja och vida, raka ben. Välj din vanliga storlek.",
+    "key_features": [
+      "Hög midja med hällor",
+      "Vida, raka ben i full längd",
+      "Dold blixtlås och hyskstängning",
+      "Snedställda sidofickor"
+    ]
+  },
+  {
+    "csv_row": 2,
+    "shopify_gid": "gid://shopify/Product/9379781476574",
+    "current_title": "Elastic Waist Wide Leg Loose Pants",
+    "title_update": "Vida Byxor med Korsad Midja",
+    "price": "499.00",
+    "colors": ["Svart", "Vit"],
+    "main_images": ["xipYSaX2n_w", "jEwK7ODel0M", "ZMzAehLoltU", "BT73BzJ9wrE", "_0y22Bd7WDI"],
+    "var_images": ["E30npTSwpUc"],
+    "n_main": 5,
+    "description_html": "<p>Bekväma vida byxor med hög midja och distinkt korsad midjebandsdesign med flerfaldiga remmar. Mjukt, luftigt tyg som faller ledigt och skapar en avslappnad, elegant silhuett.</p><p>Elastisk midja för enkel på- och avtagning. Perfekt för både vardag och semester.</p>",
+    "specifications": "Material: Polyester\nStängning: Elastisk midja\nMidja: Hög midja med korsade remmar\nBenlängd: Hela längden\nMönster: Enfärgad\nPassform: Lös, vida ben",
+    "materials_care": "Polyester. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Lös passform med elastisk hög midja och vida ben. Välj din vanliga storlek.",
+    "key_features": [
+      "Unik korsad midjebandsdesign",
+      "Bekväm elastisk midja",
+      "Luftigt, mjukt tyg",
+      "Vida ben i full längd"
+    ]
+  },
+  {
+    "csv_row": 3,
+    "shopify_gid": "gid://shopify/Product/9379781542110",
+    "current_title": "Pencil Pants",
+    "title_update": "Byxor med Knytskärp",
+    "price": "499.00",
+    "colors": ["Beige", "Svart", "Olivgrön"],
+    "main_images": ["U1f3QY4mRI0", "4Whzc7RYhcM", "KtU2Qyat5-4", "QPMJQHRiy8I", "Y6WcE292m8o"],
+    "var_images": ["5LwR_I_o_AQ", "8052BjF3MWk"],
+    "n_main": 5,
+    "description_html": "<p>Stilrena byxor med hög midja och matchande knytskärp i tyg. Subtila pressveck vid framsidan och snedställda sidofickor ger en polerad, skräddad look.</p><p>Avslappnad passform genom höfterna som smalnar av lätt mot benslutet. Perfekt balans mellan formellt och bekvämt.</p>",
+    "specifications": "Material: Polyester\nStängning: Knytskärp i tyg\nMidja: Hög midja med hällor och knytskärp\nFickor: Snedställda sidofickor\nMönster: Enfärgad\nPassform: Avslappnad med pressveck",
+    "materials_care": "Polyester med lätt stretch. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Avslappnad passform med hög midja och pressveck. Välj din vanliga storlek.",
+    "key_features": [
+      "Matchande knytskärp i tyg",
+      "Hög midja med pressveck",
+      "Snedställda sidofickor",
+      "Mångsidig design för vardag och fest"
+    ]
+  },
+  {
+    "csv_row": 4,
+    "shopify_gid": "gid://shopify/Product/9379781574878",
+    "current_title": "Women PU Leather Fleece-lined Leggings",
+    "title_update": "Fodrade PU-läderleggings",
+    "price": "599.00",
+    "colors": ["Svart", "Mörkbrun"],
+    "main_images": ["SNeq2OpQNfw", "6A5OLRIiW8Y", "wtAXVv5vnJw", "q7S347QTw_s", "khl45u7Lj60"],
+    "var_images": ["wnQtEKIcz78"],
+    "n_main": 5,
+    "description_html": "<p>Stiliga leggings i PU-läder med mjukt fleecefoder för extra värme och komfort under kalla månader. Slät, matt yta som ger en lyxig, lädrig look.</p><p>Hög midja med brett, elastiskt midjeband som håller formen och ger stöd. Tight passform genom hela benet för en snygg, strömlinjeformad silhuett.</p>",
+    "specifications": "Material: PU-läder (yttre), fleece (foder)\nStängning: Elastisk midja\nMidja: Hög midja med brett elastiskt band\nPassform: Tight, figurnära\nMönster: Enfärgad\nSäsong: Höst/Vinter",
+    "materials_care": "PU-läder med fleecefoder. Handtvätt rekommenderas.",
+    "fit_sizing": "Tight, figurnära passform med hög midja. Välj din vanliga storlek.",
+    "key_features": [
+      "PU-läderyta med matt finish",
+      "Mjukt fleecefoder för värme",
+      "Hög midja med elastiskt band",
+      "Tight passform som formar figuren"
+    ]
+  },
+  {
+    "csv_row": 5,
+    "shopify_gid": "gid://shopify/Product/9379781673182",
+    "current_title": "Wide Leg Pants High Waist",
+    "title_update": "Vida Byxor med Hög Midja",
+    "price": "549.00",
+    "colors": ["Vit"],
+    "main_images": ["Yb-uAK_AWls", "15vg93AyrTc", "zqTyefyQS3o", "fYN3G6Y40pk", "xYAvU68hiOQ"],
+    "var_images": [],
+    "n_main": 5,
+    "description_html": "<p>Eleganta vida byxor i en klassisk elfenbensvit nyans med hög midja och rent, smickrande snitt. Mjukt fallande tyg som skapar en luftig, sofistikerad silhuett.</p><p>Perfekt för både kontoret och kvällstillfällen. Benen faller rakt och vitt från höften till golvet.</p>",
+    "specifications": "Material: Polyester\nStängning: Dold blixtlås\nMidja: Hög midja\nBenlängd: Hela längden\nMönster: Enfärgad\nPassform: Rak, vida ben",
+    "materials_care": "Polyester. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Normal passform med hög midja och vida ben. Välj din vanliga storlek.",
+    "key_features": [
+      "Hög midja med smickrande snitt",
+      "Vida, raka ben i full längd",
+      "Elegant elfenbensvit nyans",
+      "Mjukt fallande tyg"
+    ]
+  },
+  {
+    "csv_row": 6,
+    "shopify_gid": "gid://shopify/Product/9379781738718",
+    "current_title": "Casual Long Pants",
+    "title_update": "Avslappnade Vida Byxor",
+    "price": "499.00",
+    "colors": ["Brun"],
+    "main_images": ["UoaciVox1dU", "n2VLx_JT3D8", "nkJLaH8KljM", "EYdt-3fAmGE", "OCBbfq8hutU"],
+    "var_images": [],
+    "n_main": 5,
+    "description_html": "<p>Avslappnade vida byxor i en varm kastanjebrun nyans med hög midja. Mjukt, flödande tyg som ger en bekväm och stilren look för vardagen.</p><p>Enkel design med ren silhuett som passar till allt från stickade tröjor till skjortor.</p>",
+    "specifications": "Material: Polyester\nStängning: Elastisk midja\nMidja: Hög midja\nBenlängd: Hela längden\nMönster: Enfärgad\nPassform: Lös, vida ben",
+    "materials_care": "Polyester. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Avslappnad passform med hög midja och vida ben. Välj din vanliga storlek.",
+    "key_features": [
+      "Mjukt, flödande tyg",
+      "Hög midja för smickrande silhuett",
+      "Vida ben i full längd",
+      "Mångsidig för vardag och uppklädda tillfällen"
+    ]
+  },
+  {
+    "csv_row": 7,
+    "shopify_gid": "gid://shopify/Product/9379781804254",
+    "current_title": "Seamless High-Waisted Flare Pants",
+    "title_update": "Sömlösa Flare-byxor med Hög Midja",
+    "price": "599.00",
+    "colors": ["Grå", "Beige", "Mörkgrå", "Mörkbrun"],
+    "main_images": ["iPJY6yKtKLI", "2WA319pvJ6M", "3a_Ykxk4I0s", "affSzAQbe78", "m-b-JgXp6rQ"],
+    "var_images": ["xsXI2XAfvo4", "0g8RgANWRbg", "O7OQBJBhaFA"],
+    "n_main": 5,
+    "description_html": "<p>Sömlösa flare-byxor med extra hög midja och brett magkontrollband som ger stöd och formar figuren. Tillverkade i ett exceptionellt mjukt stretchtyg utan ribbning för en slät, strömlinjeformad look.</p><p>Benen vidgas från knäet och skapar en smickrande flare-silhuett. Perfekt för yoga, träning eller som vardagsbyxa.</p>",
+    "specifications": "Material: Nylon, elastan\nStängning: Elastisk midja\nMidja: Extra hög midja med magkontrollband\nPassform: Tight genom lår, flare från knä\nMönster: Enfärgad\nTeknologi: Sömlös konstruktion",
+    "materials_care": "Nylon och elastan med sömlös konstruktion. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Figurnära passform med flare från knäet. Hög midja med magkontroll. Välj din vanliga storlek.",
+    "key_features": [
+      "Sömlös konstruktion för komfort",
+      "Extra hög midja med magkontrollband",
+      "Mjukt stretchtyg utan ribbning",
+      "Smickrande flare-silhuett"
+    ]
+  },
+  {
+    "csv_row": 8,
+    "shopify_gid": "gid://shopify/Product/9379781837022",
+    "current_title": "Women's Super Soft Flare Pants High Waisted",
+    "title_update": "Supermjuka Flare-leggings",
+    "price": "599.00",
+    "colors": ["Grå", "Svart", "Vinröd", "Olivgrön", "Mörkblå"],
+    "main_images": ["ltDOHrByyuE", "KgXL9WfujBQ", "ndBvLEUOth8", "jWBl6m9LJ28", "1-lDhDkU52w"],
+    "var_images": ["QyrtibccElk", "pz5NJos23ds", "_6C0dif0cLA", "Wy-x0Elwvbc"],
+    "n_main": 5,
+    "description_html": "<p>Supermjuka flare-leggings med hög midja och brett magkontrollband. Tillverkade i ett exceptionellt mjukt, slät stretchtyg som känns som en andra hud.</p><p>Figurnära passform genom lår och höfter som vidgas till en elegant flare från knäet. Perfekt för både vardag och träning.</p>",
+    "specifications": "Material: Polyester, elastan\nStängning: Elastisk midja\nMidja: Hög midja med brett magkontrollband\nPassform: Tight genom lår, flare från knä\nMönster: Enfärgad\nKänsla: Supermjuk",
+    "materials_care": "Polyester och elastan. Maskintvättbar vid 30°C.",
+    "fit_sizing": "Figurnära passform med flare från knäet. Hög midja med magkontroll. Välj din vanliga storlek.",
+    "key_features": [
+      "Supermjukt stretchtyg",
+      "Hög midja med magkontrollband",
+      "Smickrande flare-silhuett",
+      "Tillgänglig i fem färger"
+    ]
+  }
+]
