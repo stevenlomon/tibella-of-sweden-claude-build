@@ -14,15 +14,15 @@
       "settings": {
         "show_collection_description": true,
         "show_collection_image": true,
-        "parent_collection": "shoes",
-        "subcollection_menu": "shoes-meny",
+        "parent_collection": "",
+        "subcollection_menu": "",
         "color_scheme": "scheme-1"
       }
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "subcollection_menu": "shoes-meny",
+        "subcollection_menu": "tibella-collections",
         "products_per_page": 12,
         "columns_desktop": 4,
         "columns_mobile": "2",
