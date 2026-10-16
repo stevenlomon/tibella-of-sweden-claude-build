@@ -48,7 +48,7 @@
           "settings": {
             "icon_asset": "dt-trust-shipping.svg",
             "title": "Fri frakt",
-            "text": "På beställningar över 999 SEK"
+            "text": "På alla beställningar"
           }
         },
         "returns": {
@@ -100,7 +100,7 @@
           "type": "question",
           "settings": {
             "question": "Erbjuder ni fri frakt?",
-            "answer": "<p>Fri frakt på alla beställningar över 999 SEK.</p>"
+            "answer": "<p>Ja, fri frakt på alla beställningar.</p>"
           }
         },
         "q3": {
