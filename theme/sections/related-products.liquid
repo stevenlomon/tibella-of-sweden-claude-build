@@ -97,8 +97,10 @@
             {% endfor %}
           {%- else -%}
             {%- assign render_limit = section.settings.products_to_show | plus: 1 -%}
+            {%- assign rendered_count = 0 -%}
             {% for fallback_product in fallback_collection.products limit: render_limit %}
               {%- unless fallback_product.id == product.id -%}
+                {%- if rendered_count < section.settings.products_to_show -%}
               <li
                 id="Slide-{{ section.id }}-{{ forloop.index }}"
                 class="grid__item slider__slide"
@@ -116,6 +118,8 @@
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
+                  {%- assign rendered_count = rendered_count | plus: 1 -%}
+                {%- endif -%}
               {%- endunless -%}
             {% endfor %}
           {%- endif -%}
