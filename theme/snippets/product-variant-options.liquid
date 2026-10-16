@@ -67,6 +67,61 @@
       {{ label_unavailable }}
     {%- endcapture -%}
 
+    {%- liquid
+      assign fb_color = null
+      unless value.swatch.color or value.swatch.image
+        assign clv = escaped_value | downcase
+        case clv
+          when 'orange'
+            assign fb_color = '#E8651A'
+          when 'gul', 'yellow'
+            assign fb_color = '#E8C44A'
+          when 'lila', 'purple'
+            assign fb_color = '#9B59B6'
+          when 'aprikos', 'apricot'
+            assign fb_color = '#FBCEB1'
+          when 'cyan'
+            assign fb_color = '#00A9B5'
+          when 'mörkbrun'
+            assign fb_color = '#4A2912'
+          when 'mörkgrön'
+            assign fb_color = '#2D5A27'
+          when 'olivgrön'
+            assign fb_color = '#556B2F'
+          when 'armégrön'
+            assign fb_color = '#4B5320'
+          when 'beige'
+            assign fb_color = '#D4B896'
+          when 'svart', 'black'
+            assign fb_color = '#1A1A1A'
+          when 'grå', 'grey', 'gray'
+            assign fb_color = '#8E8E8E'
+          when 'röd', 'red'
+            assign fb_color = '#8B2500'
+          when 'mörkblå', 'navy'
+            assign fb_color = '#1B2A4A'
+          when 'vit', 'white', 'cream'
+            assign fb_color = '#F5F5F5'
+          when 'brun', 'brown'
+            assign fb_color = '#8B5E3C'
+          when 'grön', 'green'
+            assign fb_color = '#3A7D44'
+          when 'blå', 'blue'
+            assign fb_color = '#4169E1'
+          when 'rosa', 'pink'
+            assign fb_color = '#C48B9F'
+          when 'kamel', 'camel'
+            assign fb_color = '#C19A6B'
+          when 'vinröd', 'burgundy', 'bordeaux'
+            assign fb_color = '#722F37'
+          when 'khaki'
+            assign fb_color = '#BDB395'
+          when 'cognac', 'tan'
+            assign fb_color = '#9A6324'
+        endcase
+      endunless
+    -%}
+
     {%
       render 'swatch-input',
       id: input_id,
@@ -78,7 +133,8 @@
       visually_disabled: option_disabled,
       shape: block.settings.swatch_shape,
       help_text: help_text,
-      additional_props: input_dataset
+      additional_props: input_dataset,
+      fallback_color: fb_color
     %}
   {%- elsif picker_type == 'button' -%}
     <input
@@ -99,20 +155,29 @@
       {%- assign color_hex = '' -%}
       {%- assign clc = escaped_value | downcase -%}
       {%- case clc -%}
-        {%- when 'beige' -%}{%- assign color_hex = '#C8B89A' -%}
-        {%- when 'svart', 'black' -%}{%- assign color_hex = '#1E1A1B' -%}
-        {%- when 'grå', 'grey', 'gray' -%}{%- assign color_hex = '#8C8888' -%}
-        {%- when 'röd', 'red' -%}{%- assign color_hex = '#8B2532' -%}
+        {%- when 'beige' -%}{%- assign color_hex = '#D4B896' -%}
+        {%- when 'svart', 'black' -%}{%- assign color_hex = '#1A1A1A' -%}
+        {%- when 'grå', 'grey', 'gray' -%}{%- assign color_hex = '#8E8E8E' -%}
+        {%- when 'röd', 'red' -%}{%- assign color_hex = '#8B2500' -%}
         {%- when 'mörkblå', 'navy' -%}{%- assign color_hex = '#1B2A4A' -%}
-        {%- when 'vit', 'white', 'cream' -%}{%- assign color_hex = '#F5F0E5' -%}
-        {%- when 'brun', 'brown' -%}{%- assign color_hex = '#5C3A21' -%}
-        {%- when 'grön', 'green' -%}{%- assign color_hex = '#2D4A3E' -%}
-        {%- when 'blå', 'blue' -%}{%- assign color_hex = '#3B5998' -%}
-        {%- when 'rosa', 'pink' -%}{%- assign color_hex = '#D4A0A0' -%}
+        {%- when 'vit', 'white', 'cream' -%}{%- assign color_hex = '#F5F5F5' -%}
+        {%- when 'brun', 'brown' -%}{%- assign color_hex = '#8B5E3C' -%}
+        {%- when 'grön', 'green' -%}{%- assign color_hex = '#3A7D44' -%}
+        {%- when 'blå', 'blue' -%}{%- assign color_hex = '#4169E1' -%}
+        {%- when 'rosa', 'pink' -%}{%- assign color_hex = '#C48B9F' -%}
         {%- when 'kamel', 'camel' -%}{%- assign color_hex = '#C19A6B' -%}
-        {%- when 'bordeaux', 'burgundy', 'vinröd' -%}{%- assign color_hex = '#6D2634' -%}
-        {%- when 'khaki' -%}{%- assign color_hex = '#8B7D5B' -%}
+        {%- when 'vinröd', 'burgundy', 'bordeaux' -%}{%- assign color_hex = '#722F37' -%}
+        {%- when 'khaki' -%}{%- assign color_hex = '#BDB395' -%}
         {%- when 'cognac', 'tan' -%}{%- assign color_hex = '#9A6324' -%}
+        {%- when 'orange' -%}{%- assign color_hex = '#E8651A' -%}
+        {%- when 'gul', 'yellow' -%}{%- assign color_hex = '#E8C44A' -%}
+        {%- when 'lila', 'purple' -%}{%- assign color_hex = '#9B59B6' -%}
+        {%- when 'mörkbrun' -%}{%- assign color_hex = '#4A2912' -%}
+        {%- when 'mörkgrön' -%}{%- assign color_hex = '#2D5A27' -%}
+        {%- when 'olivgrön' -%}{%- assign color_hex = '#556B2F' -%}
+        {%- when 'armégrön' -%}{%- assign color_hex = '#4B5320' -%}
+        {%- when 'aprikos', 'apricot' -%}{%- assign color_hex = '#FBCEB1' -%}
+        {%- when 'cyan' -%}{%- assign color_hex = '#00A9B5' -%}
       {%- endcase -%}
       {%- if color_hex == '' -%}{%- assign color_hex = '#CCCCCC' -%}{%- endif -%}
       <label for="{{ input_id }}" style="--swatch-bg: {{ color_hex }}" title="{{ value }}">

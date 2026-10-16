@@ -9,3 +9,4 @@
 - [Image convention](image-convention.md) — Main 1-5 positions matter: 3 = in-action (product story section pulls it); Image Var 1-4 = one shot per additional color
 - [Handoff format](feedback-handoff-format.md) — Every handoff must open with a "Start here" reading list of essential files for the next session
 - [Parallel enrichment pattern](parallel-enrichment-pattern.md) — Split into groups of 5, parallel research agents, automated batch runner, validate JSON before enrichment
+- [Swatch color fallback](swatch-color-fallback.md) — Shopify auto-detection misses Gul/Orange; theme fallback lookup covers all 22 colors

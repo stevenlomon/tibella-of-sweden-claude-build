@@ -713,3 +713,42 @@ A class selector (`.cart-drawer`, specificity `0,1,0`) always beats a type/eleme
 Fix: use `#CartDrawer` (the ID on the inner wrapper div) in descendant selectors. ID-level specificity (`1,x,x`) beats any class-based Dawn rule.
 
 But then active/state-toggle selectors (like `cart-drawer.active .drawer__inner { transform: translateX(0) }`) must also include `#CartDrawer` to beat the initial-state ID selector. Otherwise `#CartDrawer .drawer__inner { transform: translateX(102%) }` (specificity `1,1,0`) permanently wins over `cart-drawer.active .drawer__inner` (specificity `0,2,1`). Use `cart-drawer.active #CartDrawer .drawer__inner` (specificity `1,2,1`) for all state overrides.
+
+---
+
+### Lesson 16 — Shopify swatch auto-detection doesn't recognize all Swedish color names
+
+**The problem:** Dawn's swatch picker uses `value.swatch.color` — a Shopify-provided `SwatchDrop` that auto-detects colors from option value names. It recognizes most Swedish names (Svart, Vit, Blå, Rosa, Brun, Grön, Vinröd, Grå, Beige) but NOT "Gul" (yellow) or "Orange". These render as gray circles (`swatch--unavailable`).
+
+**What doesn't work:**
+- `productOptionValueUpdate` / `productOptionsUpdate` mutations — don't exist in this store's API version
+- `productVariantsBulkUpdate` with `swatch` on `optionValues` — `VariantOptionValueInput` doesn't accept a `swatch` argument
+- `productOptionUpdate` — only accepts `id`, `name`, `position`, `linkedMetafield`
+- Setting `shopify.color-pattern` metafield with color metaobjects — correct data, but Dawn's swatch rendering doesn't read from it
+- `linkedMetafield` on the Färg option — null on all products including ones with working swatches
+
+**What does work — theme-level fallback:**
+
+The swatch rendering chain is: `product-variant-options.liquid` → `swatch-input.liquid` → `swatch.liquid`. When `value.swatch.color` is null, pass a `fallback_color` hex string through the chain.
+
+1. In `swatch.liquid`, accept `fallback_color` parameter — use it when both `swatch.color` and `swatch.image` are null
+2. In `swatch-input.liquid`, pass `fallback_color` through to `swatch`
+3. In `product-variant-options.liquid`, compute fallback from a `case` lookup before the swatch render
+
+The lookup must cover all 22 colors from the metaobject registry (`shopify--color-pattern` type). Hex values should match the metaobjects exactly.
+
+**Also applies to the button picker.** This product uses `picker_type == 'button'` (class `product-form__input--pill`), not the swatch picker. The button picker already had a color lookup (lines 99-116) but was missing Orange, Gul, Lila, Mörkbrun, Mörkgrön, Olivgrön, Armégrön, Aprikos, and Cyan. Both lookup tables must be kept in sync with the metaobject registry.
+
+**How to tell which picker is active:** Check the fieldset class — `product-form__input--swatch` = swatch picker, `product-form__input--pill product-form__input--color` = button picker. The picker type is set in `product-variant-picker.liquid` based on `block.settings.picker_type` and whether `swatch_count > 0`.
+
+---
+
+### Lesson 17 — `shopify theme push --only` takes multiple `--only` flags, not space-separated files
+
+**Wrong:** `shopify theme push --only snippets/a.liquid snippets/b.liquid snippets/c.liquid`
+This only pushes the first file. The rest are treated as positional args and silently ignored.
+
+**Right:** `shopify theme push --only 'snippets/a.liquid' --only 'snippets/b.liquid' --only 'snippets/c.liquid'`
+Each file needs its own `--only` flag.
+
+**Also:** Must run from the theme directory (`cd theme/`), not the project root. Running from root with `--path .` treats root as theme dir and can delete remote files during the clean step.

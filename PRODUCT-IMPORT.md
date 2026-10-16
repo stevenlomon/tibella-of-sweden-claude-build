@@ -276,6 +276,8 @@ The `shopify.color-pattern` metafield uses `list.metaobject_reference` — not p
 
 Create new colors with `metaobjectCreate`, then link to product with `metafieldsSet` using the metaobject GIDs as a JSON array.
 
+**Swatch rendering caveat:** Setting `shopify.color-pattern` does NOT drive storefront swatch colors. Shopify auto-detects swatch colors from option value names, but doesn't recognize all Swedish names (notably "Gul" and "Orange"). The theme has a fallback color lookup in `snippets/product-variant-options.liquid` and `snippets/swatch.liquid` that covers all 22 registry colors. If you add a new color metaobject, also add its hex to the theme lookup tables. See DAWN-THEME.md Lesson 16.
+
 ### Metafields (rich text)
 
 Format for `rich_text_field` type — **paragraph** (plain text block):
