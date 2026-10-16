@@ -752,3 +752,11 @@ This only pushes the first file. The rest are treated as positional args and sil
 Each file needs its own `--only` flag.
 
 **Also:** Must run from the theme directory (`cd theme/`), not the project root. Running from root with `--path .` treats root as theme dir and can delete remote files during the clean step.
+
+### Lesson 18 — Derive variant colors from the images, not from AliExpress
+
+The `colors` array in a batch JSON file determines which variant gets which image: `colors[0]` → Main Image 1, `colors[1]` → Image Var 1, etc. If the color order doesn't match the image order, every variant shows the wrong photo.
+
+**Wrong approach:** List colors from the AliExpress supplier page, list images from the spreadsheet, hope they're in the same order. This caused off-by-one bugs on `wool-hoodie-dress` and `long-hooded-cotton-jacket` — colors and images were independently ordered, so Svart showed the Rosa photo, Rosa showed the Olivgrön photo, etc.
+
+**Right approach:** Open each Higgsfield image, see what color the garment is, name it. Main Image 1 shows beige → `colors[0] = "Beige"`. Image Var 1 shows black → `colors[1] = "Svart"`. The mapping is guaranteed correct because the color name comes from the image itself. Use AliExpress only for materials, specs, and descriptions.

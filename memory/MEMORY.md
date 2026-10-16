@@ -10,3 +10,5 @@
 - [Handoff format](feedback-handoff-format.md) — Every handoff must open with a "Start here" reading list of essential files for the next session
 - [Parallel enrichment pattern](parallel-enrichment-pattern.md) — Split into groups of 5, parallel research agents, automated batch runner, validate JSON before enrichment
 - [Swatch color fallback](swatch-color-fallback.md) — Shopify auto-detection misses Gul/Orange; theme fallback lookup covers all 22 colors
+- [Color from images](feedback-color-from-images.md) — Derive color names from Higgsfield images, not AliExpress; prevents off-by-one image bugs
+- [Unenriched DRAFT products](project-unenriched-drafts.md) — 23 DRAFTs (15 Knitwear + 8 Dresses) created but never enriched

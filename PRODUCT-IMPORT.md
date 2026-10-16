@@ -401,6 +401,25 @@ mutation {
 
 After upload, use `productVariantAppendMedia` to link images to correct color variants. Each variant's first linked image becomes its featured image.
 
+### Determining colors from images (Lesson 18)
+
+**Derive color names FROM the Higgsfield images, not from AliExpress.** The `colors` array in the batch JSON determines which variant gets which image:
+
+- `colors[0]` → Main Image 1
+- `colors[1]` → Image Var 1
+- `colors[2]` → Image Var 2
+- etc.
+
+To build the `colors` array correctly:
+
+1. Open Main Image 1's Higgsfield URL → see what color the garment is → that's `colors[0]`
+2. Open Image Var 1's Higgsfield URL → see what color → that's `colors[1]`
+3. Open Image Var 2's Higgsfield URL → see what color → that's `colors[2]`
+
+**Do NOT cross-reference a color list from AliExpress with a separate image list.** That independent matching is what caused the off-by-one bug on `wool-hoodie-dress` and `long-hooded-cotton-jacket` — colors were listed in one order and images in another, so every variant showed the wrong product photo.
+
+The image is the source of truth. Name the color from what you see in the photo — the mapping is then guaranteed correct. Use AliExpress only for materials, specifications, and description content.
+
 ---
 
 ## CLI quirks
