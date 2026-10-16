@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Tibella of Sweden — Outerwear Enrichment Engine
+"""Tibella of Sweden — Product Enrichment Engine
 Usage: python3 enrich.py <batch_file.json>
 
 Reads product configs from JSON file and runs the full 10-step pipeline:
-1. productUpdate (title + description)
-2. metafieldsSet (specs, materials, shipping, fit, features, color-pattern)
-3. productOptionsCreate (Färg + Storlek)
+1. productUpdate (title + description + productType)
+2. metafieldsSet (specs, materials, shipping, fit, features, color-pattern, product_line)
+3. productOptionsCreate (Färg + optional Storlek)
 4. productVariantsBulkUpdate (price on auto-created variant)
 5. productVariantsBulkCreate (remaining combos)
 6. productCreateMedia (upload images from CDN)
@@ -13,6 +13,12 @@ Reads product configs from JSON file and runs the full 10-step pipeline:
 8. inventoryAdjustQuantities (10 per variant)
 9. productUpdate (ACTIVE)
 10. publishablePublish (Online Store + POS + Shop)
+
+Batch JSON fields:
+  sizes: array of size values. Empty [] = no Storlek option (bags/accessories).
+         Default ["S","M","L","XL"] if omitted (backwards compat).
+  product_line: string, set as custom.product_line metafield.
+  product_type: string, set as productType in step 1.
 """
 
 import subprocess, json, re, tempfile, os, time, sys
@@ -113,11 +119,14 @@ def step1_update_product(p):
     pid = p["shopify_gid"]
     title = p.get("title_update")
     desc = p.get("description_html", "")
+    ptype = p.get("product_type", "")
     parts = []
     if title:
         parts.append(f'title: "{gql_escape(title)}"')
     if desc:
         parts.append(f'descriptionHtml: "{gql_escape(desc)}"')
+    if ptype:
+        parts.append(f'productType: "{gql_escape(ptype)}"')
     if not parts:
         return
     fields = ", ".join(parts)
@@ -153,6 +162,9 @@ def step2_metafields(p):
         f'{{ ownerId: "{pid}", namespace: "custom", key: "key_features", type: "rich_text_field", value: "{gql_escape(feat_val)}" }}',
         f'{{ ownerId: "{pid}", namespace: "shopify", key: "color-pattern", type: "list.metaobject_reference", value: "{gql_escape(color_val)}" }}',
     ]
+    product_line = p.get("product_line", "")
+    if product_line:
+        entries.append(f'{{ ownerId: "{pid}", namespace: "custom", key: "product_line", type: "single_line_text_field", value: "{gql_escape(product_line)}" }}')
     mutation = f'mutation {{ metafieldsSet(metafields: [{", ".join(entries)}]) {{ metafields {{ id key }} userErrors {{ field message }} }} }}'
     print(f"  Step 2: Set metafields...")
     data = run_gql(mutation)
@@ -169,15 +181,22 @@ def step2_metafields(p):
 def step3_options_variants(p):
     pid = p["shopify_gid"]
     colors = p["colors"]
-    sizes = ["S", "M", "L", "XL"]
+    sizes = p.get("sizes", ["S", "M", "L", "XL"])
     price = p["price"]
+    has_sizes = len(sizes) > 0
 
     cv = ", ".join(f'{{ name: "{c}" }}' for c in colors)
-    sv = ", ".join(f'{{ name: "{s}" }}' for s in sizes)
+    if has_sizes:
+        sv = ", ".join(f'{{ name: "{s}" }}' for s in sizes)
+        options_gql = f'{{ name: "Färg", values: [{cv}] }}\n    {{ name: "Storlek", values: [{sv}] }}'
+        label = f"{len(colors)} colors × {len(sizes)} sizes"
+    else:
+        options_gql = f'{{ name: "Färg", values: [{cv}] }}'
+        label = f"{len(colors)} colors (no sizes)"
+
     mutation = f'''mutation {{
   productOptionsCreate(productId: "{pid}", options: [
-    {{ name: "Färg", values: [{cv}] }}
-    {{ name: "Storlek", values: [{sv}] }}
+    {options_gql}
   ]) {{
     product {{
       id
@@ -187,7 +206,7 @@ def step3_options_variants(p):
     userErrors {{ field message }}
   }}
 }}'''
-    print(f"  Step 3: Create options ({len(colors)} colors × {len(sizes)} sizes)...")
+    print(f"  Step 3: Create options ({label})...")
     data = run_gql(mutation)
     if not data:
         print("    FAILED")
@@ -210,7 +229,10 @@ def step3_options_variants(p):
     existing_combos = set()
     for e in existing:
         opts = {so["name"]: so["value"] for so in e["node"]["selectedOptions"]}
-        existing_combos.add((opts.get("Färg",""), opts.get("Storlek","")))
+        if has_sizes:
+            existing_combos.add((opts.get("Färg",""), opts.get("Storlek","")))
+        else:
+            existing_combos.add((opts.get("Färg",""),))
 
     # Update price on auto-created variant
     time.sleep(0.3)
@@ -221,10 +243,15 @@ def step3_options_variants(p):
     # Create remaining combos
     time.sleep(0.3)
     to_create = []
-    for color in colors:
-        for size in sizes:
-            if (color, size) not in existing_combos:
-                to_create.append(f'{{ optionValues: [{{ optionId: "{color_oid}", name: "{color}" }}, {{ optionId: "{size_oid}", name: "{size}" }}], price: "{price}" }}')
+    if has_sizes:
+        for color in colors:
+            for size in sizes:
+                if (color, size) not in existing_combos:
+                    to_create.append(f'{{ optionValues: [{{ optionId: "{color_oid}", name: "{color}" }}, {{ optionId: "{size_oid}", name: "{size}" }}], price: "{price}" }}')
+    else:
+        for color in colors:
+            if (color,) not in existing_combos:
+                to_create.append(f'{{ optionValues: [{{ optionId: "{color_oid}", name: "{color}" }}], price: "{price}" }}')
 
     total_created = 0
     for i in range(0, len(to_create), 20):
@@ -243,7 +270,7 @@ def step3_options_variants(p):
 
     # Fetch all variants with inventory item IDs
     time.sleep(0.3)
-    total = len(colors) * len(sizes)
+    total = len(colors) * max(len(sizes), 1)
     data = run_gql(f'{{ product(id: "{pid}") {{ variants(first: {total + 5}) {{ edges {{ node {{ id selectedOptions {{ name value }} inventoryItem {{ id }} }} }} }} }} }}')
     if data:
         return data.get("product", {}).get("variants", {}).get("edges", []), None
