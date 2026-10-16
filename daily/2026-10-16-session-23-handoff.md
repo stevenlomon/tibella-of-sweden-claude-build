@@ -95,6 +95,13 @@ This was the big one. Created a product line naming system modeled after Clarend
 
 **Rules enforced:** No overlapping names between collections. Products similar in material/keywords share a line.
 
+#### How line names display
+- **Collection card eyebrow:** "HEDDA" (uppercase, gold, above product title)
+- **Product page title:** "Hedda | Flätstickad Tröja med Rund Hals" (mixed case, pipe separator)
+- **Recommendation section eyebrow:** "HEDDA" (same gold uppercase style as cards)
+
+The product page no longer shows the type label ("KNITWEAR"/"OUTERWEAR") — the line name in the title replaces it.
+
 #### Theme changes (3 files)
 1. **`snippets/card-product.liquid`** (lines 151-155) — Collection card eyebrow now reads `product.metafields.custom.product_line`, falls back to `product.type`
 2. **`sections/related-products.liquid`** (lines 56-59) — Recommendation section eyebrow uses same metafield-first logic
@@ -210,10 +217,29 @@ Use the established import pipeline:
 6. Assign taxonomy categories (required for color-pattern metafield)
 7. Verify on storefront
 
-**New product line names needed** for any new collections:
-- Bags — needs new line name(s), unique from the existing 27
-- Boots — needs new line name(s), unique from the existing 27
-- Any new Accessories — use Runa (shawls/scarves) or Edith (belts) if they fit, or create new
+**Product line names for new products:**
+
+The CSVs for Bags, Boots, and Accessories do NOT have a "Product Line" or "Product Name" column. The next session must:
+1. Read the CSV product descriptions to understand what each product is
+2. Group similar products by material/style/function
+3. Generate Swedish product line names following the system below
+4. Assign via `custom.product_line` metafield after import
+
+**Naming philosophy:** Product line names are Scandinavian women's names or Swedish-feeling words that evoke something about the product's character. Think sub-brands within Tibella. This is modeled after how Clarendale (WEARBELLA, DRAPERIE, VINTELLE), Oh Marbella, Lark & Clover, and Sarah & Judy (Celestina, Adeline) use line names as eyebrows on collection cards and in the product page title format "Line Name | Product Description".
+
+**Rules:**
+- No overlapping names between collections (enforced — each name belongs to exactly one collection)
+- Products similar in keywords and material can share a line name
+- Names should feel Scandinavian/Swedish — either real Nordic women's names (Astrid, Freja, Hedda) or evocative Swedish-sounding words (Vintra = winter-ish, Molna = cloud-like, Saga = fairy tale)
+- Typical group size: 2-5 products per line name. Standalone products can have their own name
+
+**Existing 27 names (DO NOT reuse across collections):**
+Ellinor, Astrid, Vintra, Freja, Sigrid, Saga, Molna, Hilda, Nova, Hedda, Alma, Vera, Embla, Maja, Selma, Liv, Ines, Thyra, Estelle, Linnéa, Märta, Nora, Stella, Birgit, Runa, Edith
+
+**New names needed for:**
+- **Bags** — needs new line name(s), completely new to the store
+- **Boots** — needs new line name(s), completely new to the store
+- **Accessories** — use existing Runa (shawls/scarves) or Edith (belts) if the new products fit those groups, otherwise create new names
 
 ### Task 3: Fix remaining collection issues
 
