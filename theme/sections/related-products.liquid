@@ -53,7 +53,8 @@
     {%- endif -%}
 
     {% if show_products %}
-      {%- assign reco_category = product.type -%}
+      {%- assign reco_category = product.metafields.custom.product_line.value -%}
+      {%- if reco_category == blank -%}{%- assign reco_category = product.type -%}{%- endif -%}
       {%- if reco_category == blank and product.collections.first != blank -%}
         {%- assign reco_category = product.collections.first.title -%}
       {%- endif -%}

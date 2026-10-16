@@ -148,8 +148,10 @@
         </div>
         <div class="card__content">
           <div class="card__information">
-            {%- if card_product.type != blank -%}
-              <div class="dt-card-category">{{ card_product.type | escape }}</div>
+            {%- assign card_line = card_product.metafields.custom.product_line.value -%}
+            {%- if card_line == blank -%}{%- assign card_line = card_product.type -%}{%- endif -%}
+            {%- if card_line != blank -%}
+              <div class="dt-card-category">{{ card_line | escape }}</div>
             {%- endif -%}
             <h3
               class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
