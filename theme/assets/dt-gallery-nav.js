@@ -99,12 +99,14 @@ if (!customElements.get('dt-gallery-nav')) {
 
       this.animating = true;
       oldItem.classList.remove('is-active');
+      oldItem.classList.add('dt-slide-out');
       newItem.classList.add('is-active', inClass);
       this.set(next);
 
       var self = this;
       setTimeout(function() {
         newItem.classList.remove(inClass);
+        oldItem.classList.remove('dt-slide-out');
         self.animating = false;
       }, 320);
     }
