@@ -8,15 +8,12 @@ if (!customElements.get('dt-gallery-nav')) {
       this.total = this.items.length;
       if (this.total < 2) return;
 
-      this.initialFirstId = this.items[0].dataset.mediaId;
-
       this.currentEl = this.querySelector('.dt-gallery-nav__current');
       this.fill = this.querySelector('.dt-gallery-nav__fill');
       this.prevBtn = this.querySelector('[data-dir="prev"]');
       this.nextBtn = this.querySelector('[data-dir="next"]');
       this.current = 0;
       this.animating = false;
-      this.locked = false;
 
       this.items.forEach(function(item, i) {
         item.classList.remove('scroll-trigger', 'animate--fade-in');
@@ -45,22 +42,20 @@ if (!customElements.get('dt-gallery-nav')) {
           item.classList.remove('is-active');
         });
 
+        target.classList.add('is-active');
+
+        if (self.total < 2) {
+          self.style.display = 'none';
+          return;
+        }
+
         var idx = Array.from(self.items).indexOf(target);
         if (idx === -1) return;
 
-        target.classList.add('is-active');
-
-        var firstId = self.items[0].dataset.mediaId;
-        if (firstId === self.initialFirstId) {
-          self.locked = false;
-          self.style.display = '';
-          self.set(idx + 1);
-          var totalEl = self.querySelector('.dt-gallery-nav__total');
-          if (totalEl) totalEl.textContent = self.total;
-        } else {
-          self.locked = true;
-          self.style.display = 'none';
-        }
+        self.style.display = '';
+        self.set(idx + 1);
+        var totalEl = self.querySelector('.dt-gallery-nav__total');
+        if (totalEl) totalEl.textContent = self.total;
       };
 
       this.prevBtn.addEventListener('click', () => this.go(-1));
@@ -82,7 +77,7 @@ if (!customElements.get('dt-gallery-nav')) {
     }
 
     go(dir) {
-      if (this.animating || this.locked) return;
+      if (this.animating) return;
       this._refreshItems();
       if (this.current > this.total) this.current = 1;
       var next = this.current + dir;

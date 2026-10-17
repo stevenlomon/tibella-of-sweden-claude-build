@@ -197,19 +197,44 @@ If a color has complementary images (5-image gallery), making it the first swatc
 2. Which image is the variant's `featured_media`
 3. The media position order
 
-### Lesson 15: Dawn's `hide_variants` breaks custom gallery nav on swatch click
+### Lesson 15: Dawn's `hide_variants` + custom gallery nav — the full fix
 
-When Dawn's `hide_variants` section setting is `true`, the Liquid template only renders the **selected variant's assigned image** plus all unassigned images. Other variants' assigned images are **excluded from the DOM entirely** (via `{% continue %}` in the media loop).
+When Dawn's `hide_variants` is `true`, the Liquid template only renders the **selected variant's assigned image** plus all unassigned images. Other variants' assigned images are excluded from the DOM via `{% continue %}`.
 
-This means `setActiveMedia(mediaId)` cannot find the target element when switching swatches — it returns early and nothing happens. The gallery stays stuck on the previously active image.
+**The original bug (session 26):** `dt-gallery-nav.js`'s `setActiveMedia` override stored the first item's `data-media-id` as `initialFirstId` during `connectedCallback`. On every variant switch, Dawn's `product-info.js` `updateMedia()` uses the Section Rendering API to add/remove/reorder gallery `<li>` items, then calls `setActiveMedia`. The check `firstId === initialFirstId` failed after the DOM reorder, hiding the gallery nav entirely.
 
-**Root cause chain:**
-1. `product.json` → `"hide_variants": true`
-2. `product-media-gallery.liquid` → `variant_images contains media.src` → `{% continue %}`
-3. Non-featured variant image is never rendered as a `<li>` in the gallery
-4. `dt-gallery-nav.js` → `setActiveMedia` → `querySelector` returns `null` → `return`
-5. Gallery doesn't switch, appears "stuck" on the wrong color
+**Fix 1 — Remove `initialFirstId` gating:** The `setActiveMedia` override should always show the gallery nav after `_refreshItems()` re-queries the DOM. No first-item comparison needed. Dawn's section rendering handles the DOM swap correctly; the gallery nav just needs to reflect the new state.
 
-**Fix:** Set `"hide_variants": false` in `templates/product.json`. This renders all variant images in the DOM so the custom gallery nav can find any target. The trade-off: the other variant's image appears at the end of the carousel, but is rarely scrolled to.
+**Fix 2 — Hide nav when items < 2:** After `_refreshItems()`, if `total < 2`, hide the gallery nav with `display: none` and return. This handles variants with only one image (e.g., a secondary color with no complementary shots).
 
-**This is a Dawn feature incompatibility, not a GraphQL issue** — but it surfaces after GraphQL variant reordering (`productVariantsBulkReorder`) because the user expects the reorder to fix the carousel, and it doesn't.
+### Lesson 16: Unassigned complementary images show for ALL variants
+
+Shopify only allows **one** featured media per variant (Lesson 6). Complementary images (additional angles, detail shots) for a color are typically left unassigned. Dawn's `hide_variants` only filters images that are in `variant_images` — unassigned images always render.
+
+This means a 5-image brown gallery (1 hero + 4 complementary) shows all 4 complementary images even when a black variant is selected. The carousel appears for both colors, with the wrong images.
+
+**Fix — Color tags in alt text:** Tag complementary images with `color:{ColorName}` in their alt text (e.g., `"Brun flygarjacka bakifrån | color:Brun"`). Add a Liquid filter in `product-media-gallery.liquid`:
+
+1. Compute `current_color_tag` from the selected variant's first option
+2. Count `color_tagged_other` (images tagged for a different color) and subtract from `media_count`
+3. In the media loop, skip images whose alt contains `color:` but not `current_color_tag`
+
+Images without `color:` tags (hero images assigned to variants, or truly shared images) are unaffected. The tag is opt-in per product.
+
+### Lesson 17: `productUpdateMedia` sets alt text on product images
+
+```graphql
+mutation {
+  productUpdateMedia(
+    productId: "gid://shopify/Product/..."
+    media: [
+      { id: "gid://shopify/MediaImage/...", alt: "Description | color:Brun" }
+    ]
+  ) {
+    media { ... on MediaImage { id alt } }
+    mediaUserErrors { field message }
+  }
+}
+```
+
+Multiple images can be updated in one call. The `alt` field sets both the HTML alt attribute and the Liquid `media.alt` value. Use descriptive text before the pipe for accessibility; the `color:` tag after it is for programmatic filtering.

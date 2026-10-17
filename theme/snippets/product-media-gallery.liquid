@@ -25,6 +25,17 @@
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
 
+  assign current_color_tag = 'color:' | append: product.selected_or_first_available_variant.option1
+  assign color_tagged_other = 0
+  for media in product.media
+    if media.alt contains 'color:'
+      unless media.alt contains current_color_tag
+        assign color_tagged_other = color_tagged_other | plus: 1
+      endunless
+    endif
+  endfor
+  assign media_count = media_count | minus: color_tagged_other
+
   if media_count == 1 or single_media_visible
     assign single_media_visible_mobile = true
   endif
@@ -93,6 +104,12 @@
         %}
           {% continue %}
         {% endif %}
+
+        {%- if media.alt contains 'color:' -%}
+          {%- unless media.alt contains current_color_tag -%}
+            {%- continue -%}
+          {%- endunless -%}
+        {%- endif -%}
 
         {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
           <li
