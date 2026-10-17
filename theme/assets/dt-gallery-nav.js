@@ -98,17 +98,17 @@ if (!customElements.get('dt-gallery-nav')) {
       var inClass = dir > 0 ? 'dt-slide-in-right' : 'dt-slide-in-left';
 
       this.animating = true;
-      oldItem.classList.remove('is-active');
       oldItem.classList.add('dt-slide-out');
-      newItem.classList.add('is-active', inClass);
+      newItem.classList.add('dt-slide-entering', inClass);
       this.set(next);
 
       var self = this;
       setTimeout(function() {
-        newItem.classList.remove(inClass);
-        oldItem.classList.remove('dt-slide-out');
+        oldItem.classList.remove('is-active', 'dt-slide-out');
+        newItem.classList.remove('dt-slide-entering', inClass);
+        newItem.classList.add('is-active');
         self.animating = false;
-      }, 320);
+      }, 420);
     }
 
     disconnectedCallback() {}

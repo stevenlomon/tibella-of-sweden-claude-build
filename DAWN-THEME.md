@@ -189,11 +189,43 @@ this.gallery.setActiveMedia = function(mediaId) {
 };
 ```
 
-### 5. Don't crossfade gallery items with `position: absolute`
+### 5. Crossfade with position stacking: keep old slide relative during transition
 
-Crossfading old and new images by making the old item `position: absolute` during exit causes a visible flash — the image briefly renders at its natural/collapsed size before the absolute constraints apply. Dawn's responsive image sizing (padding-top aspect-ratio hacks, percentage widths) breaks when the element leaves normal flow.
+Crossfading gallery items requires a specific position-swap choreography. The naive approach — removing `is-active` from the old slide (switching it to `position: absolute`) while the new slide animates in — causes a visible "shedding" flash. The old image instantly shrinks/relocates when it leaves normal flow, BEFORE the fade animation kicks in.
 
-**Use incoming-only animation instead.** The old item disappears instantly (`display: none` via `is-active` removal) and the new item slides in. The slide-in provides enough visual continuity without the complexity of dual animations and absolute positioning.
+**The correct pattern:** The old slide KEEPS `position: relative` (via its `is-active` class) throughout the transition. The new slide enters as a `position: absolute` overlay on top. The position swap happens ONLY after the animation completes:
+
+```javascript
+// Old keeps is-active (relative) → adds dt-slide-out (fades)
+// New gets dt-slide-entering (absolute overlay) → slides in
+oldItem.classList.add('dt-slide-out');
+newItem.classList.add('dt-slide-entering', inClass);
+
+// AFTER animation: swap positions
+setTimeout(function() {
+  oldItem.classList.remove('is-active', 'dt-slide-out');  // now goes absolute/hidden
+  newItem.classList.remove('dt-slide-entering', inClass);
+  newItem.classList.add('is-active');  // now takes relative position
+}, 420);
+```
+
+```css
+/* Old slide during exit: stays relative (from is-active), fades out */
+.product__media-item.is-active.dt-slide-out {
+  z-index: 1;
+  animation: dt-slide-out 300ms ease forwards;
+}
+
+/* New slide during entry: absolute overlay, slides in */
+.product__media-item.dt-slide-entering {
+  position: absolute;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+}
+```
+
+The key insight: relative → absolute is a layout-breaking transition. Never do it mid-animation. Let the animation finish, THEN swap the positioning model.
 
 ### 6. `animationend` events may not fire in Dawn's context
 
@@ -760,3 +792,55 @@ The `colors` array in a batch JSON file determines which variant gets which imag
 **Wrong approach:** List colors from the AliExpress supplier page, list images from the spreadsheet, hope they're in the same order. This caused off-by-one bugs on `wool-hoodie-dress` and `long-hooded-cotton-jacket` — colors and images were independently ordered, so Svart showed the Rosa photo, Rosa showed the Olivgrön photo, etc.
 
 **Right approach:** Open each Higgsfield image, see what color the garment is, name it. Main Image 1 shows beige → `colors[0] = "Beige"`. Image Var 1 shows black → `colors[1] = "Svart"`. The mapping is guaranteed correct because the color name comes from the image itself. Use AliExpress only for materials, specs, and descriptions.
+
+---
+
+### Lesson 19 — Dawn's `section-main-product.css` caps non-first media items at 50% width
+
+**The trap:** `section-main-product.css` sets `max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2)` on product media items that aren't the first child. Only the first child gets `max-width: 100%`. When building a single-focus gallery (one visible image, rest hidden with `position: absolute` / `opacity: 0`), setting `width: 100%` on all items is NOT enough — `max-width` caps the computed width, so non-first items render at ~50% (e.g., 319px in a 648px container).
+
+**Why it's invisible at first:** The first image (which IS the first child) renders correctly. You only see the bug when navigating to the second or third image.
+
+**The source rules** (in `section-main-product.css`):
+
+```css
+/* Line ~500 — applies to ALL non-first media items */
+.product--columns .product__media-item:not(:first-child),
+.product:not(.product--columns) .product__media-list .product__media-item ~ .product__media-item {
+  max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+/* Line ~535 — only first child gets full width */
+.product:not(.product--columns) .product__media-list .product__media-item:first-child {
+  max-width: 100%;
+}
+```
+
+**The fix:** Explicitly set `max-width: 100%` on ALL gallery items in your custom CSS. Both the base hidden state AND the active state need it:
+
+```css
+.dt-product-page .product__media-list .product__media-item {
+  width: 100%;
+  max-width: 100%;  /* overrides Dawn's calc(50% - 10px) */
+}
+```
+
+**Rule:** Whenever you override Dawn's layout for product media items, always check for `max-width` constraints in `section-main-product.css`. Setting `width` alone is never enough — `max-width` silently caps it.
+
+---
+
+### Lesson 20 — Eager-load bounded image sets, don't lazy-load them
+
+Dawn's `product-media-gallery.liquid` lazy-loads non-first product images (`loading: 'lazy'`). For a single-focus gallery where images are hidden via CSS (not scrolled off-screen), lazy loading means images aren't fetched until they enter the viewport — which for hidden images is never, until the user navigates to them. Result: a white flash while the image loads on first view.
+
+**When to eager-load:** Product galleries with ≤5 images per variant. The total payload for 5 product images is ~200-400KB — negligible on any connection, and the user WILL view most of them.
+
+**When lazy-loading is correct:** Unbounded lists (collection grids, search results, blog feeds) where most items are below the fold.
+
+```liquid
+{%- liquid
+  assign lazy_load = false
+-%}
+```
+
+Setting `lazy_load = false` unconditionally for all product gallery images eliminates the white flash entirely with no measurable performance cost.
