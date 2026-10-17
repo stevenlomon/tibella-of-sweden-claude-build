@@ -307,7 +307,21 @@ mutation {
 }
 ```
 
-Shopify auto-creates a 301 redirect from the old handle to the new one. Safe to run in bulk — existing links won't break. The spreadsheet column I contains the target slug for every product, following the `{product-line}-{english-name}` convention.
+Shopify does **NOT** auto-create a 301 redirect when the handle is changed via GraphQL `productUpdate`. You must create the redirect manually with `urlRedirectCreate`:
+
+```graphql
+mutation {
+  urlRedirectCreate(urlRedirect: {
+    path: "/products/old-handle",
+    target: "/products/new-handle"
+  }) {
+    urlRedirect { id path target }
+    userErrors { field message }
+  }
+}
+```
+
+Every handle change needs a follow-up redirect. Without it, the old URL returns 404 immediately. The spreadsheet column I contains the target slug for every product, following the `{product-line}-{english-name}` convention.
 
 ### Lesson 21: Scraping AliExpress size charts in the browser
 
@@ -327,3 +341,31 @@ The `find` tool and `read_page` struggle with AliExpress's dynamic DOM. Use `jav
   );
 })()
 ```
+
+---
+
+## Color Mismatch Audit & Fix
+
+### Lesson 22: The full color mismatch fix — verify before tagging
+
+The import pipeline frequently maps variant images to the wrong color (positional mapping bug). Upload timestamps can suggest which images belong together, but **never tag or reassign without visual verification**. A batch uploaded within 20 seconds is likely the same color, but you still need to confirm *which* color.
+
+**The reliable fix sequence for a multi-color product:**
+
+1. **Query the product** — get all media IDs (with image URLs), variant image assignments, and option values
+2. **Read the spreadsheet** — the Higgsfield URL columns define the canonical color order (see PRODUCT-IMPORT.md Lesson 18). `colors[0]` → Main Image 1, `colors[1]` → Image Var 1, etc. The Higgsfield image filenames embed in the Shopify CDN URLs after upload (`hf_YYYYMMDD_HHMMSS_UUID.png`), so match by filename to determine which Shopify MediaImage corresponds to which spreadsheet color position
+3. **Compare against variant assignments** — if Shopify has Svart→MediaImage X but the spreadsheet says that image's position belongs to Aprikos, the assignment is swapped
+4. **Detach** all mismatched variants from wrong images (`productVariantDetachMedia`)
+5. **Reattach** with correct assignments (`productVariantAppendMedia`) — must be a separate mutation after detach (Lesson 5)
+6. **Tag complementary images** — set `color:{ColorName}` alt text on unassigned images (`productUpdateMedia`). Group by Higgsfield upload batch (same timestamp prefix = same color), tag with the color determined by the batch's hero image position in the spreadsheet
+7. **Reorder variants** — the color with the most images (the carousel) goes first (`productVariantsBulkReorder`, Lesson 10)
+
+**Source of truth for color-to-image mapping:**
+
+The Higgsfield URL order in the spreadsheet is the single source of truth (PRODUCT-IMPORT.md Lesson 18). Do NOT cross-reference AliExpress color lists — the import pipeline used Higgsfield image order to build the `colors` array, and the spreadsheet preserves that order. AliExpress is only the source of truth for material specs and sizing, never for color-image mapping.
+
+**What NOT to do:**
+- Don't assume image filenames or timestamps encode the color — they encode upload order, which correlates with color batch but doesn't tell you WHICH color
+- Don't cross-reference AliExpress color options — the color order there may differ from the Higgsfield/spreadsheet order
+- Don't tag complementary images based on which variant they're "near" in the media list
+- Don't skip the detach step — `productVariantAppendMedia` fails if the variant already has media attached (Lesson 5)
