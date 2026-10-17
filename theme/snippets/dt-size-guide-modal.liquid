@@ -1,26 +1,76 @@
 {%- assign sg_fit = product.metafields.custom.fit_sizing -%}
 {%- assign sg_materials = product.metafields.custom.materials_care -%}
 
+{%- assign sg_type = 'clothing' -%}
+{%- for tag in product.tags -%}
+  {%- if tag == 'size-guide:bottoms' -%}
+    {%- assign sg_type = 'bottoms' -%}
+  {%- elsif tag == 'size-guide:boots' -%}
+    {%- assign sg_type = 'boots' -%}
+  {%- elsif tag == 'size-guide:none' -%}
+    {%- assign sg_type = 'none' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- unless sg_type == 'none' -%}
 <div class="dt-size-guide-overlay" id="dt-size-guide" aria-modal="true" role="dialog" aria-label="Storleksguide">
   <div class="dt-size-guide-modal">
     <button type="button" class="dt-size-guide-modal__close" data-dt-size-guide-close aria-label="Stäng">&times;</button>
     <h3>Storleksguide</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Storlek</th>
-          <th>Bröst (cm)</th>
-          <th>Midja (cm)</th>
-          <th>Höft (cm)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>S</td><td>84 – 88</td><td>66 – 70</td><td>92 – 96</td></tr>
-        <tr><td>M</td><td>88 – 92</td><td>70 – 74</td><td>96 – 100</td></tr>
-        <tr><td>L</td><td>92 – 96</td><td>74 – 78</td><td>100 – 104</td></tr>
-        <tr><td>XL</td><td>96 – 102</td><td>78 – 84</td><td>104 – 110</td></tr>
-      </tbody>
-    </table>
+
+    {%- if sg_type == 'boots' -%}
+      <table>
+        <thead>
+          <tr>
+            <th>EU</th>
+            <th>Fotlängd (cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>35</td><td>22.5</td></tr>
+          <tr><td>36</td><td>23.0</td></tr>
+          <tr><td>37</td><td>23.5</td></tr>
+          <tr><td>38</td><td>24.0</td></tr>
+          <tr><td>39</td><td>24.5</td></tr>
+          <tr><td>40</td><td>25.5</td></tr>
+          <tr><td>41</td><td>26.0</td></tr>
+        </tbody>
+      </table>
+    {%- elsif sg_type == 'bottoms' -%}
+      <table>
+        <thead>
+          <tr>
+            <th>Storlek</th>
+            <th>Midja (cm)</th>
+            <th>Höft (cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>66 – 70</td><td>92 – 96</td></tr>
+          <tr><td>M</td><td>70 – 74</td><td>96 – 100</td></tr>
+          <tr><td>L</td><td>74 – 78</td><td>100 – 104</td></tr>
+          <tr><td>XL</td><td>82 – 86</td><td>108 – 112</td></tr>
+        </tbody>
+      </table>
+    {%- else -%}
+      <table>
+        <thead>
+          <tr>
+            <th>Storlek</th>
+            <th>Bröst (cm)</th>
+            <th>Midja (cm)</th>
+            <th>Höft (cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>84 – 88</td><td>66 – 70</td><td>92 – 96</td></tr>
+          <tr><td>M</td><td>88 – 92</td><td>70 – 74</td><td>96 – 100</td></tr>
+          <tr><td>L</td><td>92 – 96</td><td>74 – 78</td><td>100 – 104</td></tr>
+          <tr><td>XL</td><td>100 – 104</td><td>82 – 86</td><td>108 – 112</td></tr>
+        </tbody>
+      </table>
+    {%- endif -%}
+
     {%- if sg_fit != blank -%}
       <div class="dt-size-guide-modal__section">
         <p class="dt-size-guide-modal__label">Passform</p>
@@ -68,3 +118,4 @@
     });
   })();
 </script>
+{%- endunless -%}

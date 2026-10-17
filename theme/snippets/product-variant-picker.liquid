@@ -42,9 +42,11 @@
               {{- option.selected_value -}}
             </span>
             {%- if option_name contains 'size' or option_name contains 'storlek' -%}
-              <button type="button" class="dt-size-guide" data-dt-size-guide-open>
-                {{ 'products.product.dt_size_guide' | t }}
-              </button>
+              {%- unless product.tags contains 'size-guide:none' -%}
+                <button type="button" class="dt-size-guide" data-dt-size-guide-open>
+                  {{ 'products.product.dt_size_guide' | t }}
+                </button>
+              {%- endunless -%}
             {%- endif -%}
           </legend>
           {% render 'product-variant-options',
@@ -67,9 +69,11 @@
               &nbsp; · &nbsp;<span data-selected-value>{{ option.selected_value }}</span>
             {%- endif -%}
             {%- if option_name contains 'size' or option_name contains 'storlek' -%}
-              <button type="button" class="dt-size-guide" data-dt-size-guide-open>
-                {{ 'products.product.dt_size_guide' | t }}
-              </button>
+              {%- unless product.tags contains 'size-guide:none' -%}
+                <button type="button" class="dt-size-guide" data-dt-size-guide-open>
+                  {{ 'products.product.dt_size_guide' | t }}
+                </button>
+              {%- endunless -%}
             {%- endif -%}
           </legend>
           {% render 'product-variant-options',
