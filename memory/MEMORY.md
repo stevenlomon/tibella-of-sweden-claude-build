@@ -12,3 +12,5 @@
 - [Swatch color fallback](swatch-color-fallback.md) — Shopify auto-detection misses Gul/Orange; theme fallback lookup covers all 22 colors
 - [Color from images](feedback-color-from-images.md) — Derive color names from Higgsfield images, not AliExpress; prevents off-by-one image bugs
 - [Unenriched DRAFT products](project-unenriched-drafts.md) — 23 DRAFTs (15 Knitwear + 8 Dresses) created but never enriched
+- [Spreadsheet column layout](spreadsheet-column-layout.md) — Product planning spreadsheet structure: A-I columns, 8 tabs, sheet IDs, slug convention
+- [Size guide tag routing](size-guide-tag-routing.md) — Storleksguide uses product tags for clothing/bottoms/boots/none tables; verified EU body measurements
