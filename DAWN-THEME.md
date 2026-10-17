@@ -844,3 +844,40 @@ Dawn's `product-media-gallery.liquid` lazy-loads non-first product images (`load
 ```
 
 Setting `lazy_load = false` unconditionally for all product gallery images eliminates the white flash entirely with no measurable performance cost.
+
+---
+
+### Lesson 21 — Tag-based conditional rendering in Dawn snippets
+
+Dawn snippets can branch on product tags to render different content per product category. The pattern uses a `{%- for tag in product.tags -%}` loop in the snippet's preamble to set a variable, then branches with `{%- if -%}` / `{%- elsif -%}` in the body.
+
+**Example: `dt-size-guide-modal.liquid`**
+
+```liquid
+{%- assign sg_type = 'clothing' -%}
+{%- for tag in product.tags -%}
+  {%- if tag == 'size-guide:bottoms' -%}
+    {%- assign sg_type = 'bottoms' -%}
+  {%- elsif tag == 'size-guide:boots' -%}
+    {%- assign sg_type = 'boots' -%}
+  {%- elsif tag == 'size-guide:none' -%}
+    {%- assign sg_type = 'none' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- unless sg_type == 'none' -%}
+  <!-- render modal -->
+{%- endunless -%}
+```
+
+To also hide a **button** that triggers the modal, use `product.tags contains 'tag-name'` in the button's template (`product-variant-picker.liquid`):
+
+```liquid
+{%- unless product.tags contains 'size-guide:none' -%}
+  <button type="button" class="dt-size-guide" data-dt-size-guide-open>...</button>
+{%- endunless -%}
+```
+
+The `contains` check is simpler but only works for presence/absence. The loop pattern supports multiple tag values mapping to different behaviors.
+
+**Tag naming convention:** Use `namespace:value` format (e.g., `size-guide:bottoms`) to avoid collisions with other tag uses. Tags are case-sensitive in Liquid.

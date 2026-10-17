@@ -238,3 +238,92 @@ mutation {
 ```
 
 Multiple images can be updated in one call. The `alt` field sets both the HTML alt attribute and the Liquid `media.alt` value. Use descriptive text before the pipe for accessibility; the `color:` tag after it is for programmatic filtering.
+
+---
+
+## Size Guide Tags
+
+### Lesson 18: Product tags route the Storleksguide table type
+
+The size guide modal (`dt-size-guide-modal.liquid`) uses product tags to determine which measurement table to render. Default is the clothing table (bust/waist/hip). Tags override the default:
+
+| Tag | Table shown | Columns | Used for |
+|---|---|---|---|
+| *(none)* | Clothing | Storlek, Bröst, Midja, Höft | Outerwear, knitwear, dresses, sets |
+| `size-guide:bottoms` | Bottoms | Storlek, Midja, Höft | Pants, leggings, skirts |
+| `size-guide:boots` | Boots | EU, Fotlängd (cm) | All footwear |
+| `size-guide:none` | *(hidden)* | — | Bags, accessories |
+
+The `size-guide:none` tag also hides the "Storleksguide" button in `product-variant-picker.liquid` (both swatch and button picker types).
+
+**Bulk-tagging via CLI:**
+```graphql
+mutation {
+  productUpdate(input: {
+    id: "gid://shopify/Product/...",
+    tags: ["size-guide:bottoms"]
+  }) {
+    product { title tags }
+    userErrors { message }
+  }
+}
+```
+
+Tags are additive — `productUpdate` with `tags: ["size-guide:bottoms"]` adds that tag without removing existing tags.
+
+### Lesson 19: AliExpress garment measurements vs EU body measurements
+
+AliExpress size charts show **garment measurements** (flat-lay), not body measurements. The Storleksguide shows **body measurements**. The difference is "ease" — extra room built into the garment.
+
+Ease varies by garment type:
+| Garment type | Typical bust ease |
+|---|---|
+| Outerwear (coats, jackets) | +14 to +18 cm |
+| Knitwear (cardigans, sweaters) | +4 to +8 cm |
+| Stretch knit dresses | -10 to -18 cm (negative = smaller than body) |
+| Elastic-waist pants | -2 to +2 cm at waist |
+
+To verify a supplier uses real EU sizing: take their garment measurement, subtract the expected ease for that garment type, and check if the result matches standard EU body measurements. If it does, the supplier's S/M/L/XL corresponds to standard EU sizes.
+
+**Standard EU body measurements (what the Storleksguide shows):**
+| Size | EU | Bust (cm) | Waist (cm) | Hip (cm) |
+|---|---|---|---|---|
+| S | 36 | 84 – 88 | 66 – 70 | 92 – 96 |
+| M | 38 | 88 – 92 | 70 – 74 | 96 – 100 |
+| L | 40 | 92 – 96 | 74 – 78 | 100 – 104 |
+| XL | 44 | 100 – 104 | 82 – 86 | 108 – 112 |
+
+### Lesson 20: `productUpdate` handle change for URL slugs
+
+```graphql
+mutation {
+  productUpdate(input: {
+    id: "gid://shopify/Product/...",
+    handle: "hilda-belted-aviator-jacket"
+  }) {
+    product { handle }
+    userErrors { field message }
+  }
+}
+```
+
+Shopify auto-creates a 301 redirect from the old handle to the new one. Safe to run in bulk — existing links won't break. The spreadsheet column I contains the target slug for every product, following the `{product-line}-{english-name}` convention.
+
+### Lesson 21: Scraping AliExpress size charts in the browser
+
+AliExpress product pages have a "Size Chart" button with class `.sku-item--sizeIcon--we3E_so`. The scraping pattern:
+
+1. Navigate to the product page
+2. Click the Size Chart element (use `javascript_tool` — `find` often can't locate it)
+3. Toggle to CM if needed (look for a CM/inches toggle)
+4. Extract table data from the modal DOM
+
+The `find` tool and `read_page` struggle with AliExpress's dynamic DOM. Use `javascript_tool` with an IIFE pattern for reliable extraction:
+```javascript
+(() => {
+  const rows = document.querySelectorAll('.size-chart-table tr');
+  return Array.from(rows).map(r =>
+    Array.from(r.cells).map(c => c.textContent.trim())
+  );
+})()
+```
