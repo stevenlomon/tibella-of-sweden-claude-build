@@ -369,3 +369,31 @@ The Higgsfield URL order in the spreadsheet is the single source of truth (PRODU
 - Don't cross-reference AliExpress color options — the color order there may differ from the Higgsfield/spreadsheet order
 - Don't tag complementary images based on which variant they're "near" in the media list
 - Don't skip the detach step — `productVariantAppendMedia` fails if the variant already has media attached (Lesson 5)
+
+---
+
+## Verification
+
+### Lesson 23: Browser pane screenshots may not composite — use read_page fallbacks
+
+The browser pane can fail with "Screenshot timed out after 5s: the Browser pane is not displayed, so the page is not compositing frames." This can persist for an entire session.
+
+**Reliable alternatives for product page verification:**
+
+| What to verify | Tool | How |
+|---|---|---|
+| Color tag filtering works | `read_page` | Check image alt text in gallery region — should show `color:Svart` etc. Image count per swatch confirms filtering |
+| Swatch switching | `read_page` after clicking swatch | Gallery list should update to show only images matching the clicked color |
+| URL redirect works | `javascript_tool` | `window.location.href` after navigating to old URL — confirms it resolved to new URL |
+| Which color an image actually shows | `Read` tool on downloaded file | Download Higgsfield CDN images via `curl`, then `Read` the PNG — the tool renders images visually |
+
+**For visual color determination (the overnight process):**
+
+```bash
+# Download the three key images (hero for each color position)
+curl -sL -o colors0.png "<CloudFront URL for Main Image 1>"
+curl -sL -o colors1.png "<CloudFront URL for Image Var 1>"
+curl -sL -o colors2.png "<CloudFront URL for Image Var 2>"
+```
+
+Then use the `Read` tool on each PNG to visually identify the garment color. This is the only reliable way to determine which color name matches which Higgsfield image position — filenames and timestamps don't encode color information.
