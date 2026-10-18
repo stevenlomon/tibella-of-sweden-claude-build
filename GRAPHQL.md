@@ -397,3 +397,31 @@ curl -sL -o colors2.png "<CloudFront URL for Image Var 2>"
 ```
 
 Then use the `Read` tool on each PNG to visually identify the garment color. This is the only reliable way to determine which color name matches which Higgsfield image position — filenames and timestamps don't encode color information.
+
+---
+
+### Lesson 23 — Inventory mutations require `@idempotent` directive and `changeFromQuantity`
+
+Both `inventorySetQuantities` and `inventoryAdjustQuantities` require:
+
+1. **`changeFromQuantity`** in each quantity/change input — optimistic locking that confirms the current quantity before changing it
+2. **`@idempotent(key: "...")`** directive on the mutation **field** (not the operation) — a unique key string for deduplication
+
+```graphql
+mutation {
+  inventoryAdjustQuantities(input: {
+    reason: "correction",
+    name: "available",
+    changes: [{
+      inventoryItemId: "gid://shopify/InventoryItem/...",
+      locationId: "gid://shopify/Location/...",
+      delta: 10,
+      changeFromQuantity: 0
+    }]
+  }) @idempotent(key: "unique-key-per-operation") {
+    userErrors { message field }
+  }
+}
+```
+
+Get `inventoryItemId` from the variant: `productVariant(id: "...") { inventoryItem { id } inventoryQuantity }`. Get `locationId` from `locations(first: 1) { nodes { id } }`. The `@idempotent` directive goes on the field, NOT the mutation operation — `mutation @idempotent` errors with "can't be applied to mutations".
