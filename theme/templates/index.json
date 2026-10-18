@@ -70,6 +70,22 @@
             "title": "Accessoarer",
             "fallback_asset": "dt-collection-accessories.png"
           }
+        },
+        "byxor": {
+          "type": "collection",
+          "settings": {
+            "collection": "byxor",
+            "title": "Byxor",
+            "fallback_asset": "dt-collection-clothing-shoes.png"
+          }
+        },
+        "set": {
+          "type": "collection",
+          "settings": {
+            "collection": "set",
+            "title": "Set",
+            "fallback_asset": "dt-collection-clothing.png"
+          }
         }
       },
       "block_order": [
@@ -78,7 +94,9 @@
         "klanningar",
         "vaskor",
         "stovlar",
-        "accessoarer"
+        "accessoarer",
+        "byxor",
+        "set"
       ],
       "settings": {
         "heading": "Shoppa efter kategori"
@@ -110,6 +128,18 @@
         "tab_stovlar": {
           "type": "tab",
           "settings": { "label": "Stövlar", "collection": "utvalt-stovlar" }
+        },
+        "tab_accessoarer": {
+          "type": "tab",
+          "settings": { "label": "Accessoarer", "collection": "utvalt-accessoarer" }
+        },
+        "tab_byxor": {
+          "type": "tab",
+          "settings": { "label": "Byxor", "collection": "utvalt-byxor" }
+        },
+        "tab_set": {
+          "type": "tab",
+          "settings": { "label": "Set", "collection": "utvalt-set" }
         }
       },
       "block_order": [
@@ -118,7 +148,10 @@
         "tab_stickat",
         "tab_klanningar",
         "tab_vaskor",
-        "tab_stovlar"
+        "tab_stovlar",
+        "tab_accessoarer",
+        "tab_byxor",
+        "tab_set"
       ],
       "settings": {
         "heading": "Utvalt för säsongen",
