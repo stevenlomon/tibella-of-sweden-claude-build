@@ -18,7 +18,7 @@
           "type": "brand_information",
           "settings": {
             "brand_image": "",
-            "brand_heading": "Tibella of Sweden",
+            "brand_heading": "Tibella",
             "brand_description": "<p>Genomtänkt stil, bekväma vardagskläder och vackra accessoarer — utvalda för att göra vardagen lite mer omtänksam.</p>",
             "social_label": "Instagram",
             "show_social": true,
@@ -50,7 +50,7 @@
           "type": "text",
           "settings": {
             "heading": "Företagsinformation",
-            "subtext": "<p>Tibella of Sweden drivs av Tibella AB.<br>Org.nr [ORGANISATIONSNUMMER]<br>hello@tibella.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: Måndag till söndag, 09:00–17:00 (CET)</p>"
+            "subtext": "<p>Tibella drivs av Tibella AB.<br>Org.nr [ORGANISATIONSNUMMER]<br>hello@tibella.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: Måndag till söndag, 09:00–17:00 (CET)</p>"
           }
         }
       },
