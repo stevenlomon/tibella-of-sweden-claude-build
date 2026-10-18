@@ -36,21 +36,21 @@
           "type": "link_list",
           "settings": {
             "heading": "Kundservice",
-            "menu": "footer"
+            "menu": "kundservice"
           }
         },
         "policies": {
           "type": "link_list",
           "settings": {
             "heading": "Villkor",
-            "menu": "footer"
+            "menu": "villkor"
           }
         },
         "business": {
           "type": "text",
           "settings": {
             "heading": "Företagsinformation",
-            "subtext": "<p>Tibella of Sweden drivs av [JURIDISKT NAMN].<br>Org.nr [ORGANISATIONSNUMMER]<br>kontakt@tibellaofsweden.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: [ÖPPETTIDER]</p>"
+            "subtext": "<p>Tibella of Sweden drivs av Tibella AB.<br>Org.nr [ORGANISATIONSNUMMER]<br>hello@tibella.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: Måndag till söndag, 09:00–17:00 (CET)</p>"
           }
         }
       },

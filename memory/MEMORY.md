@@ -16,3 +16,4 @@
 - [Size guide tag routing](size-guide-tag-routing.md) — Storleksguide uses product tags for clothing/bottoms/boots/none tables; verified EU body measurements
 - [Fulfillment model](project-fulfillment-model.md) — AliExpress is for modeling only; OOS there is irrelevant, but non-existent sizes still matter
 - [2XL expansion done](project-2xl-expansion-done.md) — 158 variants across 57 products; skip list for pants and supplier-capped products
+- [Visual verification](../../../.claude/projects/-home-stevenlomon-Documents-shopify-workspace-shopify/memory/feedback-visual-verification.md) — User does visual verification; don't open the browser to check rendered output

@@ -14,3 +14,5 @@ dawn-reference/
 # Environment / secrets
 .env
 .env.local
+
+privacy-policy.txt
