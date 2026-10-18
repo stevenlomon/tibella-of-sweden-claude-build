@@ -14,3 +14,4 @@
 - [Unenriched DRAFT products](project-unenriched-drafts.md) — 23 DRAFTs (15 Knitwear + 8 Dresses) created but never enriched
 - [Spreadsheet column layout](spreadsheet-column-layout.md) — Product planning spreadsheet structure: A-I columns, 8 tabs, sheet IDs, slug convention
 - [Size guide tag routing](size-guide-tag-routing.md) — Storleksguide uses product tags for clothing/bottoms/boots/none tables; verified EU body measurements
+- [Fulfillment model](project-fulfillment-model.md) — AliExpress is for modeling only; OOS there is irrelevant, but non-existent sizes still matter
