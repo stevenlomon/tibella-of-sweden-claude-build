@@ -20,9 +20,9 @@
             "brand_image": "",
             "brand_heading": "Tibella",
             "brand_description": "<p>Genomtänkt stil, bekväma vardagskläder och vackra accessoarer — utvalda för att göra vardagen lite mer omtänksam.</p>",
-            "social_label": "Instagram",
-            "show_social": true,
-            "instagram_link": "https://instagram.com/tibellaofsweden"
+            "social_label": "",
+            "show_social": false,
+            "instagram_link": ""
           }
         },
         "shop": {
