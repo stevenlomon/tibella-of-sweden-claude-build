@@ -2729,6 +2729,14 @@ body .mobile-facets__footer .button--primary:hover {
   display: none;
 }
 
+.dt-tabbed-collection__item--featured .media--hover-effect > img + img {
+  display: none;
+}
+
+.dt-tabbed-collection__item--featured .media--hover-effect:hover > img:first-child {
+  opacity: 1;
+}
+
 .dt-tabbed-collection__item--featured .card__inner.ratio::after {
   content: "";
   position: absolute;
@@ -2785,6 +2793,13 @@ body .mobile-facets__footer .button--primary:hover {
   color: var(--tb-sno);
   font-size: 13px;
   font-weight: 600;
+}
+
+.dt-tabbed-collection__product-grid .card > .card__content .card__heading a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
 }
 
 .dt-tabbed-collection__product-grid .card > .card__content .dt-card-category {
