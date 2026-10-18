@@ -59,7 +59,7 @@ mutation {
     productId: "gid://shopify/Product/..."
     options: [
       { name: "Färg", values: [{ name: "Beige" }, { name: "Svart" }] }
-      { name: "Storlek", values: [{ name: "S" }, { name: "M" }, { name: "L" }, { name: "XL" }] }
+      { name: "Storlek", values: [{ name: "S" }, { name: "M" }, { name: "L" }, { name: "XL" }, { name: "2XL" }] }
     ]
   ) {
     product { options { id name optionValues { id name } } }
@@ -498,7 +498,7 @@ The one-shot `enrich_products.py` script from Session 16 had 7 known bugs. A new
 1. Resolve Higgsfield share URLs → CloudFront CDN PNGs
 2. `productUpdate` → set title + descriptionHtml (Swedish)
 3. `metafieldsSet` → 6 metafields (specifications, materials_care, shipping_returns, fit_sizing, key_features as bulleted list, color-pattern reference)
-4. `productOptionsCreate` + `productVariantsBulkCreate` → Färg × Storlek (S/M/L/XL)
+4. `productOptionsCreate` + `productVariantsBulkCreate` → Färg × Storlek (S/M/L/XL/2XL)
 5. `productCreateMedia` → upload images in spreadsheet column order
 6. `productVariantAppendMedia` → link Main 1 to primary color variants, Var N to Nth additional color variants (1 mediaId per call)
 7. `inventoryAdjustQuantities` → 10 per variant (@idempotent + changeFromQuantity: 0)

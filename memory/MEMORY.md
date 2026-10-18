@@ -15,3 +15,4 @@
 - [Spreadsheet column layout](spreadsheet-column-layout.md) — Product planning spreadsheet structure: A-I columns, 8 tabs, sheet IDs, slug convention
 - [Size guide tag routing](size-guide-tag-routing.md) — Storleksguide uses product tags for clothing/bottoms/boots/none tables; verified EU body measurements
 - [Fulfillment model](project-fulfillment-model.md) — AliExpress is for modeling only; OOS there is irrelevant, but non-existent sizes still matter
+- [2XL expansion done](project-2xl-expansion-done.md) — 158 variants across 57 products; skip list for pants and supplier-capped products
