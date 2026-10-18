@@ -425,3 +425,46 @@ mutation {
 ```
 
 Get `inventoryItemId` from the variant: `productVariant(id: "...") { inventoryItem { id } inventoryQuantity }`. Get `locationId` from `locations(first: 1) { nodes { id } }`. The `@idempotent` directive goes on the field, NOT the mutation operation — `mutation @idempotent` errors with "can't be applied to mutations".
+
+### Lesson 24 — Changing a variant's color: the full checklist
+
+To rename a single-color product's option value (e.g., "Svart" → "Grå"), three things must be updated in sync:
+
+**1. Variant option values** — use `productVariantsBulkUpdate` with `optionName`/`name` (not `optionId`/`value`):
+
+```graphql
+mutation {
+  productVariantsBulkUpdate(
+    productId: "gid://shopify/Product/..."
+    variants: [
+      {
+        id: "gid://shopify/ProductVariant/..."
+        optionValues: [
+          { optionName: "Färg", name: "Grå" },
+          { optionName: "Storlek", name: "S" }
+        ]
+      }
+    ]
+  ) {
+    productVariants { id title }
+    userErrors { field message }
+  }
+}
+```
+
+**Gotcha:** The field for the option value's text is `name`, NOT `value`. Using `value` throws `argumentNotAccepted`. Include ALL option dimensions (Färg + Storlek), not just the one changing.
+
+**2. Media alt tags** — update with `productUpdateMedia` so the gallery's `color:` filtering matches:
+
+```graphql
+mutation {
+  productUpdateMedia(
+    productId: "gid://shopify/Product/..."
+    media: [{ id: "gid://shopify/MediaImage/...", alt: "color:Grå" }]
+  ) { media { id alt } userErrors { field message } }
+}
+```
+
+**3. Color metaobject** — the new color name must have a matching `shopify--color-pattern` metaobject (check with `metaobjects(type: "shopify--color-pattern")`). If it doesn't exist, create one or the swatch chip will be blank.
+
+**`optionName` vs `optionId`:** Lesson 9 uses `optionId` (the ProductOption GID). `optionName` is simpler — it matches by the option's display name ("Färg") so you don't need to look up the GID first. Both work.
