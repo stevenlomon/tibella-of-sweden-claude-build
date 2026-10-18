@@ -881,3 +881,42 @@ To also hide a **button** that triggers the modal, use `product.tags contains 't
 The `contains` check is simpler but only works for presence/absence. The loop pattern supports multiple tag values mapping to different behaviors.
 
 **Tag naming convention:** Use `namespace:value` format (e.g., `size-guide:bottoms`) to avoid collisions with other tag uses. Tags are case-sensitive in Liquid.
+
+### Lesson 22 — Dawn's scroll-trigger animations break dynamically inserted gallery items
+
+**Root cause:** When Dawn's Section Rendering API swaps gallery `<li>` items during a swatch change, new items arrive with `scroll-trigger animate--fade-in` classes from the server-rendered Liquid template. These trigger Dawn's 600ms `fadeIn` animation (starting at `opacity: 0.01`), conflicting with the `is-active` class (`opacity: 1`). The result is a visible flash/flicker — the image fades in from nothing instead of appearing instantly.
+
+**Why it happens:** `dt-gallery-nav.js` stripped these classes in `connectedCallback()` (runs once when the custom element mounts), but NOT when Dawn's `product-info.js` → `updateMedia()` dynamically prepends new `<li>` elements from the Section Rendering API response. Those new items retain their server-rendered animation classes.
+
+**Fix:** Strip `scroll-trigger` and `animate--fade-in` in `_refreshItems()`, which runs on every `setActiveMedia()` call (swatch change) and `go()` call (arrow navigation):
+
+```javascript
+_refreshItems() {
+  this.items = this.gallery.querySelectorAll('.product__media-item');
+  this.total = this.items.length;
+  this.items.forEach(function(item) {
+    item.classList.remove('scroll-trigger', 'animate--fade-in');
+  });
+}
+```
+
+**General principle:** When custom elements manage DOM that Dawn's Section Rendering API replaces, class cleanup must happen in the refresh/update path — not just initialization. Dawn re-renders full Liquid templates server-side, so every class the template outputs will reappear on new items.
+
+### Lesson 23 — media_count double-subtraction with hide_variants + color tags
+
+**Bug:** `product-media-gallery.liquid` computes `media_count` by subtracting variant images (for `hide_variants`) AND other-color images (for color-tag filtering). When an image is both variant-assigned AND tagged with another color, it gets subtracted twice. This causes `media_count` to be too low, potentially reaching 1 and preventing the gallery nav from rendering.
+
+**Example:** A product with 9 images (5 Beige, 1 each of 4 other colors). All other-color images are also variant images:
+- `hide_variants` subtraction: `9 - 5 + 1 = 5`
+- `color_tagged_other` subtraction: `5 - 4 = 1` ← double-counted
+- Result: `media_count = 1`, nav never renders (requires `> 1`)
+
+**Fix:** When counting `color_tagged_other`, skip images already excluded by `hide_variants`:
+
+```liquid
+if section.settings.hide_variants and variant_images contains media.src
+  continue
+endif
+```
+
+This goes inside the `unless media.alt contains current_color_tag` block. Images already hidden by `hide_variants` are not counted again in `color_tagged_other`.

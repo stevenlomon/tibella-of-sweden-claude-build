@@ -67,6 +67,9 @@ if (!customElements.get('dt-gallery-nav')) {
     _refreshItems() {
       this.items = this.gallery.querySelectorAll('.product__media-item');
       this.total = this.items.length;
+      this.items.forEach(function(item) {
+        item.classList.remove('scroll-trigger', 'animate--fade-in');
+      });
     }
 
     set(n) {

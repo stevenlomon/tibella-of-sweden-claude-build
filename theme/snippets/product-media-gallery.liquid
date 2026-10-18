@@ -30,6 +30,9 @@
   for media in product.media
     if media.alt contains 'color:'
       unless media.alt contains current_color_tag
+        if section.settings.hide_variants and variant_images contains media.src
+          continue
+        endif
         assign color_tagged_other = color_tagged_other | plus: 1
       endunless
     endif
