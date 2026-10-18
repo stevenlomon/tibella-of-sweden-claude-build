@@ -50,7 +50,7 @@
           "type": "text",
           "settings": {
             "heading": "Företagsinformation",
-            "subtext": "<p>Tibella drivs av Tibella AB.<br>Org.nr [ORGANISATIONSNUMMER]<br>hello@tibella.se<br>[TELEFONNUMMER]<br>[ADRESS]<br>Kundservice: Måndag till söndag, 09:00–17:00 (CET)</p>"
+            "subtext": "<p>Tibella drivs av Tibella AB.<br>hello@tibella.se<br>070-539 51 53<br>Nygatan 22, 582 22 Linköping<br>Kundservice: Måndag till söndag, 09:00–17:00 (CET)</p>"
           }
         }
       },
