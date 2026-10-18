@@ -91,6 +91,8 @@ You need the option IDs from Step 1 to reference which option each value belongs
 
 **Adding colors later**: `productVariantsBulkCreate` auto-creates new option values if you pass a `name` that doesn't exist yet. No need to call `productOptionUpdate` first — just pass the new color name with the existing `optionId` and it works.
 
+**Adding sizes later**: Same approach — `productVariantsBulkCreate` with the new size name auto-creates the option value. But new variants are created **without media**. The variant picker uses variant→media links to switch images when a color is selected; without them, selecting the new size breaks color switching. After creating new size variants, link each one to the same media as its same-color sibling using `productVariantAppendMedia` (one variant per call — see Lesson 4).
+
 ### Variant images
 
 **To link existing product images to variants**, use `productVariantAppendMedia`:

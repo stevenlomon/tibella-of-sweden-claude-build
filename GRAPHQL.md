@@ -468,3 +468,33 @@ mutation {
 **3. Color metaobject** — the new color name must have a matching `shopify--color-pattern` metaobject (check with `metaobjects(type: "shopify--color-pattern")`). If it doesn't exist, create one or the swatch chip will be blank.
 
 **`optionName` vs `optionId`:** Lesson 9 uses `optionId` (the ProductOption GID). `optionName` is simpler — it matches by the option's display name ("Färg") so you don't need to look up the GID first. Both work.
+
+---
+
+## Variants
+
+### Lesson 25: New variants have no media — color switching breaks
+
+`productVariantsBulkCreate` creates variants with **zero media attached**. The variant picker uses variant→media links to determine which image to show when a color swatch is clicked. If the new variant has no media, selecting that size then clicking a different color does nothing — the image stays frozen.
+
+**Fix:** After creating new variants, link each one to the same media its same-color sibling uses:
+
+1. Query all variants with their `media { nodes { ... on MediaImage { id } } }` and `selectedOptions`
+2. Build a color→mediaId map from existing variants (e.g. XL)
+3. Call `productVariantAppendMedia` for each new variant with the matching media ID
+
+```graphql
+mutation {
+  productVariantAppendMedia(
+    productId: "gid://shopify/Product/..."
+    variantMedia: [
+      { variantId: "gid://shopify/ProductVariant/...", mediaIds: ["gid://shopify/MediaImage/..."] }
+    ]
+  ) {
+    productVariants { id }
+    userErrors { field message }
+  }
+}
+```
+
+One variant per call (Lesson 4). Single-color products don't need this — no color switching to break.
