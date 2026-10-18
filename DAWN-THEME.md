@@ -902,7 +902,87 @@ _refreshItems() {
 
 **General principle:** When custom elements manage DOM that Dawn's Section Rendering API replaces, class cleanup must happen in the refresh/update path — not just initialization. Dawn re-renders full Liquid templates server-side, so every class the template outputs will reappear on new items.
 
-### Lesson 23 — media_count double-subtraction with hide_variants + color tags
+### Lesson 23 — Dawn's card hover effect lives in `component-card.css` inside `@media (min-width: 990px)`
+
+Dawn's product card image-swap hover effect is NOT in `base.css` or the `<style>` tag. It's inside a `@media (min-width: 990px)` block in `component-card.css`:
+
+```css
+@media screen and (min-width: 990px) {
+  .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) { opacity: 0; }
+  .card-wrapper:hover .media.media--hover-effect > img + img { opacity: 1; }
+}
+```
+
+Three things make this hard to find and override:
+
+1. **The trigger is `.card-wrapper:hover`**, not `.media--hover-effect:hover`. Searching for `:hover` on the media class finds nothing.
+2. **It's inside a `@media` rule.** `document.styleSheets` iteration that only checks top-level `cssRules` misses it — you must recurse into `CSSMediaRule.cssRules`.
+3. **Specificity is 0,6,1** due to `:not(:only-child)`. A simple ancestor-class override like `.your-section .media--hover-effect:hover > img:first-child` (0,3,1) loses badly.
+
+**To disable the hover swap on a specific card:**
+
+```css
+/* Hide the second image entirely */
+.your-section .media.media--hover-effect > img + img {
+  display: none;
+}
+
+/* Prevent first image from fading — must match Dawn's specificity */
+.your-section .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
+  opacity: 1;
+}
+```
+
+The `display: none` on the second image alone is NOT enough — Dawn's base.css rule `.media > :not(.zoom):not(...)` forces `display: block` at specificity 0,3,0, so the `display: none` rule needs at least 0,3,1 (adding `.media` to the selector). And even with the second image hidden, the first image still fades to `opacity: 0` on hover, leaving a white rectangle. Both rules are required.
+
+### Lesson 24 — `card-product.liquid` has two `.card__content` divs — only one is visible
+
+Dawn's `card-product.liquid` renders TWO `.card__content` containers:
+
+1. **Inner** (inside `.card__inner`): Has a `full-unstyled-link` but is 0×0 when media exists — it's a no-media fallback. Has `position: relative` and spans the full card size (e.g. 285×356).
+2. **Outer** (after `.card__inner`): The visible overlay with product title and price. Typically `position: absolute; bottom: 0` covering only the text area at the bottom.
+
+**Impact on clickability:** CSS `::after` stretch tricks on the inner link don't create a clickable surface because the link itself is 0×0 (and its content is for no-media fallback). The `::after` pseudo-element with `position: absolute; inset: 0` fills the containing block (inner `.card__content`) but the browser doesn't register clicks through a 0×0 ancestor.
+
+CSS `::after` on the outer link only covers the text overlay area at the bottom, not the full card image.
+
+**Fix for full-card clickability:** Use a JavaScript click handler instead of CSS `::after`:
+
+```javascript
+section.querySelectorAll('.product-grid .card-wrapper').forEach(function(card) {
+  var link = card.querySelector('.card__content .card__heading a');
+  if (!link) return;
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('a, button')) return;
+    link.click();
+  });
+});
+```
+
+Add `cursor: pointer` to `.card-wrapper` in CSS. The `e.target.closest('a, button')` guard prevents double-navigation when clicking the actual title link or any button.
+
+### Lesson 25 — `collectionCreate` products need `publishablePublish` for Liquid visibility
+
+Collections created via the Admin API `collectionCreate` exist and contain products (verified via Admin API queries), but **Liquid templates cannot see their products** unless the collection is published to the Online Store channel. The tab component shows placeholder images ("Exempelprodukt") because `tab_collection.products.size` evaluates to 0 in Liquid — even though the Admin API confirms 5 products.
+
+**Diagnosis pattern:** If the Admin API shows products but Liquid renders placeholders, the collection (not just the products) needs to be published. Products having `onlineStoreUrl` doesn't help — the *collection* must also be published.
+
+```graphql
+mutation {
+  publishablePublish(id: "gid://shopify/Collection/123", input: [{
+    publicationId: "gid://shopify/Publication/456"
+  }]) {
+    publishable { ... on Collection { title } }
+    userErrors { field message }
+  }
+}
+```
+
+Get the Online Store publication ID with `{ publications(first: 10) { edges { node { id name } } } }`.
+
+**Prevention:** After every `collectionCreate`, immediately call `publishablePublish` for all 3 channels (Online Store, POS, Shop).
+
+### Lesson 26 — media_count double-subtraction with hide_variants + color tags
 
 **Bug:** `product-media-gallery.liquid` computes `media_count` by subtracting variant images (for `hide_variants`) AND other-color images (for color-tag filtering). When an image is both variant-assigned AND tagged with another color, it gets subtracted twice. This causes `media_count` to be too low, potentially reaching 1 and preventing the gallery nav from rendering.
 

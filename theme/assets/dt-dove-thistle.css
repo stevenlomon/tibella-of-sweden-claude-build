@@ -2733,7 +2733,7 @@ body .mobile-facets__footer .button--primary:hover {
   display: none;
 }
 
-.dt-tabbed-collection__item--featured .media--hover-effect:hover > img:first-child {
+.dt-tabbed-collection__item--featured .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
   opacity: 1;
 }
 
