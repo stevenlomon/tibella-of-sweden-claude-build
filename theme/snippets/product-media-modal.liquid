@@ -33,6 +33,8 @@
       tabindex="0"
     >
       {%- liquid
+        assign current_color_tag = 'color:' | append: product.selected_or_first_available_variant.option1
+
         if product.selected_or_first_available_variant.featured_media != null
           assign media = product.selected_or_first_available_variant.featured_media
           render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants
@@ -41,6 +43,12 @@
 
       {%- for media in product.media -%}
         {%- liquid
+          if media.alt contains 'color:'
+            unless media.alt contains current_color_tag
+              continue
+            endunless
+          endif
+
           if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
             assign variant_image = true
           else
