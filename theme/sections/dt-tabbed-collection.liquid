@@ -144,6 +144,19 @@
         });
       });
     })();
+
+    (function() {
+      var section = document.getElementById('{{ section.id }}');
+      if (!section) return;
+      section.querySelectorAll('.dt-tabbed-collection__product-grid .card-wrapper').forEach(function(card) {
+        var link = card.querySelector('.card__content .card__heading a');
+        if (!link) return;
+        card.addEventListener('click', function(e) {
+          if (e.target.closest('a, button')) return;
+          link.click();
+        });
+      });
+    })();
   </script>
 </section>
 
